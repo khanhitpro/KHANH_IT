@@ -1,0 +1,15 @@
+KHÁNH IT - AI IMAGE CREATOR V3.1
+
+ĐÃ SỬA:
+- Sửa lỗi CustomTkinter 6.0.0:
+  TypeError: CTkScrollableFrame.grid_propagate() takes 1 positional argument but 2 were given
+- Bỏ lệnh self.sidebar.grid_propagate(False)
+- Giữ sidebar bằng width=430 của CTkScrollableFrame
+- Thêm START.bat để tự kiểm tra/cài thư viện và chạy phần mềm
+
+MÔI TRƯỜNG MỤC TIÊU:
+- Windows 10/11
+- Python 3.14
+- CustomTkinter 6.0.0
+- Pillow 12.x
+- OpenAI Python SDK 3.x

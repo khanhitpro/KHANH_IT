@@ -1,0 +1,11 @@
+KHÁNH IT - AI IMAGE CREATOR V4.1 CPU FREE
+
+ĐÃ SỬA:
+- NameError: cannot access free variable 'e'
+- Nguyên nhân: biến exception của Python không còn tồn tại khi callback Tkinter chạy sau.
+- Callback giờ giữ sẵn chuỗi lỗi bằng default argument.
+- Sửa cả callback tải model và callback tạo ảnh.
+- Tương thích tốt hơn với Python 3.14.
+
+Nếu model vẫn không tải được, V4.1 sẽ hiện ĐÚNG lỗi gốc trong hộp thoại
+thay vì phát sinh NameError như V4.

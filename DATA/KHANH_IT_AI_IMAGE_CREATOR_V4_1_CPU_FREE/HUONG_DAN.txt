@@ -1,0 +1,32 @@
+KHÁNH IT - AI IMAGE CREATOR V4 CPU FREE
+
+Bản dành cho máy không có VGA rời.
+
+Cấu hình mục tiêu:
+- Windows 11 64-bit
+- Intel Core i5-12400
+- RAM 32 GB
+- CPU mode, không cần NVIDIA
+- Python 3.14
+
+CÁCH CHẠY
+1. Giải nén ra một thư mục mới.
+2. Chạy START.bat.
+3. Lần đầu chương trình tự cài các thư viện.
+4. Trong giao diện bấm "TẢI / NẠP MODEL AI".
+5. Lần đầu cần Internet để tải model.
+6. Sau khi model sẵn sàng, nhập mô tả và bấm TẠO ẢNH MIỄN PHÍ.
+
+KHÔNG CẦN:
+- OpenAI API Key
+- ChatGPT Plus
+- Trả tiền theo từng ảnh
+
+LƯU ẢNH:
+%LOCALAPPDATA%\KHANH_IT_AI_IMAGE_CREATOR_V4\generated_images
+
+LƯU Ý:
+- CPU chậm hơn rất nhiều so với NVIDIA GPU.
+- Nên thử 512x512 hoặc 768x512 và 2-4 inference steps.
+- Model mặc định là model Stable Diffusion nhỏ để ưu tiên tốc độ CPU.
+- Chất lượng sẽ thấp hơn các model cloud cao cấp.
