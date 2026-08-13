@@ -1,241 +1,812 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>KHÁNH IT STORE</title>
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0">
 
-<link rel="icon"
+<title>KHÁNH IT DOWNLOAD CENTER</title>
+
+<link
+rel="icon"
 type="image/x-icon"
 href="https://raw.githubusercontent.com/khanhitpro/KHANH_IT/main/logo.ico">
 
 <style>
 
+/* ==========================================================
+ROOT
+========================================================== */
+
 *{
     box-sizing:border-box;
 }
 
+:root{
+
+    --bg:#020617;
+
+    --panel:#0f172a;
+
+    --panel2:#1e293b;
+
+    --cyan:#38bdf8;
+
+    --blue:#2563eb;
+
+    --green:#22c55e;
+
+    --red:#ef4444;
+
+    --orange:#f59e0b;
+
+    --text:#f8fafc;
+
+    --muted:#94a3b8;
+
+    --line:rgba(56,189,248,.18);
+}
+
+
+/* ==========================================================
+BODY
+========================================================== */
+
 body{
+
     margin:0;
-    font-family:Arial,Helvetica,sans-serif;
-    color:white;
-    background:#050b14;
-    padding-bottom:65px;
-}
 
-/* NỀN */
-.overlay{
-    position:fixed;
-    inset:0;
+    min-height:100vh;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    color:var(--text);
+
     background:
-        radial-gradient(circle at top,#0c4a6e55,transparent 45%),
-        linear-gradient(#050b14ee,#020617ee);
-    z-index:-1;
+
+        radial-gradient(
+            circle at top,
+            #0c4a6e55,
+            transparent 40%
+        ),
+
+        radial-gradient(
+            circle at bottom right,
+            #1d4ed833,
+            transparent 40%
+        ),
+
+        linear-gradient(
+            180deg,
+            #050b14,
+            #020617
+        );
+
+    padding-bottom:60px;
 }
 
-/* ==============================
+
+/* ==========================================================
 TOP
-============================== */
+========================================================== */
 
 .topbar{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:14px 20px;
-    background:rgba(15,23,42,.92);
-    border-bottom:1px solid rgba(56,189,248,.25);
+
     position:sticky;
+
     top:0;
-    z-index:100;
-    backdrop-filter:blur(10px);
+
+    z-index:1000;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:15px;
+
+    padding:12px 20px;
+
+    background:
+        rgba(2,6,23,.92);
+
+    backdrop-filter:
+        blur(16px);
+
+    border-bottom:
+        1px solid var(--line);
 }
 
-.logo{
+
+.brand{
+
     display:flex;
+
     align-items:center;
+
     gap:10px;
 }
 
-.logo img{
-    width:38px;
-    height:38px;
-    border-radius:8px;
+
+.brand img{
+
+    width:40px;
+
+    height:40px;
+
+    border-radius:9px;
 }
 
-.logo b{
-    color:#38bdf8;
+
+.brand-info{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:2px;
 }
 
-/* ==============================
+
+.brand-info b{
+
+    color:var(--cyan);
+}
+
+
+.brand-info span{
+
+    color:var(--muted);
+
+    font-size:11px;
+}
+
+
+.top-info{
+
+    font-size:12px;
+
+    color:var(--muted);
+}
+
+
+/* ==========================================================
 HERO
-============================== */
+========================================================== */
 
 .hero{
+
     text-align:center;
-    padding:30px 15px 10px;
+
+    padding:
+        32px
+        15px
+        14px;
 }
+
 
 .hero h1{
+
     margin:0;
-    font-size:32px;
-    color:#38bdf8;
-}
 
-.hero p{
-    color:#94a3b8;
-}
+    font-size:34px;
 
-/* ==============================
-STATUS
-============================== */
-
-.status{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:8px;
-    color:#94a3b8;
-    font-size:14px;
-    margin:10px;
-}
-
-.status-dot{
-    width:9px;
-    height:9px;
-    background:#22c55e;
-    border-radius:50%;
-    box-shadow:0 0 10px #22c55e;
-}
-
-/* ==============================
-SEARCH
-============================== */
-
-.search{
-    max-width:700px;
-    width:90%;
-    margin:20px auto;
-}
-
-.search input{
-    width:100%;
-    padding:14px 18px;
-    border:none;
-    outline:none;
-    border-radius:15px;
-    color:white;
-    background:#0f172a;
-    border:1px solid rgba(56,189,248,.25);
-    font-size:15px;
-}
-
-.search input:focus{
-    border-color:#38bdf8;
-    box-shadow:0 0 15px rgba(56,189,248,.25);
-}
-
-/* ==============================
-THỐNG KÊ
-============================== */
-
-.stats{
-    text-align:center;
-    color:#64748b;
-    font-size:13px;
-    margin-bottom:10px;
-}
-
-/* ==============================
-GRID
-============================== */
-
-.grid{
-    display:grid;
-    grid-template-columns:
-        repeat(auto-fit,minmax(250px,1fr));
-
-    gap:16px;
-    padding:20px;
-    max-width:1500px;
-    margin:auto;
-}
-
-/* ==============================
-CARD
-============================== */
-
-.card{
     background:
         linear-gradient(
-            145deg,
-            rgba(30,41,59,.82),
-            rgba(15,23,42,.95)
+            90deg,
+            #7dd3fc,
+            #38bdf8,
+            #2563eb
         );
 
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:17px;
-    padding:18px;
-    transition:.25s;
-    position:relative;
-    overflow:hidden;
+    -webkit-background-clip:text;
+
+    -webkit-text-fill-color:transparent;
 }
 
-.card:hover{
-    transform:translateY(-5px);
-    border-color:rgba(56,189,248,.5);
-    box-shadow:0 10px 30px rgba(0,0,0,.4);
-}
 
-/* icon */
+.hero p{
 
-.file-icon{
-    font-size:40px;
-    margin-bottom:12px;
-}
+    color:var(--muted);
 
-/* tên */
-
-.file-name{
-    font-size:16px;
-    font-weight:bold;
-    color:#f8fafc;
-    word-break:break-word;
-    min-height:42px;
-}
-
-/* info */
-
-.file-info{
-    color:#94a3b8;
-    font-size:13px;
     margin-top:10px;
 }
 
-/* thư mục */
 
-.folder{
-    color:#38bdf8;
-    font-size:12px;
-    margin-top:8px;
+/* ==========================================================
+STATUS
+========================================================== */
+
+.status{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:18px;
+
+    flex-wrap:wrap;
+
+    font-size:13px;
+
+    color:var(--muted);
+
     margin-bottom:15px;
-    word-break:break-word;
 }
 
-/* ==============================
-BUTTON
-============================== */
 
-.download-btn{
-    display:block;
+.status-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:7px;
+}
+
+
+.dot{
+
+    width:8px;
+
+    height:8px;
+
+    background:var(--green);
+
+    border-radius:50%;
+
+    box-shadow:
+        0 0 10px
+        var(--green);
+}
+
+
+/* ==========================================================
+MAIN
+========================================================== */
+
+.container{
+
+    width:min(
+        1500px,
+        94%
+    );
+
+    margin:auto;
+}
+
+
+/* ==========================================================
+SEARCH TOOLBAR
+========================================================== */
+
+.toolbar{
+
+    display:grid;
+
+    grid-template-columns:
+        minmax(250px,1fr)
+        auto;
+
+    gap:10px;
+
+    margin-bottom:10px;
+}
+
+
+.search{
+
+    position:relative;
+}
+
+
+.search span{
+
+    position:absolute;
+
+    left:15px;
+
+    top:50%;
+
+    transform:
+        translateY(-50%);
+}
+
+
+.search input{
+
     width:100%;
-    text-decoration:none;
-    text-align:center;
+
+    padding:
+        13px
+        15px
+        13px
+        43px;
+
+    border-radius:14px;
+
+    border:
+        1px solid
+        var(--line);
+
+    background:
+        rgba(15,23,42,.9);
+
     color:white;
+
+    outline:none;
+
+    font-size:14px;
+}
+
+
+.search input:focus{
+
+    border-color:
+        var(--cyan);
+
+    box-shadow:
+        0 0 18px
+        rgba(56,189,248,.18);
+}
+
+
+.refresh-btn{
+
+    border:0;
+
+    border-radius:14px;
+
+    padding:0 18px;
+
     font-weight:bold;
-    padding:12px;
-    border-radius:13px;
+
+    cursor:pointer;
+
+    color:white;
+
+    background:
+        linear-gradient(
+            90deg,
+            #0284c7,
+            #2563eb
+        );
+}
+
+
+/* ==========================================================
+TABS
+========================================================== */
+
+.tabs{
+
+    display:flex;
+
+    overflow-x:auto;
+
+    gap:8px;
+
+    padding:
+        7px
+        0
+        12px;
+}
+
+
+.tab{
+
+    min-width:max-content;
+
+    border:
+        1px solid
+        var(--line);
+
+    background:#0f172a;
+
+    color:#cbd5e1;
+
+    padding:
+        9px
+        14px;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+    transition:.2s;
+}
+
+
+.tab:hover{
+
+    border-color:
+        var(--cyan);
+
+    color:white;
+}
+
+
+.tab.active{
+
+    color:white;
+
+    background:
+        linear-gradient(
+            90deg,
+            #0284c7,
+            #2563eb
+        );
+
+    border-color:
+        var(--cyan);
+
+    box-shadow:
+        0 0 15px
+        rgba(56,189,248,.25);
+}
+
+
+.count{
+
+    margin-left:5px;
+
+    padding:
+        2px
+        6px;
+
+    border-radius:20px;
+
+    background:
+        rgba(255,255,255,.13);
+
+    font-size:10px;
+}
+
+
+/* ==========================================================
+FILTER
+========================================================== */
+
+.filters{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(
+            3,
+            minmax(170px,1fr)
+        );
+
+    gap:10px;
+
+    margin-top:5px;
+}
+
+
+.filter{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:5px;
+}
+
+
+.filter label{
+
+    color:#64748b;
+
+    font-size:11px;
+}
+
+
+.filter select{
+
+    width:100%;
+
+    padding:11px;
+
+    border-radius:12px;
+
+    border:
+        1px solid
+        var(--line);
+
+    background:#0f172a;
+
+    color:white;
+
+    outline:none;
+}
+
+
+/* ==========================================================
+STATS
+========================================================== */
+
+.stats{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+
+    padding:
+        15px
+        2px
+        5px;
+
+    color:#64748b;
+
+    font-size:12px;
+}
+
+
+/* ==========================================================
+GRID
+========================================================== */
+
+.grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(270px,1fr)
+        );
+
+    gap:15px;
+
+    padding-bottom:30px;
+}
+
+
+/* ==========================================================
+CARD
+========================================================== */
+
+.card{
+
+    position:relative;
+
+    border-radius:18px;
+
+    padding:17px;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(30,41,59,.80),
+            rgba(15,23,42,.96)
+        );
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    transition:.25s;
+
+    overflow:hidden;
+}
+
+
+.card:hover{
+
+    transform:
+        translateY(-4px);
+
+    border-color:
+        rgba(56,189,248,.45);
+
+    box-shadow:
+        0 12px 30px
+        rgba(0,0,0,.38);
+}
+
+
+.card-new::before{
+
+    content:"MỚI";
+
+    position:absolute;
+
+    right:-28px;
+
+    top:13px;
+
+    width:100px;
+
+    text-align:center;
+
+    transform:
+        rotate(45deg);
+
+    background:
+        var(--green);
+
+    color:white;
+
+    font-size:10px;
+
+    font-weight:bold;
+
+    padding:3px;
+}
+
+
+.card-top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+    gap:10px;
+}
+
+
+.file-icon{
+
+    font-size:40px;
+}
+
+
+.badges{
+
+    display:flex;
+
+    gap:5px;
+
+    flex-wrap:wrap;
+
+    justify-content:flex-end;
+}
+
+
+.badge{
+
+    font-size:9px;
+
+    padding:
+        4px
+        7px;
+
+    border-radius:20px;
+
+    background:
+        rgba(56,189,248,.12);
+
+    border:
+        1px solid
+        var(--line);
+
+    color:#bae6fd;
+}
+
+
+.badge-version{
+
+    color:#fde68a;
+
+    border-color:
+        rgba(245,158,11,.3);
+
+    background:
+        rgba(245,158,11,.1);
+}
+
+
+.file-title{
+
+    margin-top:13px;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    line-height:1.35;
+
+    min-height:43px;
+
+    word-break:
+        break-word;
+}
+
+
+.original-name{
+
+    margin-top:8px;
+
+    color:#64748b;
+
+    font-size:10px;
+
+    word-break:
+        break-all;
+}
+
+
+.file-meta{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:8px;
+
+    margin-top:10px;
+
+    color:var(--muted);
+
+    font-size:12px;
+}
+
+
+.folder{
+
+    margin:
+        10px
+        0
+        14px;
+
+    color:var(--cyan);
+
+    font-size:11px;
+
+    word-break:
+        break-word;
+}
+
+
+/* ==========================================================
+ACTIONS
+========================================================== */
+
+.actions{
+
+    display:grid;
+
+    grid-template-columns:
+        1fr
+        repeat(3,44px);
+
+    gap:7px;
+}
+
+
+.download{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-decoration:none;
+
+    border-radius:11px;
+
+    min-height:42px;
+
+    color:white;
+
+    font-weight:bold;
 
     background:
         linear-gradient(
@@ -244,281 +815,900 @@ BUTTON
             #0ea5e9,
             #2563eb
         );
-
-    box-shadow:
-        0 0 12px rgba(56,189,248,.35);
-
-    transition:.25s;
 }
 
-.download-btn:hover{
-    transform:translateY(-2px);
-    box-shadow:
-        0 0 22px rgba(56,189,248,.7);
+
+.icon-btn{
+
+    border-radius:11px;
+
+    border:
+        1px solid
+        var(--line);
+
+    color:white;
+
+    background:#1e293b;
+
+    cursor:pointer;
+
+    font-size:16px;
 }
 
-/* ==============================
-LOADING / ERROR
-============================== */
 
-.loading,
-.error,
-.empty{
-    grid-column:1/-1;
-    text-align:center;
-    padding:60px 20px;
+.icon-btn:hover,
+.download:hover{
+
+    filter:
+        brightness(1.12);
 }
 
-.loading{
-    color:#38bdf8;
+
+/* ==========================================================
+VERSIONS
+========================================================== */
+
+.versions{
+
+    margin-top:10px;
+
+    display:none;
+
+    padding:10px;
+
+    background:
+        rgba(2,6,23,.45);
+
+    border-radius:12px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.05);
 }
 
-.error{
-    color:#f87171;
+
+.versions.show{
+
+    display:block;
 }
 
-.empty{
-    color:#94a3b8;
+
+.version-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:7px;
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.05);
+
+    font-size:11px;
 }
 
-/* ==============================
-MARQUEE
-============================== */
 
-.marquee{
-    position:fixed;
-    bottom:0;
-    left:0;
-    width:100%;
-    background:#020617;
-    padding:11px 0;
-    overflow:hidden;
-    z-index:999;
-    border-top:1px solid rgba(56,189,248,.3);
+.version-row:last-child{
+
+    border-bottom:0;
 }
 
-.marquee div{
-    white-space:nowrap;
-    display:inline-block;
-    padding-left:100%;
-    animation:run 28s linear infinite;
-    color:#38bdf8;
+
+.version-download{
+
+    color:var(--cyan);
+
+    text-decoration:none;
+
     font-weight:bold;
 }
 
-@keyframes run{
+
+/* ==========================================================
+MODAL
+========================================================== */
+
+.modal{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:5000;
+
+    display:none;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:20px;
+
+    background:
+        rgba(0,0,0,.72);
+}
+
+
+.modal.show{
+
+    display:flex;
+}
+
+
+.modal-box{
+
+    width:min(
+        400px,
+        95%
+    );
+
+    text-align:center;
+
+    padding:22px;
+
+    background:#0f172a;
+
+    border:
+        1px solid
+        var(--line);
+
+    border-radius:18px;
+
+    box-shadow:
+        0 20px 60px
+        rgba(0,0,0,.5);
+}
+
+
+.qr-img{
+
+    width:220px;
+
+    max-width:100%;
+
+    background:white;
+
+    padding:8px;
+
+    border-radius:10px;
+
+    margin:15px auto;
+}
+
+
+.close-modal{
+
+    padding:
+        10px
+        25px;
+
+    border:0;
+
+    border-radius:10px;
+
+    cursor:pointer;
+}
+
+
+/* ==========================================================
+MESSAGES
+========================================================== */
+
+.message{
+
+    grid-column:
+        1/-1;
+
+    text-align:center;
+
+    padding:60px 20px;
+
+    color:var(--muted);
+
+    border-radius:18px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.06);
+
+    background:
+        rgba(15,23,42,.45);
+}
+
+
+.error{
+
+    color:#f87171;
+}
+
+
+/* ==========================================================
+TOAST
+========================================================== */
+
+.toast{
+
+    position:fixed;
+
+    right:20px;
+
+    bottom:75px;
+
+    z-index:6000;
+
+    padding:
+        12px
+        16px;
+
+    border-radius:12px;
+
+    color:white;
+
+    background:#0f172a;
+
+    border:
+        1px solid
+        var(--line);
+
+    box-shadow:
+        0 10px 35px
+        rgba(0,0,0,.4);
+
+    opacity:0;
+
+    transform:
+        translateY(10px);
+
+    pointer-events:none;
+
+    transition:.2s;
+}
+
+
+.toast.show{
+
+    opacity:1;
+
+    transform:
+        translateY(0);
+}
+
+
+/* ==========================================================
+MARQUEE
+========================================================== */
+
+.marquee{
+
+    position:fixed;
+
+    bottom:0;
+
+    width:100%;
+
+    z-index:4000;
+
+    overflow:hidden;
+
+    padding:
+        10px 0;
+
+    background:
+        rgba(2,6,23,.98);
+
+    border-top:
+        1px solid
+        var(--line);
+}
+
+
+.marquee div{
+
+    display:inline-block;
+
+    white-space:nowrap;
+
+    padding-left:100%;
+
+    color:var(--cyan);
+
+    font-weight:bold;
+
+    animation:
+        marquee
+        30s
+        linear
+        infinite;
+}
+
+
+@keyframes marquee{
 
     from{
-        transform:translateX(0);
+        transform:
+            translateX(0);
     }
 
     to{
-        transform:translateX(-100%);
+        transform:
+            translateX(-100%);
+    }
+}
+
+
+/* ==========================================================
+RESPONSIVE
+========================================================== */
+
+@media(max-width:800px){
+
+    .toolbar{
+
+        grid-template-columns:
+            1fr;
+    }
+
+    .refresh-btn{
+
+        min-height:42px;
+    }
+
+    .filters{
+
+        grid-template-columns:
+            1fr;
+    }
+
+    .hero h1{
+
+        font-size:27px;
     }
 
 }
 
-/* ==============================
-MOBILE
-============================== */
 
-@media(max-width:600px){
+@media(max-width:560px){
 
-    .hero h1{
-        font-size:24px;
+    .top-info{
+
+        display:none;
+    }
+
+    .brand-info span{
+
+        display:none;
     }
 
     .grid{
-        grid-template-columns:1fr;
-        padding:12px;
+
+        grid-template-columns:
+            1fr;
     }
 
 }
 
 </style>
-
 </head>
+
 
 <body>
 
-<div class="overlay"></div>
 
-
-<!-- ===========================
+<!-- ========================================================
 TOP
-=========================== -->
+======================================================== -->
 
 <div class="topbar">
 
-    <div class="logo">
+    <div class="brand">
 
         <img
         src="https://raw.githubusercontent.com/khanhitpro/KHANH_IT/main/logo.ico"
         onerror="this.style.display='none'">
 
-        <b>KHÁNH IT STORE</b>
+        <div class="brand-info">
+
+            <b>
+                KHÁNH IT STORE
+            </b>
+
+            <span>
+                AUTO DOWNLOAD CENTER
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="top-info">
+
+        GITHUB AUTO SYNC
 
     </div>
 
 </div>
 
 
-<!-- ===========================
+
+<!-- ========================================================
 HERO
-=========================== -->
+======================================================== -->
 
 <div class="hero">
 
-    <h1>KHÁNH IT DOWNLOAD CENTER</h1>
+    <h1>
+        KHÁNH IT DOWNLOAD CENTER
+    </h1>
 
     <p>
-        Kho phần mềm • APK • Tool • Python
-        được cập nhật tự động
+        Tool • APK • Windows • Python • Xiaomi TV
     </p>
 
 </div>
 
 
-<!-- ===========================
+
+<!-- ========================================================
 STATUS
-=========================== -->
+======================================================== -->
 
 <div class="status">
 
-    <span class="status-dot"></span>
+    <div class="status-item">
 
-    <span id="statusText">
-        Đang kết nối GitHub...
-    </span>
+        <span class="dot"></span>
 
-</div>
+        <span id="statusText">
+            Đang kết nối...
+        </span>
 
-
-<!-- ===========================
-SEARCH
-=========================== -->
-
-<div class="search">
-
-    <input
-        id="searchInput"
-        type="text"
-        placeholder="🔎 Tìm kiếm tên file hoặc thư mục..."
-    >
-
-</div>
+    </div>
 
 
-<div
-    class="stats"
-    id="stats">
-</div>
+    <div class="status-item">
+
+        📦
+
+        <span id="totalText">
+            0 file
+        </span>
+
+    </div>
 
 
-<!-- ===========================
-GRID
-=========================== -->
+    <div class="status-item">
 
-<div
-    class="grid"
-    id="grid">
+        🆕
 
-    <div class="loading">
+        <span id="newText">
+            0 file mới
+        </span>
 
-        ⏳ Đang đọc dữ liệu GitHub...
+    </div>
+
+
+    <div class="status-item">
+
+        🕒
+
+        <span id="timeText">
+            Chưa đồng bộ
+        </span>
 
     </div>
 
 </div>
 
 
-<!-- ===========================
+
+<!-- ========================================================
+CONTAINER
+======================================================== -->
+
+<div class="container">
+
+
+<!-- SEARCH -->
+
+<div class="toolbar">
+
+    <div class="search">
+
+        <span>
+            🔎
+        </span>
+
+        <input
+        id="searchInput"
+        placeholder="Tìm tool, APK, EXE, Python, thư mục...">
+
+    </div>
+
+
+    <button
+    class="refresh-btn"
+    id="refreshBtn">
+
+        🔄 CẬP NHẬT
+
+    </button>
+
+</div>
+
+
+
+<!-- TABS -->
+
+<div
+class="tabs"
+id="tabs">
+</div>
+
+
+
+<!-- FILTER -->
+
+<div class="filters">
+
+    <div class="filter">
+
+        <label>
+            LOẠI FILE
+        </label>
+
+        <select id="typeFilter">
+
+            <option value="ALL">
+                Tất cả loại
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <div class="filter">
+
+        <label>
+            THƯ MỤC CON
+        </label>
+
+        <select id="folderFilter">
+
+            <option value="ALL">
+                Tất cả thư mục
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <div class="filter">
+
+        <label>
+            SẮP XẾP
+        </label>
+
+        <select id="sortFilter">
+
+            <option value="NAME_ASC">
+                Tên A → Z
+            </option>
+
+            <option value="NAME_DESC">
+                Tên Z → A
+            </option>
+
+            <option value="SIZE_DESC">
+                Dung lượng lớn → nhỏ
+            </option>
+
+            <option value="SIZE_ASC">
+                Dung lượng nhỏ → lớn
+            </option>
+
+        </select>
+
+    </div>
+
+</div>
+
+
+
+<!-- STATS -->
+
+<div class="stats">
+
+    <div id="resultStats">
+        Đang tải...
+    </div>
+
+    <div id="categoryStats"></div>
+
+</div>
+
+
+
+<!-- GRID -->
+
+<div
+class="grid"
+id="grid">
+
+    <div class="message">
+
+        ⏳ Đang tải dữ liệu GitHub...
+
+    </div>
+
+</div>
+
+
+</div>
+
+
+
+<!-- ========================================================
+QR MODAL
+======================================================== -->
+
+<div
+class="modal"
+id="qrModal">
+
+    <div class="modal-box">
+
+        <h3>
+            📱 QUÉT QR ĐỂ TẢI
+        </h3>
+
+        <div id="qrTitle"></div>
+
+        <img
+        id="qrImage"
+        class="qr-img">
+
+        <br>
+
+        <button
+        class="close-modal"
+        onclick="closeQR()">
+
+            ĐÓNG
+
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- ========================================================
+TOAST
+======================================================== -->
+
+<div
+class="toast"
+id="toast">
+</div>
+
+
+
+<!-- ========================================================
 MARQUEE
-=========================== -->
+======================================================== -->
 
 <div class="marquee">
 
     <div>
 
         🔥 KHÁNH IT STORE •
-        PC TOOL •
-        ANDROID TOOL •
+        DOWNLOAD CENTER •
         XIAOMI TV •
-        APK •
+        WINDOWS •
+        ANDROID •
         PYTHON •
-        DỮ LIỆU CẬP NHẬT TỰ ĐỘNG TỪ GITHUB
+        DỮ LIỆU TỰ ĐỘNG ĐỒNG BỘ TỪ GITHUB
 
     </div>
 
 </div>
 
 
+
 <script>
 
 /* ==========================================================
-CẤU HÌNH
+CONFIG
 ========================================================== */
 
-const USER   = "khanhitpro";
-const REPO   = "KHANH_IT";
-const BRANCH = "main";
-const ROOT   = "DATA";
+const USER =
+    "khanhitpro";
 
+const REPO =
+    "KHANH_IT";
 
-/*
-Git Trees API.
+const BRANCH =
+    "main";
 
-recursive=1
-=> lấy toàn bộ cây repo chỉ bằng 1 request.
-*/
+const ROOT =
+    "DATA";
+
 
 const API =
-    "https://api.github.com/repos/"
-    + USER
-    + "/"
-    + REPO
-    + "/git/trees/"
-    + BRANCH
-    + "?recursive=1";
 
+    `https://api.github.com/repos/${USER}/${REPO}/git/trees/${BRANCH}?recursive=1`;
+
+
+
+/* ==========================================================
+CACHE
+========================================================== */
+
+const CACHE_KEY =
+    "KHANH_IT_FILE_CACHE_V2";
+
+const OLD_FILES_KEY =
+    "KHANH_IT_OLD_FILES_V2";
+
+
+
+/* ==========================================================
+STATE
+========================================================== */
 
 let allFiles = [];
 
+let newFiles = [];
+
+let currentTab =
+    getURL("tab")
+    ||
+    localStorage.getItem(
+        "khanh_tab"
+    )
+    ||
+    "ALL";
+
+
 
 /* ==========================================================
-ELEMENT
+ELEMENTS
 ========================================================== */
 
 const grid =
-    document.getElementById("grid");
+    document.getElementById(
+        "grid"
+    );
+
+const tabs =
+    document.getElementById(
+        "tabs"
+    );
 
 const statusText =
-    document.getElementById("statusText");
+    document.getElementById(
+        "statusText"
+    );
 
-const stats =
-    document.getElementById("stats");
+const totalText =
+    document.getElementById(
+        "totalText"
+    );
+
+const newText =
+    document.getElementById(
+        "newText"
+    );
+
+const timeText =
+    document.getElementById(
+        "timeText"
+    );
+
+const resultStats =
+    document.getElementById(
+        "resultStats"
+    );
+
+const categoryStats =
+    document.getElementById(
+        "categoryStats"
+    );
 
 const searchInput =
-    document.getElementById("searchInput");
+    document.getElementById(
+        "searchInput"
+    );
+
+const typeFilter =
+    document.getElementById(
+        "typeFilter"
+    );
+
+const folderFilter =
+    document.getElementById(
+        "folderFilter"
+    );
+
+const sortFilter =
+    document.getElementById(
+        "sortFilter"
+    );
+
+const refreshBtn =
+    document.getElementById(
+        "refreshBtn"
+    );
+
+const toast =
+    document.getElementById(
+        "toast"
+    );
+
 
 
 /* ==========================================================
-LOAD GITHUB
+RESTORE
 ========================================================== */
 
-async function loadFiles(){
+searchInput.value =
+
+    getURL("q")
+    ||
+    localStorage.getItem(
+        "khanh_search"
+    )
+    ||
+    "";
+
+
+sortFilter.value =
+
+    localStorage.getItem(
+        "khanh_sort"
+    )
+    ||
+    "NAME_ASC";
+
+
+
+/* ==========================================================
+LOAD
+========================================================== */
+
+async function loadFiles(
+    manual=false
+){
+
+    refreshBtn.disabled =
+        true;
+
+
+    refreshBtn.innerText =
+        "⏳ ĐANG TẢI";
+
+
+    statusText.innerText =
+        "Đang đồng bộ GitHub...";
+
 
     try{
-
-        statusText.innerText =
-            "Đang kiểm tra GitHub...";
-
 
         const response =
             await fetch(
                 API,
                 {
-                    cache:"no-store"
+                    cache:
+                        "no-store"
                 }
             );
 
@@ -526,7 +1716,9 @@ async function loadFiles(){
         if(!response.ok){
 
             throw new Error(
-                "HTTP " + response.status
+                "HTTP "
+                +
+                response.status
             );
 
         }
@@ -536,231 +1728,1147 @@ async function loadFiles(){
             await response.json();
 
 
-        /*
-        Đề phòng API trả dữ liệu bất thường
-        */
-
         if(
             !data
             ||
-            !Array.isArray(data.tree)
+            !Array.isArray(
+                data.tree
+            )
         ){
 
             throw new Error(
-                "GitHub không trả về danh sách file."
+                "Dữ liệu GitHub không hợp lệ"
             );
 
         }
 
 
-        /*
-        ================================================
-        LẤY TẤT CẢ FILE TRONG DATA
-        ================================================
+        const rawFiles =
 
-        blob = file
-
-        DATA/a.zip                OK
-        DATA/ABC/a.exe            OK
-        DATA/A/B/C/test.apk       OK
-
-        folder sẽ không hiện thành file.
-        */
-
-        const files =
-            data.tree.filter(item => {
-
-                return (
-
+            data.tree.filter(
+                item =>
                     item.type === "blob"
-
                     &&
-
                     item.path
-
                     &&
-
                     item.path.startsWith(
                         ROOT + "/"
                     )
-
-                );
-
-            });
-
-
-        /*
-        Chuyển thành dữ liệu dùng cho website.
-        */
-
-        allFiles =
-            files.map(item => {
-
-                const parts =
-                    item.path.split("/");
-
-
-                const fileName =
-                    parts[
-                        parts.length - 1
-                    ];
-
-
-                const folderParts =
-                    parts.slice(
-                        1,
-                        -1
-                    );
-
-
-                return {
-
-                    name:fileName,
-
-                    path:item.path,
-
-                    size:item.size || 0,
-
-                    folder:
-                        folderParts.length
-                        ?
-                        folderParts.join(" / ")
-                        :
-                        ROOT
-
-                };
-
-            });
-
-
-        /*
-        ================================================
-        SẮP XẾP
-        ================================================
-
-        Tên gần giống:
-        V2
-        V3
-        V10
-
-        sẽ sắp số tự nhiên.
-        */
-
-        allFiles.sort((a,b) =>
-
-            a.name.localeCompare(
-                b.name,
-                "vi",
-                {
-                    numeric:true,
-                    sensitivity:"base"
-                }
-            )
-
-        );
-
-
-        render(allFiles);
-
-
-        const now =
-            new Date()
-            .toLocaleTimeString(
-                "vi-VN"
             );
 
 
-        statusText.innerText =
-            "Đồng bộ thành công • "
-            + now;
+        allFiles =
+
+            rawFiles.map(
+                parseFile
+            );
 
 
-        stats.innerText =
-            "📦 Tổng cộng "
-            + allFiles.length
-            + " file";
+        detectNewFiles();
 
 
-        /*
-        Nếu GitHub nói tree bị truncated
-        thì cảnh báo.
-        */
+        saveCache();
 
-        if(data.truncated === true){
 
-            statusText.innerText +=
-                " • GitHub giới hạn danh sách";
+        finishLoad(
+            false
+        );
+
+
+        if(manual){
+
+            showToast(
+                "✅ Đã đồng bộ GitHub"
+            );
 
         }
-
 
     }
     catch(error){
 
         console.error(
-            "KHANH IT GitHub Error:",
             error
         );
 
 
-        statusText.innerText =
-            "Lỗi kết nối GitHub";
+        if(loadCache()){
+
+            statusText.innerText =
+                "Đang dùng dữ liệu đã lưu";
 
 
-        stats.innerText = "";
+            showToast(
+                "⚠ GitHub lỗi - đang dùng cache"
+            );
 
 
-        grid.innerHTML = `
+            finishLoad(
+                true
+            );
 
-            <div class="error">
+        }
+        else{
 
-                ❌ Không thể tải danh sách file.
+            statusText.innerText =
+                "Lỗi kết nối GitHub";
 
-                <br><br>
 
-                ${escapeHTML(error.message)}
+            grid.innerHTML = `
 
-                <br><br>
+                <div class="message error">
 
-                <button
-                    onclick="loadFiles()"
-                    style="
-                        padding:12px 25px;
-                        cursor:pointer;
-                        border:0;
-                        border-radius:10px;
-                    "
-                >
+                    ❌ Không thể tải dữ liệu.
 
-                    🔄 THỬ LẠI
+                    <br><br>
 
-                </button>
+                    ${escapeHTML(
+                        error.message
+                    )}
 
-            </div>
+                    <br><br>
 
-        `;
+                    <button
+                    onclick="loadFiles(true)">
+
+                        🔄 THỬ LẠI
+
+                    </button>
+
+                </div>
+
+            `;
+
+        }
+
+    }
+    finally{
+
+        refreshBtn.disabled =
+            false;
+
+
+        refreshBtn.innerText =
+            "🔄 CẬP NHẬT";
 
     }
 
 }
 
 
+
+/* ==========================================================
+PARSE FILE
+========================================================== */
+
+function parseFile(item){
+
+    const parts =
+        item.path.split("/");
+
+
+    const name =
+        parts[
+            parts.length - 1
+        ];
+
+
+    const category =
+
+        parts.length > 2
+
+        ?
+
+        parts[1]
+
+        :
+
+        ROOT;
+
+
+    const folderParts =
+        parts.slice(
+            2,
+            -1
+        );
+
+
+    return {
+
+        name:name,
+
+        path:item.path,
+
+        size:item.size || 0,
+
+        ext:
+            getExtension(
+                name
+            ),
+
+        category:category,
+
+        subfolder:
+
+            folderParts.length
+
+            ?
+
+            folderParts.join(
+                " / "
+            )
+
+            :
+
+            "GỐC",
+
+        version:
+            extractVersion(
+                name
+            ),
+
+        baseName:
+            getBaseName(
+                name
+            )
+
+    };
+
+}
+
+
+
+/* ==========================================================
+FINISH
+========================================================== */
+
+function finishLoad(
+    cached
+){
+
+    validateTab();
+
+    createTabs();
+
+    createTypes();
+
+    createFolders();
+
+    applyFilter();
+
+
+    totalText.innerText =
+        allFiles.length
+        +
+        " file";
+
+
+    newText.innerText =
+        newFiles.length
+        +
+        " file mới";
+
+
+    timeText.innerText =
+        new Date()
+        .toLocaleTimeString(
+            "vi-VN"
+        );
+
+
+    if(!cached){
+
+        statusText.innerText =
+            "Đồng bộ thành công";
+
+    }
+
+
+    openFileFromURL();
+
+}
+
+
+
+/* ==========================================================
+NEW FILE DETECTION
+========================================================== */
+
+function detectNewFiles(){
+
+    let oldPaths = [];
+
+
+    try{
+
+        oldPaths =
+            JSON.parse(
+                localStorage.getItem(
+                    OLD_FILES_KEY
+                )
+                ||
+                "[]"
+            );
+
+    }
+    catch{
+
+        oldPaths = [];
+
+    }
+
+
+    if(oldPaths.length === 0){
+
+        newFiles = [];
+
+    }
+    else{
+
+        newFiles =
+            allFiles.filter(
+                file =>
+                    !oldPaths.includes(
+                        file.path
+                    )
+            );
+
+    }
+
+
+    localStorage.setItem(
+
+        OLD_FILES_KEY,
+
+        JSON.stringify(
+
+            allFiles.map(
+                f => f.path
+            )
+
+        )
+
+    );
+
+}
+
+
+
+/* ==========================================================
+CACHE
+========================================================== */
+
+function saveCache(){
+
+    try{
+
+        localStorage.setItem(
+
+            CACHE_KEY,
+
+            JSON.stringify(
+                allFiles
+            )
+
+        );
+
+    }
+    catch{}
+
+}
+
+
+
+function loadCache(){
+
+    try{
+
+        const data =
+            JSON.parse(
+
+                localStorage.getItem(
+                    CACHE_KEY
+                )
+
+                ||
+
+                "[]"
+
+            );
+
+
+        if(
+            !Array.isArray(
+                data
+            )
+            ||
+            data.length === 0
+        ){
+
+            return false;
+
+        }
+
+
+        allFiles =
+            data;
+
+
+        newFiles = [];
+
+
+        return true;
+
+    }
+    catch{
+
+        return false;
+
+    }
+
+}
+
+
+
+/* ==========================================================
+TABS
+========================================================== */
+
+function createTabs(){
+
+    tabs.innerHTML = "";
+
+
+    createTab(
+        "ALL",
+        "🔥 TẤT CẢ",
+        allFiles.length
+    );
+
+
+    if(newFiles.length){
+
+        createTab(
+            "NEW",
+            "🆕 MỚI",
+            newFiles.length
+        );
+
+    }
+
+
+    const counts = {};
+
+
+    allFiles.forEach(
+        file => {
+
+            counts[
+                file.category
+            ] =
+
+                (
+                    counts[
+                        file.category
+                    ]
+                    ||
+                    0
+                )
+                +
+                1;
+
+        }
+    );
+
+
+    Object.keys(
+        counts
+    )
+    .sort(
+        (a,b) =>
+            a.localeCompare(
+                b,
+                "vi",
+                {
+                    numeric:true
+                }
+            )
+    )
+    .forEach(
+        category => {
+
+            createTab(
+
+                category,
+
+                getCategoryIcon(
+                    category
+                )
+                +
+                " "
+                +
+                category,
+
+                counts[
+                    category
+                ]
+
+            );
+
+        }
+    );
+
+}
+
+
+
+function createTab(
+    value,
+    title,
+    count
+){
+
+    const button =
+        document.createElement(
+            "button"
+        );
+
+
+    button.className =
+        "tab";
+
+
+    if(
+        currentTab === value
+    ){
+
+        button.classList.add(
+            "active"
+        );
+
+    }
+
+
+    button.innerHTML =
+
+        escapeHTML(
+            title
+        )
+
+        +
+
+        `<span class="count">
+            ${count}
+        </span>`;
+
+
+    button.onclick =
+        () => {
+
+            currentTab =
+                value;
+
+
+            localStorage.setItem(
+                "khanh_tab",
+                value
+            );
+
+
+            setURL(
+                "tab",
+                value
+            );
+
+
+            document
+            .querySelectorAll(
+                ".tab"
+            )
+            .forEach(
+                x =>
+                    x.classList.remove(
+                        "active"
+                    )
+            );
+
+
+            button.classList.add(
+                "active"
+            );
+
+
+            createFolders();
+
+            applyFilter();
+
+        };
+
+
+    tabs.appendChild(
+        button
+    );
+
+}
+
+
+
+/* ==========================================================
+VALIDATE TAB
+========================================================== */
+
+function validateTab(){
+
+    if(
+        currentTab === "ALL"
+    ){
+
+        return;
+
+    }
+
+
+    if(
+        currentTab === "NEW"
+        &&
+        newFiles.length
+    ){
+
+        return;
+
+    }
+
+
+    const found =
+
+        allFiles.some(
+            f =>
+                f.category
+                ===
+                currentTab
+        );
+
+
+    if(!found){
+
+        currentTab =
+            "ALL";
+
+    }
+
+}
+
+
+
+/* ==========================================================
+TYPE
+========================================================== */
+
+function createTypes(){
+
+    const old =
+        localStorage.getItem(
+            "khanh_type"
+        )
+        ||
+        "ALL";
+
+
+    const types =
+
+        [
+            ...new Set(
+
+                allFiles
+                .map(
+                    f => f.ext
+                )
+                .filter(
+                    Boolean
+                )
+
+            )
+        ]
+        .sort();
+
+
+    typeFilter.innerHTML =
+
+        `<option value="ALL">
+            Tất cả loại file
+        </option>`;
+
+
+    types.forEach(
+        ext => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                ext;
+
+
+            option.innerText =
+
+                getIcon(
+                    ext
+                )
+                +
+                " "
+                +
+                ext.toUpperCase();
+
+
+            typeFilter.appendChild(
+                option
+            );
+
+        }
+    );
+
+
+    if(
+        [
+            ...typeFilter.options
+        ]
+        .some(
+            o =>
+                o.value === old
+        )
+    ){
+
+        typeFilter.value =
+            old;
+
+    }
+
+}
+
+
+
+/* ==========================================================
+FOLDER
+========================================================== */
+
+function createFolders(){
+
+    let source =
+        getTabSource();
+
+
+    const old =
+        localStorage.getItem(
+            "khanh_folder"
+        )
+        ||
+        "ALL";
+
+
+    const folders =
+
+        [
+            ...new Set(
+
+                source.map(
+                    f =>
+                        f.subfolder
+                )
+
+            )
+        ]
+        .sort(
+            (a,b) =>
+                a.localeCompare(
+                    b,
+                    "vi",
+                    {
+                        numeric:true
+                    }
+                )
+        );
+
+
+    folderFilter.innerHTML =
+
+        `<option value="ALL">
+            Tất cả thư mục
+        </option>`;
+
+
+    folders.forEach(
+        folder => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                folder;
+
+
+            option.innerText =
+
+                "📂 "
+                +
+                folder;
+
+
+            folderFilter.appendChild(
+                option
+            );
+
+        }
+    );
+
+
+    if(
+        [
+            ...folderFilter.options
+        ]
+        .some(
+            o =>
+                o.value === old
+        )
+    ){
+
+        folderFilter.value =
+            old;
+
+    }
+
+}
+
+
+
+/* ==========================================================
+SOURCE
+========================================================== */
+
+function getTabSource(){
+
+    if(
+        currentTab === "NEW"
+    ){
+
+        return newFiles;
+
+    }
+
+
+    if(
+        currentTab === "ALL"
+    ){
+
+        return allFiles;
+
+    }
+
+
+    return allFiles.filter(
+        f =>
+            f.category
+            ===
+            currentTab
+    );
+
+}
+
+
+
+/* ==========================================================
+FILTER
+========================================================== */
+
+function applyFilter(){
+
+    let result =
+        getTabSource();
+
+
+    const keyword =
+        searchInput.value
+        .trim()
+        .toLowerCase();
+
+
+    const type =
+        typeFilter.value;
+
+
+    const folder =
+        folderFilter.value;
+
+
+    if(keyword){
+
+        result =
+            result.filter(
+                file =>
+
+                    file.name
+                    .toLowerCase()
+                    .includes(
+                        keyword
+                    )
+
+                    ||
+
+                    file.path
+                    .toLowerCase()
+                    .includes(
+                        keyword
+                    )
+
+                    ||
+
+                    file.baseName
+                    .toLowerCase()
+                    .includes(
+                        keyword
+                    )
+
+            );
+
+    }
+
+
+    if(
+        type !== "ALL"
+    ){
+
+        result =
+            result.filter(
+                f =>
+                    f.ext === type
+            );
+
+    }
+
+
+    if(
+        folder !== "ALL"
+    ){
+
+        result =
+            result.filter(
+                f =>
+                    f.subfolder
+                    ===
+                    folder
+            );
+
+    }
+
+
+    result =
+        sortFiles(
+            result
+        );
+
+
+    render(
+        result
+    );
+
+
+    resultStats.innerText =
+
+        `📦 ${result.length} file đang hiển thị`;
+
+
+    categoryStats.innerText =
+
+        currentTab === "ALL"
+
+        ?
+
+        "🔥 Toàn bộ kho"
+
+        :
+
+        currentTab === "NEW"
+
+        ?
+
+        "🆕 File mới"
+
+        :
+
+        "📂 "
+        +
+        currentTab;
+
+
+    setURL(
+        "q",
+        keyword
+    );
+
+}
+
+
+
+/* ==========================================================
+SORT
+========================================================== */
+
+function sortFiles(
+    files
+){
+
+    const mode =
+        sortFilter.value;
+
+
+    const result =
+        [...files];
+
+
+    if(
+        mode ===
+        "NAME_DESC"
+    ){
+
+        return result.sort(
+            (a,b) =>
+                b.name.localeCompare(
+                    a.name,
+                    "vi",
+                    {
+                        numeric:true
+                    }
+                )
+        );
+
+    }
+
+
+    if(
+        mode ===
+        "SIZE_DESC"
+    ){
+
+        return result.sort(
+            (a,b) =>
+                b.size
+                -
+                a.size
+        );
+
+    }
+
+
+    if(
+        mode ===
+        "SIZE_ASC"
+    ){
+
+        return result.sort(
+            (a,b) =>
+                a.size
+                -
+                b.size
+        );
+
+    }
+
+
+    return result.sort(
+        (a,b) =>
+            a.name.localeCompare(
+                b.name,
+                "vi",
+                {
+                    numeric:true
+                }
+            )
+    );
+
+}
+
+
+
+/* ==========================================================
+GROUP VERSIONS
+========================================================== */
+
+function groupVersions(
+    files
+){
+
+    const groups = {};
+
+
+    files.forEach(
+        file => {
+
+            const key =
+
+                file.category
+                +
+                "|"
+                +
+                file.subfolder
+                +
+                "|"
+                +
+                file.baseName
+                +
+                "|"
+                +
+                file.ext;
+
+
+            if(
+                !groups[key]
+            ){
+
+                groups[key] = [];
+
+            }
+
+
+            groups[key].push(
+                file
+            );
+
+        }
+    );
+
+
+    return Object.values(
+        groups
+    );
+
+}
+
+
+
 /* ==========================================================
 RENDER
 ========================================================== */
 
-function render(files){
+function render(
+    files
+){
 
     grid.innerHTML = "";
 
 
-    if(files.length === 0){
+    if(
+        files.length === 0
+    ){
 
         grid.innerHTML = `
 
-            <div class="empty">
+            <div class="message">
 
-                🔎 Không tìm thấy file.
+                🔎 Không tìm thấy file phù hợp.
 
             </div>
 
@@ -771,193 +2879,1041 @@ function render(files){
     }
 
 
+    const groups =
+        groupVersions(
+            files
+        );
+
+
     const fragment =
-        document.createDocumentFragment();
+        document
+        .createDocumentFragment();
 
 
-    files.forEach(file => {
+    groups.forEach(
+        versions => {
 
 
-        const card =
-            document.createElement("div");
-
-
-        card.className =
-            "card";
-
-
-        const ext =
-            getExtension(
-                file.name
+            versions.sort(
+                compareVersion
             );
 
 
-        const icon =
-            getIcon(ext);
+            const latest =
+                versions[
+                    versions.length - 1
+                ];
 
 
-        /*
-        Link RAW tải trực tiếp.
-        */
-
-        const downloadURL =
-
-            "https://raw.githubusercontent.com/"
-            + USER
-            + "/"
-            + REPO
-            + "/"
-            + BRANCH
-            + "/"
-            + encodePath(file.path);
+            const card =
+                document.createElement(
+                    "div"
+                );
 
 
-        card.innerHTML = `
-
-            <div class="file-icon">
-
-                ${icon}
-
-            </div>
+            card.className =
+                "card";
 
 
-            <div class="file-name">
+            if(
+                newFiles.some(
+                    f =>
+                        f.path
+                        ===
+                        latest.path
+                )
+            ){
 
-                ${escapeHTML(file.name)}
+                card.classList.add(
+                    "card-new"
+                );
 
-            </div>
+            }
 
 
-            <div class="file-info">
+            const url =
+                getDownloadURL(
+                    latest.path
+                );
 
-                ${escapeHTML(
-                    ext
+
+            const shareURL =
+                getFileShareURL(
+                    latest.path
+                );
+
+
+            card.dataset.path =
+                latest.path;
+
+
+            card.innerHTML = `
+
+                <div class="card-top">
+
+                    <div class="file-icon">
+
+                        ${getIcon(
+                            latest.ext
+                        )}
+
+                    </div>
+
+
+                    <div class="badges">
+
+                        <span class="badge">
+
+                            ${
+                                escapeHTML(
+                                    latest.ext
+                                    ?
+                                    latest.ext
+                                    .toUpperCase()
+                                    :
+                                    "FILE"
+                                )
+                            }
+
+                        </span>
+
+
+                        ${
+                            latest.version
+
+                            ?
+
+                            `<span class="badge badge-version">
+
+                                ${escapeHTML(
+                                    latest.version
+                                )}
+
+                            </span>`
+
+                            :
+
+                            ""
+                        }
+
+                    </div>
+
+                </div>
+
+
+                <div class="file-title">
+
+                    ${escapeHTML(
+                        latest.baseName
+                    )}
+
+                </div>
+
+
+                <div class="original-name">
+
+                    ${escapeHTML(
+                        latest.name
+                    )}
+
+                </div>
+
+
+                <div class="file-meta">
+
+                    <span>
+
+                        💾
+                        ${formatSize(
+                            latest.size
+                        )}
+
+                    </span>
+
+
+                    ${
+                        versions.length > 1
+
+                        ?
+
+                        `<span>
+
+                            📚
+                            ${versions.length}
+                            phiên bản
+
+                        </span>`
+
+                        :
+
+                        ""
+                    }
+
+                </div>
+
+
+                <div class="folder">
+
+                    📂
+                    ${escapeHTML(
+                        latest.category
+                    )}
+
+                    ${
+                        latest.subfolder
+                        !==
+                        "GỐC"
+
+                        ?
+
+                        " / "
+                        +
+                        escapeHTML(
+                            latest.subfolder
+                        )
+
+                        :
+
+                        ""
+                    }
+
+                </div>
+
+
+                <div class="actions">
+
+
+                    <a
+                    class="download"
+                    href="${url}"
+                    target="_blank"
+                    rel="noopener">
+
+                        ⬇ TẢI NGAY
+
+                    </a>
+
+
+                    <button
+                    class="icon-btn copy-download"
+                    title="Copy link tải">
+
+                        🔗
+
+                    </button>
+
+
+                    <button
+                    class="icon-btn share-btn"
+                    title="Copy link chia sẻ">
+
+                        📤
+
+                    </button>
+
+
+                    <button
+                    class="icon-btn qr-btn"
+                    title="QR tải file">
+
+                        ▣
+
+                    </button>
+
+                </div>
+
+
+                ${
+                    versions.length > 1
+
                     ?
-                    ext.toUpperCase()
+
+                    `
+
+                    <button
+                    class="icon-btn version-btn"
+                    style="
+                        width:100%;
+                        margin-top:8px;
+                        min-height:36px;
+                    ">
+
+                        📚 XEM
+                        ${versions.length}
+                        PHIÊN BẢN
+
+                    </button>
+
+
+                    <div class="versions">
+
+                        ${
+                            versions
+                            .slice()
+                            .reverse()
+                            .map(
+                                version => {
+
+                                    return `
+
+                                    <div class="version-row">
+
+                                        <span>
+
+                                            ${
+                                                escapeHTML(
+                                                    version.version
+                                                    ||
+                                                    version.name
+                                                )
+                                            }
+
+                                            •
+
+                                            ${
+                                                formatSize(
+                                                    version.size
+                                                )
+                                            }
+
+                                        </span>
+
+
+                                        <a
+                                        class="version-download"
+                                        target="_blank"
+                                        href="${
+                                            getDownloadURL(
+                                                version.path
+                                            )
+                                        }">
+
+                                            TẢI
+
+                                        </a>
+
+                                    </div>
+
+                                    `;
+
+                                }
+                            )
+                            .join("")
+                        }
+
+                    </div>
+
+                    `
+
                     :
-                    "FILE"
-                )}
 
-                •
+                    ""
+                }
 
-                ${formatSize(file.size)}
-
-            </div>
+            `;
 
 
-            <div class="folder">
+            card
+            .querySelector(
+                ".copy-download"
+            )
+            .onclick = () => {
 
-                📂 ${escapeHTML(file.folder)}
+                copyText(
+                    url,
+                    "✅ Đã copy link tải"
+                );
 
-            </div>
-
-
-            <a
-                class="download-btn"
-                href="${downloadURL}"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-
-                ⬇ TẢI NGAY
-
-            </a>
-
-        `;
+            };
 
 
-        fragment.appendChild(card);
+            card
+            .querySelector(
+                ".share-btn"
+            )
+            .onclick = () => {
 
-    });
+                copyText(
+                    shareURL,
+                    "✅ Đã copy link chia sẻ"
+                );
+
+            };
 
 
-    grid.appendChild(fragment);
+            card
+            .querySelector(
+                ".qr-btn"
+            )
+            .onclick = () => {
+
+                showQR(
+                    latest.name,
+                    url
+                );
+
+            };
+
+
+            const versionButton =
+                card.querySelector(
+                    ".version-btn"
+                );
+
+
+            if(versionButton){
+
+                versionButton.onclick =
+                    () => {
+
+                        card
+                        .querySelector(
+                            ".versions"
+                        )
+                        .classList
+                        .toggle(
+                            "show"
+                        );
+
+                    };
+
+            }
+
+
+            fragment.appendChild(
+                card
+            );
+
+        }
+    );
+
+
+    grid.appendChild(
+        fragment
+    );
 
 }
 
 
+
 /* ==========================================================
-SEARCH
+VERSION
 ========================================================== */
 
-searchInput.addEventListener(
-    "input",
-    function(){
+function extractVersion(
+    name
+){
 
-        const keyword =
-            this.value
-            .trim()
-            .toLowerCase();
-
-
-        if(!keyword){
-
-            render(allFiles);
-
-            stats.innerText =
-                "📦 Tổng cộng "
-                + allFiles.length
-                + " file";
-
-            return;
-
-        }
+    const base =
+        removeExtension(
+            name
+        );
 
 
-        const result =
-            allFiles.filter(file => {
+    const match =
+        base.match(
 
-                return (
+            /(?:^|[_\-\s])v(?:ersion)?[_\-\s]?(\d+(?:[._-]\d+)*)/i
 
-                    file.name
-                    .toLowerCase()
-                    .includes(keyword)
+        );
 
-                    ||
 
-                    file.folder
-                    .toLowerCase()
-                    .includes(keyword)
+    if(!match){
 
-                    ||
+        return "";
 
-                    file.path
-                    .toLowerCase()
-                    .includes(keyword)
+    }
 
+
+    return "V"
+        +
+        match[1]
+        .replaceAll(
+            "_",
+            "."
+        )
+        .replaceAll(
+            "-",
+            "."
+        );
+
+}
+
+
+
+function getBaseName(
+    name
+){
+
+    let base =
+        removeExtension(
+            name
+        );
+
+
+    base =
+        base.replace(
+
+            /(?:^|[_\-\s])v(?:ersion)?[_\-\s]?\d+(?:[._-]\d+)*/i,
+
+            ""
+
+        );
+
+
+    return base
+
+        .replace(
+            /^KHANH[_\-\s]*IT[_\-\s]*/i,
+            "KHÁNH IT "
+        )
+
+        .replaceAll(
+            "_",
+            " "
+        )
+
+        .replaceAll(
+            "-",
+            " "
+        )
+
+        .replace(
+            /\s+/g,
+            " "
+        )
+
+        .trim();
+
+}
+
+
+
+function compareVersion(
+    a,
+    b
+){
+
+    return versionNumber(
+        a.version
+    )
+    -
+    versionNumber(
+        b.version
+    );
+
+}
+
+
+
+function versionNumber(
+    version
+){
+
+    if(!version){
+
+        return 0;
+
+    }
+
+
+    const nums =
+        version
+        .replace(
+            /^V/i,
+            ""
+        )
+        .split(".")
+        .map(
+            Number
+        );
+
+
+    let total = 0;
+
+
+    nums.forEach(
+        (n,i) => {
+
+            total +=
+                n
+                *
+                Math.pow(
+                    1000,
+                    4-i
                 );
 
-            });
+        }
+    );
 
 
-        render(result);
+    return total;
+
+}
 
 
-        stats.innerText =
-            "🔎 Tìm thấy "
-            + result.length
-            + " / "
-            + allFiles.length
-            + " file";
+
+/* ==========================================================
+QR
+========================================================== */
+
+function showQR(
+    title,
+    url
+){
+
+    document.getElementById(
+        "qrTitle"
+    ).innerText =
+        title;
+
+
+    /*
+    Dùng dịch vụ QR công khai.
+    Nếu không tải được QR,
+    link tải vẫn hoạt động bình thường.
+    */
+
+    document.getElementById(
+        "qrImage"
+    ).src =
+
+        "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data="
+
+        +
+
+        encodeURIComponent(
+            url
+        );
+
+
+    document.getElementById(
+        "qrModal"
+    )
+    .classList
+    .add(
+        "show"
+    );
+
+}
+
+
+
+function closeQR(){
+
+    document.getElementById(
+        "qrModal"
+    )
+    .classList
+    .remove(
+        "show"
+    );
+
+}
+
+
+
+/* ==========================================================
+COPY
+========================================================== */
+
+async function copyText(
+    text,
+    message
+){
+
+    try{
+
+        await navigator
+        .clipboard
+        .writeText(
+            text
+        );
+
+
+        showToast(
+            message
+        );
+
+    }
+    catch{
+
+        const input =
+            document.createElement(
+                "textarea"
+            );
+
+
+        input.value =
+            text;
+
+
+        document.body
+        .appendChild(
+            input
+        );
+
+
+        input.select();
+
+
+        document.execCommand(
+            "copy"
+        );
+
+
+        input.remove();
+
+
+        showToast(
+            message
+        );
+
+    }
+
+}
+
+
+
+/* ==========================================================
+URL SHARE
+========================================================== */
+
+function getFileShareURL(
+    path
+){
+
+    const url =
+        new URL(
+            location.href
+        );
+
+
+    url.searchParams.set(
+        "file",
+        path
+    );
+
+
+    return url.toString();
+
+}
+
+
+
+function setURL(
+    key,
+    value
+){
+
+    const url =
+        new URL(
+            location.href
+        );
+
+
+    if(
+        !value
+        ||
+        value === "ALL"
+    ){
+
+        url.searchParams.delete(
+            key
+        );
+
+    }
+    else{
+
+        url.searchParams.set(
+            key,
+            value
+        );
+
+    }
+
+
+    history.replaceState(
+        {},
+        "",
+        url
+    );
+
+}
+
+
+
+function getURL(
+    key
+){
+
+    return new URLSearchParams(
+        location.search
+    )
+    .get(
+        key
+    );
+
+}
+
+
+
+/* ==========================================================
+OPEN FILE FROM URL
+========================================================== */
+
+function openFileFromURL(){
+
+    const path =
+        getURL(
+            "file"
+        );
+
+
+    if(!path){
+
+        return;
+
+    }
+
+
+    searchInput.value = "";
+
+
+    currentTab =
+        "ALL";
+
+
+    applyFilter();
+
+
+    setTimeout(
+        () => {
+
+            const card =
+                document.querySelector(
+                    `[data-path="${cssEscape(
+                        path
+                    )}"]`
+                );
+
+
+            if(card){
+
+                card.scrollIntoView(
+                    {
+                        behavior:
+                            "smooth",
+
+                        block:
+                            "center"
+                    }
+                );
+
+
+                card.style.borderColor =
+                    "#22c55e";
+
+
+                card.style.boxShadow =
+                    "0 0 30px rgba(34,197,94,.35)";
+
+            }
+
+        },
+        200
+    );
+
+}
+
+
+
+/* ==========================================================
+DOWNLOAD URL
+========================================================== */
+
+function getDownloadURL(
+    path
+){
+
+    return (
+
+        "https://raw.githubusercontent.com/"
+
+        +
+        USER
+
+        +
+        "/"
+
+        +
+        REPO
+
+        +
+        "/"
+
+        +
+        BRANCH
+
+        +
+        "/"
+
+        +
+        encodePath(
+            path
+        )
+
+    );
+
+}
+
+
+
+/* ==========================================================
+EVENTS
+========================================================== */
+
+searchInput
+.addEventListener(
+    "input",
+    () => {
+
+        localStorage.setItem(
+            "khanh_search",
+            searchInput.value
+        );
+
+
+        applyFilter();
 
     }
 );
 
 
+typeFilter
+.addEventListener(
+    "change",
+    () => {
+
+        localStorage.setItem(
+            "khanh_type",
+            typeFilter.value
+        );
+
+
+        applyFilter();
+
+    }
+);
+
+
+folderFilter
+.addEventListener(
+    "change",
+    () => {
+
+        localStorage.setItem(
+            "khanh_folder",
+            folderFilter.value
+        );
+
+
+        applyFilter();
+
+    }
+);
+
+
+sortFilter
+.addEventListener(
+    "change",
+    () => {
+
+        localStorage.setItem(
+            "khanh_sort",
+            sortFilter.value
+        );
+
+
+        applyFilter();
+
+    }
+);
+
+
+refreshBtn
+.addEventListener(
+    "click",
+    () =>
+        loadFiles(
+            true
+        )
+);
+
+
+document.getElementById(
+    "qrModal"
+)
+.addEventListener(
+    "click",
+    function(e){
+
+        if(
+            e.target === this
+        ){
+
+            closeQR();
+
+        }
+
+    }
+);
+
+
+
 /* ==========================================================
-EXTENSION
+HELPER
 ========================================================== */
 
-function getExtension(name){
+function removeExtension(
+    name
+){
 
-    const pos =
-        name.lastIndexOf(".");
+    const index =
+        name.lastIndexOf(
+            "."
+        );
+
+
+    return index > 0
+
+        ?
+
+        name.substring(
+            0,
+            index
+        )
+
+        :
+
+        name;
+
+}
+
+
+
+function getExtension(
+    name
+){
+
+    const index =
+        name.lastIndexOf(
+            "."
+        );
 
 
     if(
-        pos === -1
-        ||
-        pos === name.length - 1
+        index === -1
     ){
 
         return "";
@@ -966,17 +3922,93 @@ function getExtension(name){
 
 
     return name
-        .substring(pos + 1)
+        .substring(
+            index + 1
+        )
         .toLowerCase();
 
 }
 
 
-/* ==========================================================
-ICON
-========================================================== */
 
-function getIcon(ext){
+function encodePath(
+    path
+){
+
+    return path
+        .split("/")
+        .map(
+            encodeURIComponent
+        )
+        .join("/");
+
+}
+
+
+
+function formatSize(
+    bytes
+){
+
+    if(!bytes){
+
+        return "0 B";
+
+    }
+
+
+    const units =
+        [
+            "B",
+            "KB",
+            "MB",
+            "GB",
+            "TB"
+        ];
+
+
+    let value =
+        bytes;
+
+
+    let index =
+        0;
+
+
+    while(
+        value >= 1024
+        &&
+        index
+        <
+        units.length - 1
+    ){
+
+        value /= 1024;
+
+        index++;
+
+    }
+
+
+    return value.toFixed(
+        index === 0
+        ?
+        0
+        :
+        2
+    )
+    +
+    " "
+    +
+    units[index];
+
+}
+
+
+
+function getIcon(
+    ext
+){
 
     const icons = {
 
@@ -1001,14 +4033,15 @@ function getIcon(ext){
 
         pdf:"📕",
 
-        txt:"📄",
         json:"📄",
+        txt:"📄",
         xml:"📄",
 
         png:"🖼️",
         jpg:"🖼️",
         jpeg:"🖼️",
         webp:"🖼️",
+        gif:"🖼️",
 
         mp3:"🎵",
         wav:"🎵",
@@ -1019,120 +4052,182 @@ function getIcon(ext){
     };
 
 
-    return icons[ext] || "📄";
+    return icons[
+        ext
+    ]
+    ||
+    "📄";
 
 }
 
 
-/* ==========================================================
-SIZE
-========================================================== */
 
-function formatSize(bytes){
+function getCategoryIcon(
+    name
+){
+
+    const n =
+        name.toLowerCase();
+
 
     if(
-        bytes === undefined
-        ||
-        bytes === null
-        ||
-        bytes <= 0
+        n.includes(
+            "xiaomi"
+        )
     ){
 
-        return "0 B";
+        return "📺";
 
     }
 
 
-    const units =
-        [
-            "B",
-            "KB",
-            "MB",
-            "GB",
-            "TB"
-        ];
-
-
-    let value = bytes;
-
-    let index = 0;
-
-
-    while(
-        value >= 1024
-        &&
-        index < units.length - 1
+    if(
+        n.includes(
+            "android"
+        )
+        ||
+        n.includes(
+            "apk"
+        )
     ){
 
-        value /= 1024;
-
-        index++;
+        return "📱";
 
     }
 
 
-    return value.toFixed(
-        index === 0 ? 0 : 2
+    if(
+        n.includes(
+            "windows"
+        )
+        ||
+        n.includes(
+            "pc"
+        )
+    ){
+
+        return "💻";
+
+    }
+
+
+    if(
+        n.includes(
+            "python"
+        )
+    ){
+
+        return "🐍";
+
+    }
+
+
+    return "📂";
+
+}
+
+
+
+function escapeHTML(
+    value
+){
+
+    return String(
+        value
     )
-    +
-    " "
-    +
-    units[index];
+
+    .replaceAll(
+        "&",
+        "&amp;"
+    )
+
+    .replaceAll(
+        "<",
+        "&lt;"
+    )
+
+    .replaceAll(
+        ">",
+        "&gt;"
+    )
+
+    .replaceAll(
+        '"',
+        "&quot;"
+    )
+
+    .replaceAll(
+        "'",
+        "&#039;"
+    );
 
 }
 
 
-/* ==========================================================
-ENCODE PATH
-========================================================== */
 
-function encodePath(path){
+function cssEscape(
+    text
+){
 
-    return path
-        .split("/")
-        .map(
-            part =>
-                encodeURIComponent(part)
-        )
-        .join("/");
+    if(
+        window.CSS
+        &&
+        CSS.escape
+    ){
+
+        return CSS.escape(
+            text
+        );
+
+    }
+
+
+    return String(
+        text
+    )
+    .replace(
+        /"/g,
+        '\\"'
+    );
 
 }
 
 
-/* ==========================================================
-SECURITY
-========================================================== */
 
-function escapeHTML(value){
+function showToast(
+    message
+){
 
-    return String(value)
+    toast.innerText =
+        message;
 
-        .replaceAll(
-            "&",
-            "&amp;"
-        )
 
-        .replaceAll(
-            "<",
-            "&lt;"
-        )
+    toast.classList.add(
+        "show"
+    );
 
-        .replaceAll(
-            ">",
-            "&gt;"
-        )
 
-        .replaceAll(
-            '"',
-            "&quot;"
-        )
+    clearTimeout(
+        showToast.timer
+    );
 
-        .replaceAll(
-            "'",
-            "&#039;"
+
+    showToast.timer =
+        setTimeout(
+            () => {
+
+                toast
+                .classList
+                .remove(
+                    "show"
+                );
+
+            },
+            2200
         );
 
 }
+
 
 
 /* ==========================================================
@@ -1143,11 +4238,15 @@ loadFiles();
 
 
 /*
-Tự kiểm tra lại GitHub sau mỗi 60 giây.
+Tự kiểm tra GitHub
+mỗi 60 giây
 */
 
 setInterval(
-    loadFiles,
+    () =>
+        loadFiles(
+            false
+        ),
     60000
 );
 
