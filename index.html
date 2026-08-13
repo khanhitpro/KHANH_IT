@@ -1,286 +1,680 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/dinhkhackhanhdz-blip/KHANH_IT/refs/heads/main/logo.ico?v=1">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KHÁNH IT PRO MAX</title>
-
-<style>
-body{
-    margin:0;
-    font-family:Arial;
-    color:#fff;
-    background-size:cover;
-    background-position:center;
-    background-attachment:fixed;
-
-    /* 🔥 CHỐT FIX: chừa chỗ cho chữ chạy */
-    padding-bottom:70px;
-}
-
-.overlay{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,0.75);
-    z-index:-1;
-}
-
-/* TOP */
-.topbar{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:14px;
-    background:rgba(255,255,255,0.05);
-    backdrop-filter:blur(10px);
-}
-
-.logo{
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
-
-.logo img{
-    width:32px;
-    height:32px;
-    border-radius:6px;
-}
-
-/* HERO */
-.hero{
-    text-align:center;
-    padding:20px;
-}
-
-/* GRID */
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:15px;
-    padding:20px;
-}
-
-/* CARD */
-.card{
-    background:rgba(255,255,255,0.05);
-    border:1px solid rgba(255,255,255,0.1);
-    border-radius:15px;
-    padding:15px;
-    text-align:center;
-}
-
-/* BUTTON PRO */
-button{
-    width:100%;
-    padding:11px;
-    border:none;
-    border-radius:14px;
-    cursor:pointer;
-    font-weight:bold;
-    color:white;
-    background:linear-gradient(90deg,#38bdf8,#0ea5e9,#2563eb);
-    box-shadow:0 0 12px rgba(56,189,248,0.5);
-    transition:0.25s;
-}
-
-button:hover{
-    transform:translateY(-3px);
-    box-shadow:0 0 22px rgba(56,189,248,0.8);
-}
-
-/* CONTACT */
-.contact{
-    text-align:center;
-    padding:20px;
-    padding-bottom:80px; /* 🔥 tránh bị che */
-}
-
-.contact a{
-    display:inline-block;
-    margin:5px;
-    padding:10px 14px;
-    border-radius:10px;
-    text-decoration:none;
-    color:#fff;
-    background:rgba(255,255,255,0.1);
-}
-
-/* 🔥 MARQUEE FIX (đẩy sát đáy nhưng không che) */
-.marquee{
-    position:fixed;
-    bottom:0;
-    left:0;
-    width:100%;
-    background:rgba(0,0,0,0.9);
-    padding:10px 0;
-    overflow:hidden;
-    z-index:10;
-    border-top:1px solid rgba(56,189,248,0.3);
-}
-
-.marquee div{
-    white-space:nowrap;
-    display:inline-block;
-    padding-left:100%;
-    animation:run 25s linear infinite;
-    color:#38bdf8;
-    font-weight:bold;
-}
-
-@keyframes run{
-    0%{transform:translateX(0);}
-    100%{transform:translateX(-100%);}
-}
-
-/* MUSIC */
-.music-btn{
-    position:fixed;
-    bottom:80px;
-    right:20px;
-    width:50px;
-    height:50px;
-    border-radius:50%;
-    background:#38bdf8;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    cursor:pointer;
-}
-</style>
-</head>
-
-<body>
-
-<div class="overlay"></div>
-
-<!-- TOP -->
-<div class="topbar">
-    <div class="logo">
-        <img id="logo">
-        <b>KHÁNH IT STORE</b>
-    </div>
-</div>
-
-<!-- HERO -->
-<div class="hero">
-    <h1 id="title"></h1>
-    <p id="subtitle"></p>
-</div>
-
-<!-- GRID -->
-<div class="grid" id="grid"></div>
-
-<!-- CONTACT -->
-<div class="contact" id="contact"></div>
-
-<!-- MARQUEE -->
-<div class="marquee">
-    <div id="marqueeText"></div>
-</div>
-
-<!-- MUSIC -->
-<audio id="music" loop></audio>
-<div class="music-btn" onclick="toggleMusic()">🎵</div>
-
 <script>
 
-/* JSON */
-const DATA_URL = "https://raw.githubusercontent.com/dinhkhackhanhdz-blip/KHANH_IT/main/KH%C3%81NH%20IT%20WEB/data.json";
-const LINK_URL = "https://raw.githubusercontent.com/dinhkhackhanhdz-blip/KHANH_IT/main/KH%C3%81NH%20IT%20WEB/link.json";
-const CONTACT_URL = "https://raw.githubusercontent.com/dinhkhackhanhdz-blip/KHANH_IT/main/KH%C3%81NH%20IT%20WEB/lienhe.json";
+/* ==========================================================
+CẤU HÌNH GITHUB
+========================================================== */
 
-/* LOAD */
-async function loadAll(){
+const GITHUB_USER   = "khanhitpro";
+const GITHUB_REPO   = "KHANH_IT";
+const GITHUB_BRANCH = "main";
+const GITHUB_FOLDER = "DATA";
 
-    const [d,l,c] = await Promise.all([
-        fetch(DATA_URL + "?t=" + Date.now()),
-        fetch(LINK_URL + "?t=" + Date.now()),
-        fetch(CONTACT_URL + "?t=" + Date.now())
-    ]);
+/*
+    Git Trees API:
+    recursive=1 = quét toàn bộ thư mục + thư mục con
+*/
+const API_URL =
+    `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/git/trees/${GITHUB_BRANCH}?recursive=1`;
 
-    const data = await d.json();
-    const links = await l.json();
-    const contact = await c.json();
 
-    applyData(data);
-    renderTools(links.tools);
-    renderContact(contact);
-}
+/* ==========================================================
+BIẾN
+========================================================== */
 
-/* DATA */
-function applyData(d){
-    document.body.style.backgroundImage = `url('${d.background}')`;
-    document.getElementById("logo").src = d.logo;
-    document.getElementById("title").innerText = d.title;
-    document.getElementById("subtitle").innerText = d.subtitle;
-    document.getElementById("marqueeText").innerText = d.marquee;
-    document.getElementById("music").src = d.music;
-}
+let allFiles = [];
 
-/* TOOLS */
-function renderTools(tools){
 
-    const grid = document.getElementById("grid");
-    grid.innerHTML = "";
+/* ==========================================================
+LOAD TOÀN BỘ FILE
+========================================================== */
 
-    tools.forEach(t=>{
-        const div = document.createElement("div");
-        div.className = "card";
+async function loadFiles(){
 
-        div.innerHTML = `
-            <h3 style="color:${t.color}">${t.title}</h3>
-            <p>${t.desc}</p>
-            <button onclick="dl('${t.link}')">⬇ TẢI NGAY</button>
+    const grid =
+        document.getElementById("grid");
+
+    const status =
+        document.getElementById("statusText");
+
+
+    try{
+
+        status.innerText =
+            "Đang quét toàn bộ kho dữ liệu...";
+
+
+        const response = await fetch(
+            API_URL + "&t=" + Date.now(),
+            {
+                cache:"no-store"
+            }
+        );
+
+
+        if(!response.ok){
+
+            throw new Error(
+                "GitHub API lỗi: " +
+                response.status
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        /*
+        =====================================================
+        CHỈ LẤY FILE TRONG DATA
+        =====================================================
+
+        blob = file
+
+        Ví dụ:
+
+        DATA/app.exe
+
+        DATA/APK/app.apk
+
+        DATA/TOOL/XIAOMI/tool.zip
+
+        đều được lấy.
+        */
+
+        allFiles = data.tree.filter(item =>
+
+            item.type === "blob"
+
+            &&
+
+            item.path.startsWith(
+                GITHUB_FOLDER + "/"
+            )
+
+        );
+
+
+        /*
+        Thêm thông tin tên file
+        */
+
+        allFiles = allFiles.map(file => {
+
+            const parts =
+                file.path.split("/");
+
+            return {
+
+                ...file,
+
+                name:
+                    parts[
+                        parts.length - 1
+                    ],
+
+                folder:
+                    getFolder(file.path)
+
+            };
+
+        });
+
+
+        /*
+        Sắp xếp theo tên
+        */
+
+        allFiles.sort((a,b) =>
+
+            a.name.localeCompare(
+                b.name,
+                "vi",
+                {
+                    numeric:true
+                }
+            )
+
+        );
+
+
+        renderFiles(allFiles);
+
+
+        status.innerText =
+
+            `Đã đồng bộ ${allFiles.length} file • ` +
+
+            new Date().toLocaleTimeString(
+                "vi-VN"
+            );
+
+
+    }
+    catch(error){
+
+        console.error(error);
+
+
+        status.innerText =
+            "Không thể kết nối GitHub";
+
+
+        grid.innerHTML = `
+
+            <div class="error">
+
+                ❌ Không thể tải dữ liệu GitHub
+
+                <br><br>
+
+                ${escapeHTML(error.message)}
+
+                <br><br>
+
+                Hãy thử tải lại trang.
+
+            </div>
+
         `;
 
-        grid.appendChild(div);
-    });
-}
-
-/* CONTACT */
-function renderContact(data){
-
-    const box = document.getElementById("contact");
-    const c = data.contact;
-
-    box.innerHTML = `<h3>${c.title}</h3>`;
-
-    c.items.forEach(i=>{
-        const a = document.createElement("a");
-        a.href = i.url;
-        a.target = "_blank";
-        a.innerHTML = `${i.icon} ${i.name}`;
-        box.appendChild(a);
-    });
-}
-
-/* DOWNLOAD */
-function dl(url){
-    const a=document.createElement("a");
-    a.href=url;
-    a.click();
-}
-
-/* MUSIC */
-let play=false;
-function toggleMusic(){
-    const m=document.getElementById("music");
-
-    if(!play){
-        m.play();
-        play=true;
-    }else{
-        m.pause();
-        play=false;
     }
+
 }
 
-/* INIT */
-window.addEventListener("load", loadAll);
+
+/* ==========================================================
+LẤY TÊN THƯ MỤC
+========================================================== */
+
+function getFolder(path){
+
+    const parts =
+        path.split("/");
+
+
+    /*
+    Xóa tên file
+    */
+
+    parts.pop();
+
+
+    /*
+    Xóa DATA
+    */
+
+    if(
+        parts.length > 0
+        &&
+        parts[0] === GITHUB_FOLDER
+    ){
+
+        parts.shift();
+
+    }
+
+
+    /*
+    File nằm trực tiếp DATA
+    */
+
+    if(parts.length === 0){
+
+        return "DATA";
+
+    }
+
+
+    return parts.join(" / ");
+
+}
+
+
+/* ==========================================================
+HIỂN THỊ FILE
+========================================================== */
+
+function renderFiles(files){
+
+    const grid =
+        document.getElementById("grid");
+
+
+    grid.innerHTML = "";
+
+
+    if(files.length === 0){
+
+        grid.innerHTML = `
+
+            <div class="empty">
+
+                🔎 Không tìm thấy file.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    files.forEach(file => {
+
+
+        const card =
+            document.createElement("div");
+
+
+        card.className =
+            "card";
+
+
+        const ext =
+            getExtension(
+                file.name
+            );
+
+
+        const icon =
+            getIcon(ext);
+
+
+        /*
+        =====================================================
+        LINK RAW TẢI TRỰC TIẾP
+        =====================================================
+        */
+
+        const downloadURL =
+
+            `https://raw.githubusercontent.com/` +
+
+            `${GITHUB_USER}/` +
+
+            `${GITHUB_REPO}/` +
+
+            `${GITHUB_BRANCH}/` +
+
+            `${encodeGitHubPath(file.path)}`;
+
+
+        card.innerHTML = `
+
+            <div class="file-icon">
+
+                ${icon}
+
+            </div>
+
+
+            <div class="file-name">
+
+                ${escapeHTML(file.name)}
+
+            </div>
+
+
+            <div class="file-info">
+
+                ${ext.toUpperCase() || "FILE"}
+
+                •
+
+                ${formatSize(file.size || 0)}
+
+            </div>
+
+
+            <div style="
+                font-size:12px;
+                color:#38bdf8;
+                margin-bottom:14px;
+                word-break:break-word;
+            ">
+
+                📂 ${escapeHTML(file.folder)}
+
+            </div>
+
+
+            <a
+                class="download-btn"
+                href="${downloadURL}"
+                download
+            >
+
+                ⬇ TẢI NGAY
+
+            </a>
+
+        `;
+
+
+        grid.appendChild(card);
+
+    });
+
+}
+
+
+/* ==========================================================
+TÌM KIẾM
+========================================================== */
+
+function searchFiles(){
+
+    const keyword =
+
+        document
+        .getElementById("searchInput")
+        .value
+        .toLowerCase()
+        .trim();
+
+
+    /*
+    Không nhập gì
+    */
+
+    if(!keyword){
+
+        renderFiles(allFiles);
+
+        return;
+
+    }
+
+
+    /*
+    Tìm theo:
+
+    - tên file
+    - tên thư mục
+    - đường dẫn
+    */
+
+    const result =
+        allFiles.filter(file =>
+
+            file.name
+                .toLowerCase()
+                .includes(keyword)
+
+            ||
+
+            file.folder
+                .toLowerCase()
+                .includes(keyword)
+
+            ||
+
+            file.path
+                .toLowerCase()
+                .includes(keyword)
+
+        );
+
+
+    renderFiles(result);
+
+}
+
+
+/* ==========================================================
+LẤY ĐUÔI FILE
+========================================================== */
+
+function getExtension(name){
+
+    if(!name.includes(".")){
+
+        return "";
+
+    }
+
+
+    return name
+        .split(".")
+        .pop()
+        .toLowerCase();
+
+}
+
+
+/* ==========================================================
+ICON THEO FILE
+========================================================== */
+
+function getIcon(ext){
+
+    switch(ext){
+
+
+        /* FILE NÉN */
+
+        case "zip":
+        case "rar":
+        case "7z":
+
+            return "📦";
+
+
+        /* ANDROID */
+
+        case "apk":
+        case "xapk":
+        case "apks":
+
+            return "📱";
+
+
+        /* WINDOWS */
+
+        case "exe":
+        case "msi":
+
+            return "💻";
+
+
+        /* PYTHON */
+
+        case "py":
+        case "pyc":
+
+            return "🐍";
+
+
+        /* WINDOWS SCRIPT */
+
+        case "bat":
+        case "cmd":
+        case "ps1":
+
+            return "⚙️";
+
+
+        /* SHELL */
+
+        case "sh":
+
+            return "🖥️";
+
+
+        /* PDF */
+
+        case "pdf":
+
+            return "📕";
+
+
+        /* TEXT */
+
+        case "txt":
+        case "json":
+        case "xml":
+
+            return "📄";
+
+
+        /* IMAGE */
+
+        case "jpg":
+        case "jpeg":
+        case "png":
+        case "webp":
+        case "gif":
+
+            return "🖼️";
+
+
+        /* VIDEO */
+
+        case "mp4":
+        case "mkv":
+        case "avi":
+
+            return "🎬";
+
+
+        /* AUDIO */
+
+        case "mp3":
+        case "wav":
+        case "flac":
+
+            return "🎵";
+
+
+        default:
+
+            return "📁";
+
+    }
+
+}
+
+
+/* ==========================================================
+HIỂN THỊ DUNG LƯỢNG
+========================================================== */
+
+function formatSize(bytes){
+
+    if(!bytes){
+
+        return "0 B";
+
+    }
+
+
+    const units = [
+        "B",
+        "KB",
+        "MB",
+        "GB",
+        "TB"
+    ];
+
+
+    const i = Math.floor(
+
+        Math.log(bytes) /
+        Math.log(1024)
+
+    );
+
+
+    return (
+
+        bytes /
+        Math.pow(1024,i)
+
+    ).toFixed(2)
+
+    + " "
+
+    + units[i];
+
+}
+
+
+/* ==========================================================
+ENCODE LINK GITHUB
+========================================================== */
+
+function encodeGitHubPath(path){
+
+    return path
+
+        .split("/")
+
+        .map(
+            part =>
+                encodeURIComponent(part)
+        )
+
+        .join("/");
+
+}
+
+
+/* ==========================================================
+CHỐNG HTML INJECTION
+========================================================== */
+
+function escapeHTML(text){
+
+    return String(text)
+
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+
+}
+
+
+/* ==========================================================
+KHỞI ĐỘNG
+========================================================== */
+
+window.addEventListener(
+    "load",
+    loadFiles
+);
+
+
+/* ==========================================================
+TỰ ĐỘNG CẬP NHẬT MỖI 60 GIÂY
+========================================================== */
+
+setInterval(
+    loadFiles,
+    60000
+);
 
 </script>
-
-</body>
-</html>
