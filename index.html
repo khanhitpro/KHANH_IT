@@ -950,7 +950,7 @@ body.v5-font-scale .repo-file-row{font-size:calc(13px * var(--v5-font-scale))}
 </header>
 
 <section class="hero">
-  <h1>KHÁNH IT DOWNLOAD CENTER <span class="v5-badge">V5</span></h1>
+<h1>KHÁNH IT DOWNLOAD CENTER</h1>
   <p>Trung tâm quản lý và tải công cụ • Đồng bộ tự động từ GitHub</p>
 </section>
 
@@ -1134,7 +1134,7 @@ const CFG = {
   repo:"KHANH_IT",
   branch:"main",
   root:"DATA",
-  refreshMs:60000,
+  refreshMs:600000,
   cacheKey:"KHANH_IT_FULL_CACHE_V3",
   oldKey:"KHANH_IT_FULL_OLD_V3",
   favKey:"KHANH_IT_FAVORITES_V3",
@@ -1142,6 +1142,51 @@ const CFG = {
 };
 
 const API = `https://api.github.com/repos/${CFG.user}/${CFG.repo}/git/trees/${CFG.branch}?recursive=1`;
+
+const API_CACHE_TIME_KEY = "KHANH_IT_API_CACHE_TIME_V5_FIX";
+const API_MIN_REFRESH_MS = 10 * 60 * 1000;
+
+function githubPublicHeaders(){
+  return {
+    "Accept":"application/vnd.github+json"
+  };
+}
+
+async function githubPublicFetch(url){
+  const r=await fetch(url,{
+    headers:githubPublicHeaders(),
+    cache:"no-store"
+  });
+
+  if(r.ok){
+    return r;
+  }
+
+  let detail="";
+  try{
+    const j=await r.clone().json();
+    detail=j && j.message ? " - "+j.message : "";
+  }catch{}
+
+  if(r.status===403 || r.status===429){
+    const reset=r.headers.get("x-ratelimit-reset");
+    if(reset){
+      const when=new Date(Number(reset)*1000).toLocaleTimeString("vi-VN");
+      throw new Error(`GitHub API HTTP ${r.status} - giới hạn truy cập, thử lại sau ${when}${detail}`);
+    }
+  }
+
+  throw new Error(`GitHub API HTTP ${r.status}${detail}`);
+}
+
+function tokenConfigured(){
+  return !!(
+    ADMIN_CONFIG &&
+    ADMIN_CONFIG.githubToken &&
+    ADMIN_CONFIG.githubToken!=="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"
+  );
+}
+
 
 /* ==========================================================
 ADMIN UPLOAD CONFIG
@@ -1170,8 +1215,9 @@ const ADMIN_CONFIG = {
   uploadFolder:
     "UPLOAD",
 
+  // Token CHỈ dùng khi bấm Upload. Không dùng để đọc danh sách public.
   githubToken:
-    "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",
+    "DAN_GITHUB_TOKEN_VAO_DAY",
 
   maxFileSizeMB:
     50
@@ -1257,20 +1303,75 @@ function parseFile(item){
 }
 
 async function loadFiles(manual=false){
-  $("refreshBtn").disabled=true;$("refreshBtn").textContent="⏳ ĐANG TẢI";$("statusText").textContent="Đang đồng bộ GitHub...";
+  $("refreshBtn").disabled=true;
+  $("refreshBtn").textContent=manual?"⏳ ĐANG TẢI":"⏳ ĐANG ĐỒNG BỘ";
+  $("statusText").textContent="Đang đồng bộ GitHub...";
+
   try{
-    const r=await fetch(API,{cache:"no-store"});
-    if(!r.ok)throw new Error("GitHub API HTTP "+r.status);
-    const data=await r.json();
-    if(!data||!Array.isArray(data.tree))throw new Error("Dữ liệu GitHub không hợp lệ");
-    allFiles=data.tree.filter(x=>x.type==="blob"&&x.path&&x.path.startsWith(CFG.root+"/")).map(parseFile);
-    detectNewFiles();writeJSON(CFG.cacheKey,allFiles);finishLoad(false);
-    if(manual)toastMsg("✅ Đã đồng bộ dữ liệu GitHub");
-  }catch(e){
     const cache=readJSON(CFG.cacheKey,[]);
-    if(cache.length){allFiles=cache;newFiles=[];finishLoad(true);toastMsg("⚠ GitHub lỗi - đang dùng cache")}
-    else{grid.innerHTML=`<div class="message error">❌ ${esc(e.message)}<br><br><button onclick="loadFiles(true)">THỬ LẠI</button></div>`;$("statusText").textContent="Lỗi kết nối GitHub"}
-  }finally{$("refreshBtn").disabled=false;$("refreshBtn").textContent="🔄 CẬP NHẬT"}
+    const lastApiTime=Number(localStorage.getItem(API_CACHE_TIME_KEY)||0);
+    const cacheFresh=cache.length && (Date.now()-lastApiTime)<API_MIN_REFRESH_MS;
+
+    /*
+      GitHub Pages không cần gọi API lại mỗi phút.
+      Nếu cache còn mới và không bấm CẬP NHẬT thủ công,
+      dùng cache để tránh GitHub API 403 do rate limit.
+    */
+    if(!manual && cacheFresh){
+      allFiles=cache;
+      newFiles=[];
+      finishLoad(true);
+      $("statusText").textContent="Đã tải từ bộ nhớ đệm";
+      return;
+    }
+
+    const r=await githubPublicFetch(API);
+    const data=await r.json();
+
+    if(!data || !Array.isArray(data.tree)){
+      throw new Error("Dữ liệu GitHub không hợp lệ");
+    }
+
+    allFiles=data.tree
+      .filter(x=>x.type==="blob" && x.path && x.path.startsWith(CFG.root+"/"))
+      .map(parseFile);
+
+    detectNewFiles();
+    writeJSON(CFG.cacheKey,allFiles);
+    localStorage.setItem(API_CACHE_TIME_KEY,String(Date.now()));
+
+    finishLoad(false);
+
+    if(manual){
+      toastMsg("✅ Đã đồng bộ dữ liệu GitHub");
+    }
+
+  }catch(e){
+    console.error(e);
+
+    const cache=readJSON(CFG.cacheKey,[]);
+
+    if(cache.length){
+      allFiles=cache;
+      newFiles=[];
+      finishLoad(true);
+      $("statusText").textContent="GitHub tạm giới hạn • Đang dùng cache";
+      toastMsg("⚠ GitHub API lỗi - đang dùng dữ liệu đã lưu");
+    }else{
+      grid.innerHTML=`
+        <div class="message error">
+          ❌ ${esc(e.message)}
+          <br><br>
+          <button onclick="loadFiles(true)">THỬ LẠI</button>
+        </div>
+      `;
+      $("statusText").textContent="Lỗi kết nối GitHub";
+    }
+
+  }finally{
+    $("refreshBtn").disabled=false;
+    $("refreshBtn").textContent="🔄 CẬP NHẬT";
+  }
 }
 
 function detectNewFiles(){
@@ -1652,18 +1753,26 @@ async function githubFileExists(path){
 
   const r=await fetch(url,{
     headers:{
-      "Accept":"application/vnd.github+json",
-      ...(ADMIN_CONFIG.githubToken && ADMIN_CONFIG.githubToken!=="DAN_GITHUB_TOKEN_VAO_DAY"
-        ? {"Authorization":"Bearer "+ADMIN_CONFIG.githubToken}
-        : {})
+      "Accept":"application/vnd.github+json"
     },
     cache:"no-store"
   });
 
-  if(r.status===404)return false;
-  if(r.ok)return true;
+  if(r.status===404){
+    return false;
+  }
 
-  throw new Error("Không kiểm tra được file trùng (HTTP "+r.status+")");
+  if(r.ok){
+    return true;
+  }
+
+  let detail="";
+  try{
+    const j=await r.json();
+    if(j && j.message) detail=" - "+j.message;
+  }catch{}
+
+  throw new Error("Không kiểm tra được file trùng (HTTP "+r.status+detail+")");
 }
 
 function githubUploadXHR(path,base64,file,index){
@@ -1703,6 +1812,12 @@ function githubUploadXHR(path,base64,file,index){
         try{
           const j=JSON.parse(xhr.responseText);
           if(j.message)msg+=" - "+j.message;
+
+          if(xhr.status===401){
+            msg+=" • Token không hợp lệ/đã bị thu hồi. Hãy tạo token mới và dán lại vào ADMIN_CONFIG.githubToken.";
+          }else if(xhr.status===403){
+            msg+=" • Kiểm tra token đã chọn repo KHANH_IT và Contents = Read and write.";
+          }
         }catch{}
         reject(new Error(msg));
       }
@@ -1825,24 +1940,17 @@ async function loadUploadRepoFiles(){
   box.innerHTML='<div class="upload-empty">⏳ Đang tải danh sách...</div>';
 
   try{
-    const r=await fetch(
-      `https://api.github.com/repos/${CFG.user}/${CFG.repo}/git/trees/${CFG.branch}?recursive=1`,
-      {
-        headers:{
-          "Accept":"application/vnd.github+json",
-          ...(ADMIN_CONFIG.githubToken && ADMIN_CONFIG.githubToken!=="DAN_GITHUB_TOKEN_VAO_DAY"
-            ? {"Authorization":"Bearer "+ADMIN_CONFIG.githubToken}
-            : {})
-        },
-        cache:"no-store"
-      }
+    /*
+      Repo public: đọc danh sách UPLOAD/ không cần token.
+      Token chỉ dùng ở hàm PUT khi upload.
+    */
+    const r=await githubPublicFetch(
+      `https://api.github.com/repos/${CFG.user}/${CFG.repo}/git/trees/${CFG.branch}?recursive=1`
     );
-
-    if(!r.ok)throw new Error("HTTP "+r.status);
 
     const data=await r.json();
 
-    if(!data||!Array.isArray(data.tree)){
+    if(!data || !Array.isArray(data.tree)){
       throw new Error("Dữ liệu không hợp lệ");
     }
 
@@ -1875,7 +1983,25 @@ async function loadUploadRepoFiles(){
 
   }catch(e){
     console.error(e);
-    box.innerHTML=`<div class="upload-empty" style="color:#fca5a5">❌ Không tải được danh sách: ${esc(e.message)}</div>`;
+
+    /*
+      Nếu API bị rate-limit, vẫn cho tải trực tiếp bằng link GitHub.
+      Không làm hỏng phần Upload Center.
+    */
+    box.innerHTML=`
+      <div class="upload-empty" style="color:#fca5a5">
+        ❌ Không tải được danh sách: ${esc(e.message)}
+        <br><br>
+        <a
+          href="https://github.com/${CFG.user}/${CFG.repo}/tree/${CFG.branch}/${ADMIN_CONFIG.uploadFolder}"
+          target="_blank"
+          rel="noopener"
+          style="color:#7dd3fc;text-decoration:none"
+        >
+          MỞ THƯ MỤC UPLOAD TRÊN GITHUB
+        </a>
+      </div>
+    `;
   }
 }
 
