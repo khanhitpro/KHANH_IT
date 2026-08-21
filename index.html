@@ -10,1102 +10,373 @@
 <style>
 *{box-sizing:border-box}
 :root{
-  --bg:#0b1220;
-  --bg2:#0f172a;
-  --panel:#111827;
-  --panel2:#172033;
-  --panel3:#1e293b;
+  --bg:#070d1a;
+  --panel:#0f172a;
+  --panel-hover:#1e293b;
   --text:#f8fafc;
   --muted:#94a3b8;
   --soft:#cbd5e1;
-  --line:rgba(148,163,184,.14);
-  --line-strong:rgba(56,189,248,.25);
+  --line:rgba(148,163,184,.12);
+  --line-strong:rgba(56,189,248,.3);
   --primary:#0ea5e9;
-  --primary2:#2563eb;
+  --primary-glow:rgba(14,165,233,.25);
   --success:#22c55e;
   --warning:#f59e0b;
   --danger:#ef4444;
-  --shadow:0 18px 45px rgba(0,0,0,.28);
-  --radius:14px;
+  --radius:16px;
+}
+body.light{
+  --bg:#f1f5f9;
+  --panel:#ffffff;
+  --panel-hover:#e2e8f0;
+  --text:#0f172a;
+  --muted:#64748b;
+  --soft:#334155;
+  --line:rgba(15,23,42,.1);
+  --line-strong:rgba(14,165,233,.3);
+  --primary-glow:rgba(14,165,233,.15);
 }
 html{scroll-behavior:smooth}
 body{
-  margin:0;
-  min-height:100vh;
-  font-family:Inter,Segoe UI,Arial,Helvetica,sans-serif;
+  margin:0; min-height:100vh;
+  font-family:Inter,Segoe UI,Arial,sans-serif;
   color:var(--text);
   background:
-    radial-gradient(circle at 20% 0%,rgba(14,165,233,.12),transparent 30%),
-    radial-gradient(circle at 100% 20%,rgba(37,99,235,.10),transparent 28%),
-    linear-gradient(180deg,#0a1020,#0b1220 45%,#08111e);
-  padding-bottom:54px;
+    radial-gradient(circle at 10% 0%,rgba(14,165,233,.15),transparent 35%),
+    radial-gradient(circle at 90% 10%,rgba(37,99,235,.12),transparent 30%),
+    var(--bg);
+  padding-bottom:80px;
+  transition:background .3s, color .3s;
 }
 button,input,select{font:inherit}
 button{cursor:pointer}
 .hidden{display:none!important}
 
-/* APP SHELL */
+/* TOPBAR */
 .topbar{
   position:sticky;top:0;z-index:1200;
   display:flex;justify-content:space-between;align-items:center;
-  gap:18px;padding:12px 18px;
-  background:rgba(8,15,28,.92);
-  backdrop-filter:blur(18px);
+  gap:16px;padding:12px 24px;
+  background:var(--panel);backdrop-filter:blur(16px);
   border-bottom:1px solid var(--line);
 }
 .brand{display:flex;align-items:center;gap:12px}
 .brand img{
-  width:42px;height:42px;border-radius:10px;object-fit:cover;
-  box-shadow:0 0 0 1px rgba(255,255,255,.06),0 6px 16px rgba(0,0,0,.25)
+  width:42px;height:42px;border-radius:12px;object-fit:cover;
+  box-shadow:0 0 0 1px rgba(255,255,255,.08),0 8px 20px rgba(0,0,0,.3)
 }
-.brand b{display:block;font-size:15px;letter-spacing:.3px}
-.brand small{display:block;color:var(--muted);margin-top:3px;font-size:10px;letter-spacing:.7px}
-.top-actions{display:flex;gap:7px}
+.brand b{display:block;font-size:16px;letter-spacing:.3px}
+.brand small{display:block;color:var(--muted);margin-top:2px;font-size:10px;letter-spacing:.8px}
+.top-actions{display:flex;gap:8px}
 .top-btn{
-  width:38px;height:38px;border:1px solid var(--line);
-  background:rgba(17,24,39,.9);color:#dbeafe;border-radius:10px;
-  transition:.18s
+  width:40px;height:40px;border:1px solid var(--line);
+  background:var(--panel-hover);color:var(--text);border-radius:12px;
+  display:flex;align-items:center;justify-content:center;transition:.2s
 }
-.top-btn:hover{border-color:var(--line-strong);background:#172033;transform:translateY(-1px)}
+.top-btn:hover{border-color:var(--line-strong);transform:translateY(-2px)}
 
-/* HERO / APP HEADER */
-.hero{
-  width:min(1540px,95%);margin:18px auto 0;
-  text-align:left;padding:0;
-}
-.hero h1{
-  margin:0;font-size:24px;font-weight:700;letter-spacing:.2px;
-  color:#f8fafc;-webkit-text-fill-color:initial;background:none
-}
-.hero p{color:var(--muted);margin:6px 0 0;font-size:12px}
+/* HERO */
+.hero{width:min(1540px,94%);margin:24px auto 0;text-align:left}
+.hero h1{margin:0;font-size:26px;font-weight:800;letter-spacing:-.3px}
+.hero p{color:var(--muted);margin:6px 0 0;font-size:13px}
 
 /* STATUS STRIP */
 .statusbar{
-  width:min(1540px,95%);margin:12px auto 0;
-  display:flex;justify-content:flex-start;gap:10px;flex-wrap:wrap;
-  padding:0;color:var(--muted);font-size:11px
+  width:min(1540px,94%);margin:14px auto 0;
+  display:flex;gap:10px;flex-wrap:wrap;color:var(--muted);font-size:11px
 }
 .statusitem{
-  display:flex;align-items:center;gap:6px;
-  background:rgba(17,24,39,.62);
-  border:1px solid var(--line);
-  padding:7px 9px;border-radius:9px
+  display:flex;align-items:center;gap:8px;
+  background:var(--panel);border:1px solid var(--line);
+  padding:8px 12px;border-radius:10px;backdrop-filter:blur(8px)
 }
-.dot{width:7px;height:7px;border-radius:50%;background:var(--success);box-shadow:0 0 10px rgba(34,197,94,.7)}
-.container{width:min(1540px,95%);margin:14px auto 0}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--success);box-shadow:0 0 12px rgba(34,197,94,.8)}
 
-/* TOOLBAR */
-.toolbar{
-  display:grid;grid-template-columns:minmax(280px,1fr) auto auto;gap:8px;
-  padding:10px;background:rgba(17,24,39,.66);border:1px solid var(--line);
-  border-radius:var(--radius);box-shadow:0 10px 30px rgba(0,0,0,.12)
-}
-.search{position:relative}
-.search span{position:absolute;left:14px;top:50%;transform:translateY(-50%);opacity:.7}
-.search input{
-  width:100%;height:42px;padding:0 14px 0 40px;border:1px solid var(--line);
-  border-radius:10px;outline:none;background:#0f172a;color:white;
-  transition:.18s
-}
-.search input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(14,165,233,.10)}
-.primary-btn,.secondary-btn{
-  min-height:42px;border-radius:10px;padding:0 14px;font-weight:600;transition:.18s
-}
-.primary-btn{
-  border:1px solid rgba(14,165,233,.28);
-  color:white;background:linear-gradient(180deg,#0ea5e9,#0284c7);
-  box-shadow:0 8px 18px rgba(14,165,233,.12)
-}
-.primary-btn:hover{filter:brightness(1.06);transform:translateY(-1px)}
-.secondary-btn{
-  border:1px solid var(--line);color:var(--soft);background:#111827
-}
-.secondary-btn:hover{background:#172033;border-color:rgba(148,163,184,.22)}
-
-/* DASHBOARD STATS */
-.quickstats{
-  display:grid;grid-template-columns:repeat(5,minmax(0,1fr));
-  gap:10px;margin:10px 0 12px
-}
-.statcard{
-  position:relative;overflow:hidden;text-align:left;
-  background:linear-gradient(180deg,rgba(17,24,39,.96),rgba(15,23,42,.94));
-  border:1px solid var(--line);border-radius:12px;padding:14px 14px 13px;
-  box-shadow:0 10px 22px rgba(0,0,0,.11)
-}
-.statcard::after{
-  content:"";position:absolute;right:-22px;top:-28px;width:78px;height:78px;border-radius:50%;
-  background:rgba(14,165,233,.08)
-}
-.statcard b{display:block;font-size:20px;line-height:1.1;color:#f8fafc;font-weight:700}
-.statcard span{display:block;margin-top:6px;font-size:9px;letter-spacing:.8px;color:#64748b;font-weight:600}
-
-/* MAIN WORKSPACE */
-.workspace{
-  display:grid;grid-template-columns:230px minmax(0,1fr);gap:12px;
-  align-items:start
-}
-.sidebar{
-  position:sticky;top:78px;max-height:calc(100vh - 136px);overflow:auto;
-  background:rgba(17,24,39,.78);border:1px solid var(--line);
-  border-radius:var(--radius);padding:10px;box-shadow:0 12px 28px rgba(0,0,0,.12)
-}
-.side-title{
-  font-size:9px;letter-spacing:1px;font-weight:700;color:#64748b;
-  padding:4px 7px 8px
-}
-.folder-node{
-  display:block;width:100%;text-align:left;border:0;background:transparent;
-  color:#94a3b8;padding:8px 9px;border-radius:8px;font-size:11px;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:.15s
-}
-.folder-node:hover{background:rgba(30,41,59,.72);color:#e2e8f0}
-.folder-node.active{
-  color:#fff;background:linear-gradient(90deg,rgba(14,165,233,.18),rgba(37,99,235,.12));
-  box-shadow:inset 3px 0 0 var(--primary)
-}
-
-/* CONTENT PANEL */
-.workspace>section{
-  min-width:0;background:rgba(17,24,39,.48);
-  border:1px solid var(--line);border-radius:var(--radius);
-  padding:10px
-}
+.container{width:min(1540px,94%);margin:16px auto 0}
 
 /* TABS */
 .tabs{
-  display:flex;gap:6px;overflow-x:auto;padding:0 0 10px;
-  border-bottom:1px solid var(--line);margin-bottom:10px
+  display:flex;gap:8px;overflow-x:auto;padding-bottom:12px;margin-bottom:12px;
+  border-bottom:1px solid var(--line)
 }
 .tab{
-  min-width:max-content;border:1px solid transparent;background:transparent;
-  color:#94a3b8;border-radius:8px;padding:7px 10px;font-weight:600;font-size:11px;
-  transition:.15s
+  padding:8px 16px;border-radius:10px;border:1px solid var(--line);
+  background:var(--panel);color:var(--muted);font-size:12px;font-weight:600;transition:.2s;
+  white-space:nowrap
 }
-.tab:hover{color:#e2e8f0;background:rgba(30,41,59,.55)}
+.tab:hover{background:var(--panel-hover);color:var(--text)}
 .tab.active{
-  color:white;background:#172033;border-color:rgba(56,189,248,.18);
-  box-shadow:inset 0 -2px 0 var(--primary)
-}
-.count{
-  margin-left:5px;background:rgba(148,163,184,.12);
-  border-radius:99px;padding:2px 5px;font-size:8px;color:#cbd5e1
+  background:linear-gradient(180deg,#0ea5e9,#0284c7);color:white;border-color:transparent;
+  box-shadow:0 4px 14px rgba(14,165,233,.3)
 }
 
-/* FILTERS */
-.filters{
-  display:grid;grid-template-columns:repeat(5,minmax(120px,1fr));
-  gap:8px;margin-top:2px
+/* TOOLBAR & FILTERS */
+.toolbar{
+  display:grid;grid-template-columns:minmax(280px,1fr) auto auto auto auto;gap:10px;
+  padding:14px;background:var(--panel);border:1px solid var(--line);
+  border-radius:var(--radius);box-shadow:0 12px 30px rgba(0,0,0,.1);
+  margin-bottom:12px
 }
-.filter label{
-  display:block;font-size:9px;color:#64748b;margin:0 0 4px 2px;
-  font-weight:700;letter-spacing:.55px
+.search{position:relative}
+.search span{position:absolute;left:16px;top:50%;transform:translateY(-50%);opacity:.6}
+.search input{
+  width:100%;height:46px;padding:0 16px 0 44px;border:1px solid var(--line);
+  border-radius:12px;outline:none;background:var(--bg);color:var(--text);transition:.2s;font-size:13px
 }
-.filter select{
-  width:100%;height:38px;padding:0 10px;border-radius:9px;border:1px solid var(--line);
-  background:#0f172a;color:#e2e8f0;outline:none;font-size:11px
+.search input:focus{border-color:var(--primary);box-shadow:0 0 0 4px var(--primary-glow)}
+
+.filter-bar{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;
+  margin-bottom:14px
 }
-.filter select:focus{border-color:var(--primary)}
-.resultbar{
-  display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;
-  color:#64748b;font-size:10px;padding:10px 2px 6px
+.filter-bar select{
+  width:100%;height:42px;padding:0 14px;border-radius:12px;border:1px solid var(--line);
+  background:var(--panel);color:var(--text);outline:none;font-size:12px;transition:.2s
+}
+.filter-bar select:focus{border-color:var(--primary)}
+
+.primary-btn,.secondary-btn{
+  height:46px;border-radius:12px;padding:0 18px;font-weight:600;font-size:13px;transition:.2s;display:flex;align-items:center;justify-content:center;gap:6px
+}
+.primary-btn{
+  border:1px solid rgba(14,165,233,0.3);color:white;
+  background:linear-gradient(180deg,#0ea5e9,#0284c7);
+  box-shadow:0 6px 20px rgba(14,165,233,.2)
+}
+.primary-btn:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.secondary-btn{border:1px solid var(--line);color:var(--soft);background:var(--panel)}
+.secondary-btn:hover{background:var(--panel-hover);border-color:var(--line-strong)}
+
+/* QUICK STATS */
+.quickstats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-bottom:16px}
+.statcard{
+  position:relative;overflow:hidden;text-align:left;
+  background:var(--panel);
+  border:1px solid var(--line);border-radius:var(--radius);padding:16px;
+  box-shadow:0 8px 24px rgba(0,0,0,.08)
+}
+.statcard b{display:block;font-size:22px;line-height:1.2;color:var(--text);font-weight:800}
+.statcard span{display:block;margin-top:6px;font-size:10px;letter-spacing:.8px;color:var(--muted);font-weight:700}
+
+/* WORKSPACE */
+.workspace{display:grid;grid-template-columns:250px minmax(0,1fr);gap:16px;align-items:start}
+.sidebar{
+  position:sticky;top:84px;max-height:calc(100vh - 140px);overflow:auto;
+  background:var(--panel);border:1px solid var(--line);
+  border-radius:var(--radius);padding:12px
+}
+.side-title{font-size:10px;letter-spacing:1px;font-weight:700;color:var(--muted);padding:6px 8px 10px}
+.folder-node{
+  display:block;width:100%;text-align:left;border:0;background:transparent;
+  color:var(--muted);padding:9px 12px;border-radius:10px;font-size:12px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:.15s
+}
+.folder-node:hover{background:var(--panel-hover);color:var(--text)}
+.folder-node.active{
+  color:white;background:linear-gradient(90deg,rgba(14,165,233,.25),rgba(37,99,235,.2));
+  box-shadow:inset 3px 0 0 var(--primary);font-weight:600
 }
 
-/* FILE GRID */
-.grid{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-  gap:10px;padding-bottom:16px
+.workspace>section{
+  min-width:0;background:var(--panel);
+  border:1px solid var(--line);border-radius:var(--radius);padding:14px
 }
-.grid.list-mode{grid-template-columns:1fr}
-.grid.list-mode .card{
-  display:grid;grid-template-columns:54px minmax(0,1fr) 390px;
-  gap:12px;align-items:center
-}
-.grid.list-mode .file-title{min-height:auto;margin-top:0}
-.grid.list-mode .actions{min-width:360px}
-.grid.list-mode .versions,.grid.list-mode .version-btn{grid-column:1/-1}
 
-/* FILE CARD */
+.resultbar{display:flex;justify-content:space-between;color:var(--muted);font-size:11px;padding:6px 4px 12px}
+
+/* GRID & LIST VIEW */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;padding-bottom:10px}
+.grid.list-layout{display:block}
+
 .card{
-  position:relative;overflow:hidden;border-radius:12px;padding:14px;
-  background:linear-gradient(180deg,rgba(17,24,39,.94),rgba(15,23,42,.96));
-  border:1px solid var(--line);transition:.18s
+  position:relative;overflow:hidden;border-radius:var(--radius);padding:16px;
+  background:var(--panel);
+  border:1px solid var(--line);transition:.2s
 }
-.card:hover{
-  border-color:rgba(56,189,248,.24);
-  box-shadow:0 12px 26px rgba(0,0,0,.16);
-  transform:translateY(-2px)
-}
-.card.new::before{
-  content:"MỚI";position:absolute;right:10px;top:10px;
-  background:rgba(34,197,94,.12);color:#86efac;border:1px solid rgba(34,197,94,.22);
-  border-radius:999px;padding:3px 7px;font-size:8px;font-weight:700
-}
-.card.favorite{outline:1px solid rgba(245,158,11,.28)}
-.card-head{display:flex;justify-content:space-between;gap:8px}
+.card:hover{border-color:var(--line-strong);box-shadow:0 14px 32px rgba(0,0,0,0.15);transform:translateY(-3px)}
+.card-head{display:flex;justify-content:space-between;align-items:center;gap:8px}
 .file-icon{
-  width:40px;height:40px;display:flex;align-items:center;justify-content:center;
-  background:#0f172a;border:1px solid var(--line);border-radius:10px;font-size:22px
+  width:42px;height:42px;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);border:1px solid var(--line);border-radius:12px;font-size:20px
 }
-.badges{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end;padding-right:42px}
+.badges{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
 .badge{
-  font-size:8px;padding:3px 6px;border-radius:999px;
-  border:1px solid rgba(148,163,184,.14);background:rgba(30,41,59,.7);color:#cbd5e1
+  font-size:9px;padding:3px 8px;border-radius:20px;font-weight:600;
+  border:1px solid var(--line);background:var(--panel-hover);color:var(--text)
 }
-.badge.warn{color:#fcd34d;border-color:rgba(245,158,11,.18);background:rgba(245,158,11,.07)}
-.badge.green{color:#86efac;border-color:rgba(34,197,94,.18);background:rgba(34,197,94,.07)}
-.file-title{
-  margin-top:11px;min-height:38px;font-weight:650;font-size:13px;
-  line-height:1.35;word-break:break-word;color:#f1f5f9
-}
-.original{font-size:9px;color:#475569;margin-top:5px;word-break:break-all}
-.meta{
-  display:flex;flex-wrap:wrap;gap:7px;color:#94a3b8;font-size:9px;margin-top:8px
-}
-.path{font-size:9px;color:#38bdf8;margin:8px 0 11px;word-break:break-word}
-.actions{display:grid;grid-template-columns:1fr repeat(4,36px);gap:5px}
+.badge.warn{color:var(--warning);border-color:rgba(245,158,11,.3);background:rgba(245,158,11,.1)}
+.badge.green{color:var(--success);border-color:rgba(34,197,94,.3);background:rgba(34,197,94,.1)}
+
+.file-title{margin-top:12px;min-height:40px;font-weight:700;font-size:14px;line-height:1.4;word-break:break-word}
+.original{font-size:10px;color:var(--muted);margin-top:4px;word-break:break-all}
+.meta{display:flex;flex-wrap:wrap;gap:10px;color:var(--muted);font-size:10px;margin-top:10px}
+.path{font-size:10px;color:var(--primary);margin:10px 0 12px;word-break:break-word}
+
+.actions{display:grid;grid-template-columns:1fr repeat(3,38px);gap:6px}
 .download{
-  display:flex;align-items:center;justify-content:center;min-height:36px;border-radius:9px;
-  text-decoration:none;color:white;font-weight:650;font-size:11px;
-  background:linear-gradient(180deg,#0ea5e9,#0284c7)
+  display:flex;align-items:center;justify-content:center;min-height:38px;border-radius:10px;
+  text-decoration:none;color:white;font-weight:700;font-size:12px;
+  background:linear-gradient(180deg,#0ea5e9,#0284c7);box-shadow:0 4px 12px rgba(14,165,233,.2)
 }
-.download:hover{filter:brightness(1.06)}
+.download:hover{filter:brightness(1.08)}
 .iconbtn{
-  min-height:36px;border:1px solid var(--line);background:#111827;
-  color:#cbd5e1;border-radius:9px;transition:.15s
+  min-height:38px;border:1px solid var(--line);background:var(--panel);
+  color:var(--text);border-radius:10px;transition:.15s;display:flex;align-items:center;justify-content:center
 }
-.iconbtn:hover{background:#1e293b;color:white;border-color:rgba(56,189,248,.18)}
-.version-btn{
-  width:100%;margin-top:6px;min-height:32px;border:1px solid var(--line);
-  background:#0f172a;color:#94a3b8;border-radius:8px;font-size:10px
-}
-.versions{
-  display:none;margin-top:7px;padding:7px;background:rgba(2,6,23,.42);
-  border:1px solid var(--line);border-radius:8px
-}
-.versions.show{display:block}
-.version-row{
-  display:flex;justify-content:space-between;gap:8px;align-items:center;
-  padding:6px 2px;border-bottom:1px solid var(--line);font-size:9px
-}
-.version-row:last-child{border-bottom:0}
-.version-row a{color:var(--primary);text-decoration:none;font-weight:700}
+.iconbtn:hover{background:var(--panel-hover);border-color:var(--line-strong)}
 
-/* MESSAGES */
-.message{
-  grid-column:1/-1;text-align:center;padding:45px 20px;border:1px dashed var(--line);
-  border-radius:12px;background:rgba(15,23,42,.45);color:#64748b;font-size:12px
+/* List View Override */
+.card.list-view{
+  display:grid;grid-template-columns:46px minmax(200px,2fr) 1fr 1fr 220px;align-items:center;gap:12px;
+  padding:10px 14px;margin-bottom:8px;
 }
-.error{color:#fca5a5}
+.card.list-view:hover{transform:none}
+.card.list-view .card-head{display:none}
+.card.list-view .file-title{margin:0;min-height:auto;font-size:13px}
+.card.list-view .original{display:none}
+.card.list-view .path{margin:0;font-size:11px}
+.card.list-view .meta{margin:0;font-size:11px}
+.card.list-view .actions{grid-template-columns:1fr repeat(3,34px);gap:4px}
+.card.list-view .download{min-height:34px;font-size:11px}
+.card.list-view .iconbtn{min-height:34px}
 
-/* MODALS */
+.message{grid-column:1/-1;text-align:center;padding:50px 20px;border:1px dashed var(--line);border-radius:var(--radius);color:var(--muted);font-size:13px}
+
+/* MARQUEE FOOTER */
+.marquee-container{
+  position:fixed;bottom:0;left:0;width:100%;
+  background:var(--panel);border-top:1px solid var(--line);
+  padding:10px 0;overflow:hidden;z-index:1100;
+  font-size:12px;color:var(--muted);font-weight:600;
+  backdrop-filter:blur(8px);
+}
+.marquee-text{
+  display:inline-block;white-space:nowrap;
+  animation:marquee 40s linear infinite;
+  padding-left:100%;
+}
+@keyframes marquee{
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-100%, 0); }
+}
+
+/* MODALS & TOAST */
 .modal{
   position:fixed;inset:0;z-index:5000;display:none;align-items:center;justify-content:center;
-  background:rgba(0,0,0,.68);padding:15px;backdrop-filter:blur(8px)
+  background:rgba(0,0,0,.7);padding:16px;backdrop-filter:blur(8px)
 }
 .modal.show{display:flex}
 .modalbox{
-  width:min(560px,96%);max-height:90vh;overflow:auto;
-  background:#0f172a;border:1px solid var(--line);border-radius:14px;
-  padding:18px;box-shadow:0 24px 80px rgba(0,0,0,.48)
+  width:min(580px,96%);max-height:90vh;overflow:auto;
+  background:var(--panel);border:1px solid var(--line-strong);border-radius:20px;
+  padding:24px;box-shadow:0 25px 60px rgba(0,0,0,0.4)
 }
-.modalbox h3{margin:0 0 12px;font-size:15px}
-.qr{
-  display:block;width:220px;max-width:100%;margin:15px auto;background:white;
-  padding:8px;border-radius:10px
+.modalbox h3{margin:0 0 16px;font-size:18px;font-weight:700}
+.closebtn{
+  width:100%;padding:12px;border:1px solid var(--line);border-radius:12px;
+  margin-top:16px;background:var(--panel-hover);color:var(--text);font-weight:600
 }
 .command{
-  background:#08111e;border:1px solid var(--line);border-radius:8px;
-  padding:9px;margin:6px 0;font:11px Consolas,monospace;word-break:break-all;color:#cbd5e1
+  background:var(--bg);border:1px solid var(--line);border-radius:10px;
+  padding:10px;margin:8px 0;font:12px Consolas,monospace;word-break:break-all;color:var(--text)
 }
-.command-row{display:grid;grid-template-columns:1fr auto;gap:6px}
-.closebtn{
-  width:100%;padding:9px;border:1px solid var(--line);border-radius:9px;
-  margin-top:10px;background:#172033;color:white
-}
+.command-row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}
 
-/* TOAST */
 .toast{
-  position:fixed;right:18px;bottom:68px;z-index:6000;padding:10px 13px;
-  background:#111827;border:1px solid var(--line);border-radius:9px;
-  box-shadow:var(--shadow);opacity:0;transform:translateY(8px);
-  pointer-events:none;transition:.18s;font-size:11px
+  position:fixed;right:20px;bottom:45px;z-index:6000;padding:12px 18px;
+  background:var(--panel);border:1px solid var(--line-strong);border-radius:12px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.3);opacity:0;transform:translateY(10px);
+  pointer-events:none;transition:.2s;font-size:12px;font-weight:600;color:var(--text)
 }
 .toast.show{opacity:1;transform:translateY(0)}
 
-/* FOOTER MARQUEE */
-.marquee{
-  position:fixed;bottom:0;left:0;width:100%;z-index:4000;overflow:hidden;
-  padding:8px 0;background:rgba(8,15,28,.97);border-top:1px solid var(--line)
-}
-.marquee div{
-  display:inline-block;white-space:nowrap;padding-left:100%;color:#64748b;
-  font-size:10px;font-weight:600;letter-spacing:.2px;animation:marq 34s linear infinite
-}
-@keyframes marq{from{transform:translateX(0)}to{transform:translateX(-100%)}}
-
-/* TV MODE */
-body.tv-mode{font-size:18px}
-body.tv-mode .container,body.tv-mode .hero,body.tv-mode .statusbar{width:97%}
-body.tv-mode .grid{grid-template-columns:repeat(auto-fill,minmax(360px,1fr))}
-body.tv-mode .card{padding:20px}
-body.tv-mode .file-title{font-size:18px}
-body.tv-mode .download,body.tv-mode .iconbtn{min-height:48px}
-
-/* LIGHT */
-body.light{
-  --bg:#f8fafc;--panel:#fff;--panel2:#f1f5f9;--panel3:#e2e8f0;
-  --text:#0f172a;--muted:#64748b;--soft:#334155;
-  --line:rgba(15,23,42,.08);--line-strong:rgba(2,132,199,.20);
-  color:var(--text);background:#f8fafc
-}
-body.light .topbar,body.light .marquee{background:rgba(255,255,255,.96)}
-body.light .toolbar,body.light .sidebar,body.light .workspace>section,body.light .statcard,body.light .card{background:#fff}
-body.light .search input,body.light select,body.light .secondary-btn,body.light .top-btn,body.light .iconbtn,body.light .version-btn{background:#f8fafc;color:#0f172a}
-body.light .file-title,body.light .brand b{color:#0f172a}
-body.light .message{background:#fff}
-
-/* RESPONSIVE */
-@media(max-width:1080px){
+@media(max-width:1024px){
   .workspace{grid-template-columns:1fr}
   .sidebar{position:static;max-height:none}
-  .filters{grid-template-columns:repeat(3,1fr)}
   .quickstats{grid-template-columns:repeat(3,1fr)}
+  .toolbar{grid-template-columns:1fr}
+  .card.list-view{display:block;padding:16px}
+  .card.list-view .card-head{display:flex}
+  .card.list-view .file-title{margin-top:12px}
+  .card.list-view .path{margin:10px 0 12px}
+  .card.list-view .meta{margin-top:10px;margin-bottom:10px}
+  .card.list-view .actions{grid-template-columns:1fr repeat(3,38px)}
+}
+@media(max-width:640px){
+  .quickstats{grid-template-columns:repeat(2,1fr)}
 }
-@media(max-width:760px){
-  .toolbar{grid-template-columns:1fr 1fr}
-  .search{grid-column:1/-1}
-  .filters{grid-template-columns:1fr 1fr}
-  .quickstats{grid-template-columns:1fr 1fr}
-  .hero h1{font-size:22px}
-  .grid.list-mode .card{display:block}
-  .grid.list-mode .actions{min-width:0}
-}
-@media(max-width:480px){
-  .top-actions .optional{display:none}
-  .filters{grid-template-columns:1fr}
-  .grid{grid-template-columns:1fr}
-  .quickstats{grid-template-columns:1fr 1fr}
-  .actions{grid-template-columns:1fr repeat(4,34px)}
-  .brand small{display:none}
-}
-
-/* ==========================================================
-ADMIN / UPLOAD CENTER
-========================================================== */
-.admin-modal .modalbox{width:min(760px,97%)}
-.admin-login{
-  max-width:420px;margin:0 auto;padding:4px 0 8px
-}
-.admin-login h3{font-size:18px;margin:0 0 6px}
-.admin-login p{color:var(--muted);font-size:11px;margin:0 0 14px}
-.admin-field{margin-bottom:9px}
-.admin-field label{
-  display:block;font-size:9px;font-weight:700;letter-spacing:.6px;color:#64748b;margin:0 0 5px 2px
-}
-.admin-field input{
-  width:100%;height:42px;border:1px solid var(--line);border-radius:9px;
-  background:#08111e;color:white;outline:none;padding:0 12px
-}
-.admin-field input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(14,165,233,.09)}
-.login-btn{
-  width:100%;height:42px;border:0;border-radius:9px;color:white;font-weight:700;
-  background:linear-gradient(180deg,#0ea5e9,#0284c7);margin-top:3px
-}
-.login-status{min-height:18px;margin-top:8px;text-align:center;color:#fca5a5;font-size:11px}
-
-.admin-header{
-  display:flex;justify-content:space-between;align-items:center;gap:10px;
-  padding-bottom:12px;border-bottom:1px solid var(--line)
-}
-.admin-header h3{margin:0;font-size:17px}
-.admin-sub{font-size:10px;color:var(--muted);margin-top:4px}
-.logout-btn{
-  border:1px solid var(--line);background:#111827;color:#cbd5e1;border-radius:9px;
-  padding:8px 11px;font-size:10px
-}
-.upload-dest{
-  margin:12px 0 8px;padding:10px 12px;border-radius:10px;
-  border:1px solid rgba(56,189,248,.15);background:rgba(14,165,233,.05);
-  color:#bae6fd;font-size:11px
-}
-.drop-zone{
-  margin-top:10px;padding:30px 16px;text-align:center;border:1px dashed rgba(56,189,248,.34);
-  border-radius:12px;background:rgba(2,6,23,.35);transition:.18s
-}
-.drop-zone.dragover{
-  border-color:#38bdf8;background:rgba(14,165,233,.08);
-  box-shadow:inset 0 0 0 1px rgba(56,189,248,.15)
-}
-.drop-zone .drop-icon{font-size:34px;margin-bottom:7px}
-.drop-zone b{display:block;font-size:13px}
-.drop-zone span{display:block;color:var(--muted);font-size:10px;margin-top:5px}
-.select-files-btn{
-  margin-top:12px;border:1px solid var(--line);background:#172033;color:white;
-  border-radius:9px;padding:8px 12px;font-size:10px
-}
-.upload-list{
-  margin-top:10px;border:1px solid var(--line);border-radius:10px;overflow:hidden
-}
-.upload-empty{padding:14px;text-align:center;color:#64748b;font-size:10px}
-.upload-row{
-  display:grid;grid-template-columns:minmax(0,1fr) 82px 90px 34px;
-  align-items:center;gap:8px;padding:9px 10px;border-bottom:1px solid var(--line);
-  font-size:10px
-}
-.upload-row:last-child{border-bottom:0}
-.upload-file-name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#e2e8f0}
-.upload-file-size{color:#64748b}
-.upload-state{font-size:9px;color:#94a3b8;text-align:right}
-.upload-remove{
-  width:30px;height:30px;border:1px solid var(--line);border-radius:8px;background:#111827;color:#94a3b8
-}
-.progress-wrap{
-  grid-column:1/-1;height:4px;border-radius:99px;overflow:hidden;background:#08111e;margin-top:-2px
-}
-.progress-bar{height:100%;width:0;background:linear-gradient(90deg,#0ea5e9,#22c55e);transition:width .15s}
-.upload-actions{
-  display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:10px
-}
-.start-upload-btn{
-  min-height:42px;border:0;border-radius:9px;color:white;font-weight:700;
-  background:linear-gradient(180deg,#22c55e,#16a34a)
-}
-.refresh-upload-btn{
-  min-height:42px;border:1px solid var(--line);border-radius:9px;background:#111827;color:#cbd5e1;padding:0 13px
-}
-.start-upload-btn:disabled{opacity:.45;cursor:not-allowed}
-
-.repo-files-title{
-  margin:16px 0 8px;font-size:10px;font-weight:700;letter-spacing:.6px;color:#64748b
-}
-.repo-file-list{
-  max-height:260px;overflow:auto;border:1px solid var(--line);border-radius:10px
-}
-.repo-file-row{
-  display:grid;grid-template-columns:minmax(0,1fr) 90px 90px;
-  gap:8px;align-items:center;padding:9px 10px;border-bottom:1px solid var(--line);font-size:10px
-}
-.repo-file-row:last-child{border-bottom:0}
-.repo-file-row .name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.repo-download{
-  text-align:center;text-decoration:none;color:#7dd3fc;border:1px solid rgba(56,189,248,.15);
-  border-radius:8px;padding:7px 8px;background:rgba(14,165,233,.05)
-}
-.admin-note{
-  margin-top:10px;color:#64748b;font-size:9px;line-height:1.5
-}
-
-@media(max-width:600px){
-  .upload-row{grid-template-columns:minmax(0,1fr) 65px 34px}
-  .upload-state{grid-column:1/3;text-align:left}
-  .repo-file-row{grid-template-columns:minmax(0,1fr) 75px}
-  .repo-file-row .size{display:none}
-}
-
-
-/* ==========================================================
-UPLOAD UI - LARGE PROFESSIONAL TEXT
-========================================================== */
-.admin-modal .modalbox{
-  width:min(880px,97%);
-  padding:24px;
-}
-
-.admin-header h3{
-  font-size:22px;
-  letter-spacing:.2px;
-}
-
-.admin-sub{
-  font-size:13px;
-  line-height:1.5;
-}
-
-.upload-dest{
-  font-size:14px;
-  padding:13px 15px;
-  margin:16px 0 12px;
-}
-
-.drop-zone{
-  padding:44px 22px;
-  border-radius:14px;
-}
-
-.drop-zone .drop-icon{
-  font-size:46px;
-  margin-bottom:10px;
-}
-
-.drop-zone b{
-  font-size:18px;
-  letter-spacing:.2px;
-}
-
-.drop-zone span{
-  font-size:13px;
-  margin-top:8px;
-  line-height:1.5;
-}
-
-.select-files-btn{
-  margin-top:16px;
-  padding:11px 18px;
-  font-size:13px;
-  font-weight:700;
-}
-
-.upload-list{
-  margin-top:14px;
-  border-radius:12px;
-}
-
-.upload-row{
-  grid-template-columns:minmax(0,1fr) 100px 140px 40px;
-  gap:10px;
-  padding:12px 13px;
-  font-size:13px;
-}
-
-.upload-file-name{
-  font-size:14px;
-  font-weight:600;
-}
-
-.upload-file-size{
-  font-size:12px;
-}
-
-.upload-state{
-  font-size:12px;
-}
-
-.upload-remove{
-  width:34px;
-  height:34px;
-  font-size:18px;
-}
-
-.progress-wrap{
-  height:6px;
-  border-radius:99px;
-}
-
-.upload-actions{
-  margin-top:14px;
-  gap:10px;
-}
-
-.start-upload-btn,
-.refresh-upload-btn{
-  min-height:50px;
-  font-size:15px;
-  font-weight:700;
-}
-
-.repo-files-title{
-  margin:20px 0 10px;
-  font-size:12px;
-  letter-spacing:.8px;
-}
-
-.repo-file-list{
-  max-height:320px;
-  border-radius:12px;
-}
-
-.repo-file-row{
-  grid-template-columns:minmax(0,1fr) 110px 110px;
-  padding:12px 13px;
-  font-size:13px;
-}
-
-.repo-file-row .name{
-  font-size:13px;
-}
-
-.repo-download{
-  padding:9px 10px;
-  font-size:12px;
-  font-weight:700;
-}
-
-.admin-note{
-  margin-top:14px;
-  font-size:11px;
-  line-height:1.65;
-}
-
-.admin-login{
-  max-width:470px;
-  padding:8px 0 12px;
-}
-
-.admin-login h3{
-  font-size:22px;
-}
-
-.admin-login p{
-  font-size:13px;
-  line-height:1.5;
-}
-
-.admin-field label{
-  font-size:11px;
-}
-
-.admin-field input{
-  height:48px;
-  font-size:14px;
-}
-
-.login-btn{
-  height:48px;
-  font-size:14px;
-}
-
-.login-status{
-  font-size:12px;
-}
-
-@media(max-width:600px){
-  .admin-modal .modalbox{
-    padding:16px;
-  }
-
-  .admin-header h3{
-    font-size:19px;
-  }
-
-  .drop-zone{
-    padding:34px 16px;
-  }
-
-  .drop-zone b{
-    font-size:16px;
-  }
-
-  .upload-row{
-    grid-template-columns:minmax(0,1fr) 80px 38px;
-    font-size:12px;
-  }
-
-  .upload-state{
-    grid-column:1/3;
-    text-align:left;
-  }
-
-  .repo-file-row{
-    grid-template-columns:minmax(0,1fr) 85px;
-  }
-}
-
-
-/* TEXT SIZE SLIDER */
-:root{--text-zoom:1}
-body.text-zoom .hero h1,
-body.text-zoom .file-title,
-body.text-zoom .admin-header h3,
-body.text-zoom .drop-zone b{
-  zoom:var(--text-zoom);
-}
-.text-slider-box{
- position:fixed;right:18px;bottom:62px;z-index:4500;
- display:flex;align-items:center;gap:8px;
- padding:9px 11px;border:1px solid var(--line);border-radius:12px;
- background:rgba(15,23,42,.96);box-shadow:0 12px 28px rgba(0,0,0,.28)
-}
-.text-slider-box span{font-weight:800;color:#cbd5e1}
-.text-slider-box input{width:150px;accent-color:#0ea5e9;cursor:pointer}
-.text-slider-box b{min-width:44px;text-align:center;color:#7dd3fc;font-size:11px}
-.text-slider-box button{
- height:32px;border:1px solid var(--line);border-radius:8px;
- background:#172033;color:#e2e8f0;padding:0 8px;font-size:10px
-}
-body.light .text-slider-box{background:rgba(255,255,255,.96)}
-@media(max-width:600px){
- .text-slider-box{left:10px;right:10px}
- .text-slider-box input{flex:1;width:auto}
-}
-
-
-/* ==========================================================
-V5 UPGRADE
-========================================================== */
-
-/* Global UI text scale - safer than browser zoom */
-:root{
-  --v5-font-scale:1;
-}
-
-body.v5-font-scale{
-  font-size:calc(16px * var(--v5-font-scale));
-}
-
-body.v5-font-scale .brand b{font-size:calc(15px * var(--v5-font-scale))}
-body.v5-font-scale .brand small{font-size:calc(10px * var(--v5-font-scale))}
-body.v5-font-scale .hero h1{font-size:calc(24px * var(--v5-font-scale))}
-body.v5-font-scale .hero p{font-size:calc(12px * var(--v5-font-scale))}
-body.v5-font-scale .statusbar{font-size:calc(11px * var(--v5-font-scale))}
-body.v5-font-scale .search input{font-size:calc(13px * var(--v5-font-scale))}
-body.v5-font-scale .primary-btn,
-body.v5-font-scale .secondary-btn{font-size:calc(12px * var(--v5-font-scale))}
-body.v5-font-scale .statcard b{font-size:calc(20px * var(--v5-font-scale))}
-body.v5-font-scale .statcard span{font-size:calc(9px * var(--v5-font-scale))}
-body.v5-font-scale .side-title{font-size:calc(9px * var(--v5-font-scale))}
-body.v5-font-scale .folder-node{font-size:calc(11px * var(--v5-font-scale))}
-body.v5-font-scale .tab{font-size:calc(11px * var(--v5-font-scale))}
-body.v5-font-scale .filter label{font-size:calc(9px * var(--v5-font-scale))}
-body.v5-font-scale .filter select{font-size:calc(11px * var(--v5-font-scale))}
-body.v5-font-scale .resultbar{font-size:calc(10px * var(--v5-font-scale))}
-body.v5-font-scale .file-title{font-size:calc(13px * var(--v5-font-scale))}
-body.v5-font-scale .original{font-size:calc(9px * var(--v5-font-scale))}
-body.v5-font-scale .meta,
-body.v5-font-scale .path{font-size:calc(9px * var(--v5-font-scale))}
-body.v5-font-scale .download{font-size:calc(11px * var(--v5-font-scale))}
-body.v5-font-scale .badge{font-size:calc(8px * var(--v5-font-scale))}
-body.v5-font-scale .version-btn{font-size:calc(10px * var(--v5-font-scale))}
-body.v5-font-scale .admin-header h3{font-size:calc(22px * var(--v5-font-scale))}
-body.v5-font-scale .admin-sub{font-size:calc(13px * var(--v5-font-scale))}
-body.v5-font-scale .upload-dest{font-size:calc(14px * var(--v5-font-scale))}
-body.v5-font-scale .drop-zone b{font-size:calc(18px * var(--v5-font-scale))}
-body.v5-font-scale .drop-zone span{font-size:calc(13px * var(--v5-font-scale))}
-body.v5-font-scale .upload-file-name{font-size:calc(14px * var(--v5-font-scale))}
-body.v5-font-scale .upload-file-size,
-body.v5-font-scale .upload-state{font-size:calc(12px * var(--v5-font-scale))}
-body.v5-font-scale .repo-file-row{font-size:calc(13px * var(--v5-font-scale))}
-
-/* New compact font panel */
-.text-slider-box{
-  min-width:365px!important;
-  padding:9px 11px!important;
-  gap:8px!important;
-}
-.text-slider-box .slider-label{
-  color:#cbd5e1;
-  font-size:11px;
-  font-weight:800;
-  white-space:nowrap;
-}
-.text-slider-box #textSizeSlider{
-  width:145px;
-}
-.text-slider-box #textSizeValue{
-  min-width:45px;
-  font-size:11px;
-}
-.text-slider-box .v5-reset{
-  min-width:56px;
-  height:32px;
-  border:1px solid var(--line);
-  border-radius:8px;
-  color:#e2e8f0;
-  background:#172033;
-  font-size:9px;
-}
-
-/* Upload queue dashboard */
-.upload-summary{
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:8px;
-  margin:12px 0 0;
-}
-.upload-summary-card{
-  padding:10px 11px;
-  border:1px solid var(--line);
-  border-radius:10px;
-  background:rgba(15,23,42,.62);
-}
-.upload-summary-card b{
-  display:block;
-  font-size:16px;
-  color:#f8fafc;
-}
-.upload-summary-card span{
-  display:block;
-  margin-top:4px;
-  color:#64748b;
-  font-size:9px;
-  letter-spacing:.5px;
-}
-.upload-toolbar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:8px;
-  margin-top:12px;
-}
-.upload-toolbar-title{
-  color:#94a3b8;
-  font-size:11px;
-  font-weight:700;
-}
-.clear-queue-btn{
-  min-height:34px;
-  padding:0 11px;
-  border:1px solid var(--line);
-  border-radius:8px;
-  color:#cbd5e1;
-  background:#111827;
-  font-size:10px;
-}
-.clear-queue-btn:hover{background:#1e293b}
-
-/* More visible limit notice */
-.upload-limit-banner{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  margin-top:10px;
-  padding:10px 12px;
-  border-radius:10px;
-  border:1px solid rgba(245,158,11,.18);
-  color:#fcd34d;
-  background:rgba(245,158,11,.06);
-  font-size:11px;
-}
-
-/* Better progress */
-.progress-wrap{height:7px!important}
-.progress-bar{
-  background:linear-gradient(90deg,#0ea5e9,#22c55e)!important;
-  box-shadow:0 0 8px rgba(14,165,233,.25);
-}
-
-/* Upload state chips */
-.upload-state{
-  justify-self:end;
-  padding:4px 7px;
-  border-radius:999px;
-  background:rgba(148,163,184,.08);
-}
-.upload-state.ok{
-  color:#86efac!important;
-  background:rgba(34,197,94,.08);
-}
-.upload-state.err{
-  color:#fca5a5!important;
-  background:rgba(239,68,68,.08);
-}
-.upload-state.warn{
-  color:#fcd34d!important;
-  background:rgba(245,158,11,.08);
-}
-
-/* Cleaner admin modal */
-.admin-modal .modalbox{
-  border-radius:16px!important;
-  box-shadow:0 25px 80px rgba(0,0,0,.5)!important;
-}
-.drop-zone{
-  transition:.18s;
-}
-.drop-zone:hover{
-  border-color:rgba(56,189,248,.52);
-  background:rgba(14,165,233,.045);
-}
-
-/* V5 badge */
-.v5-badge{
-  display:inline-flex;
-  align-items:center;
-  gap:5px;
-  margin-left:7px;
-  padding:3px 7px;
-  border-radius:999px;
-  color:#7dd3fc;
-  background:rgba(14,165,233,.08);
-  border:1px solid rgba(56,189,248,.14);
-  font-size:8px;
-  vertical-align:middle;
-}
-
-/* Mobile */
-@media(max-width:700px){
-  .upload-summary{grid-template-columns:1fr 1fr}
-  .text-slider-box{
-    min-width:0!important;
-    width:calc(100% - 20px)!important;
-  }
-  .text-slider-box #textSizeSlider{flex:1;width:auto}
-}
-
 </style>
 </head>
-
 <body>
+
 <header class="topbar">
   <div class="brand">
     <img src="https://raw.githubusercontent.com/khanhitpro/KHANH_IT/main/logo.ico" onerror="this.style.display='none'">
     <div><b>KHÁNH IT STORE</b><small>FULL AUTO DOWNLOAD CENTER</small></div>
   </div>
   <div class="top-actions">
-    <button class="top-btn optional" id="viewBtn" title="Đổi Grid/List">▦</button>
-    <button class="top-btn optional" id="themeBtn" title="Đổi giao diện">☾</button>
-    <button class="top-btn" id="adminBtn" title="Upload Center">⬆</button>
-    <button class="top-btn" id="tvBtn" title="Chế độ TV">📺</button>
+    <button class="top-btn" id="themeBtn" title="Chuyển đổi Sáng/Tối">🌓</button>
+    <button class="top-btn" id="refreshBtn" title="Đồng bộ lại">🔄</button>
   </div>
 </header>
 
 <section class="hero">
-<h1>KHÁNH IT DOWNLOAD CENTER</h1>
-  <p>Trung tâm quản lý và tải công cụ • Đồng bộ tự động từ GitHub</p>
+  <h1>KHÁNH IT DOWNLOAD PHẦN MỀM ONLINE</h1>
+  <p>Trung tâm quản lý, chia sẻ và tải phần mềm • Đồng bộ tự động từ kho của Khánh IT</p>
 </section>
 
 <div class="statusbar">
-  <div class="statusitem"><span class="dot"></span><span id="statusText">Đang kết nối...</span></div>
+  <div class="statusitem"><span class="dot"></span><span id="statusText">Đang kết nối hệ thống...</span></div>
   <div class="statusitem">📦 <span id="totalText">0 file</span></div>
-  <div class="statusitem">🆕 <span id="newText">0 file mới</span></div>
-  <div class="statusitem">⭐ <span id="favText">0 yêu thích</span></div>
-  <div class="statusitem">🕒 <span id="timeText">Chưa đồng bộ</span></div>
+  <div class="statusitem">📥 <span id="totalDownloadsText">0 lượt tải</span></div>
 </div>
 
 <main class="container">
+  <div class="tabs" id="mainTabs">
+    <button class="tab active" data-tab="ALL">🔥 Tất cả file</button>
+    <button class="tab" data-tab="FAV">⭐ Yêu thích (<span id="favCount">0</span>)</button>
+    <button class="tab" data-tab="HISTORY">🕘 Đã tải gần đây (<span id="historyCount">0</span>)</button>
+  </div>
+
   <div class="toolbar">
-    <div class="search"><span>🔎</span><input id="searchInput" placeholder="Tìm không dấu: xiaomi, tivi, projectivy, python..."></div>
+    <div class="search"><span>🔎</span><input id="searchInput" placeholder="Tìm kiếm nhanh tên file, ứng dụng, công cụ..."></div>
+    <button class="secondary-btn" id="viewToggleBtn" onclick="toggleView()" title="Đổi dạng hiển thị">📊 Giao diện</button>
     <button class="secondary-btn" id="clearBtn">✕ XÓA LỌC</button>
-    <button class="primary-btn" id="refreshBtn">🔄 CẬP NHẬT</button>
+    <button class="primary-btn" onclick="loadFiles(true)">🔄 ĐỒNG BỘ</button>
+  </div>
+
+  <div class="filter-bar">
+    <select id="typeFilter"><option value="ALL">📂 Tất cả định dạng</option></select>
+    <select id="platformFilter"><option value="ALL">💻 Tất cả nền tảng</option></select>
+    <select id="archFilter"><option value="ALL">⚙️ Tất cả kiến trúc</option></select>
+    <select id="sortFilter">
+      <option value="NAME_ASC">🔤 Tên A → Z</option>
+      <option value="NAME_DESC">🔤 Tên Z → A</option>
+      <option value="SIZE_DESC">💾 Dung lượng lớn → nhỏ</option>
+      <option value="SIZE_ASC">💾 Dung lượng nhỏ → lớn</option>
+    </select>
   </div>
 
   <div class="quickstats">
     <div class="statcard"><b id="statFiles">0</b><span>TỔNG FILE</span></div>
     <div class="statcard"><b id="statFolders">0</b><span>THƯ MỤC</span></div>
     <div class="statcard"><b id="statSize">0 B</b><span>TỔNG DUNG LƯỢNG</span></div>
-    <div class="statcard"><b id="statApk">0</b><span>APK</span></div>
-    <div class="statcard"><b id="statExe">0</b><span>WINDOWS</span></div>
+    <div class="statcard"><b id="statApk">0</b><span>ANDROID / APK</span></div>
+    <div class="statcard"><b id="statExe">0</b><span>WINDOWS / EXE</span></div>
   </div>
 
   <div class="workspace">
     <aside class="sidebar">
-      <div class="side-title">EXPLORER THƯ MỤC</div>
+      <div class="side-title">DANH MỤC THƯ MỤC</div>
       <div id="folderTree"></div>
     </aside>
 
     <section>
-      <div class="resultbar"><span id="resultText">Đang tải...</span><span id="locationText"></span></div>
-      <div class="grid" id="grid"><div class="message">⏳ Đang tải dữ liệu GitHub...</div></div>
+      <div class="resultbar"><span id="resultText">Đang tải dữ liệu...</span><span id="locationText"></span></div>
+      <div class="grid" id="grid"><div class="message">⏳ Đang đồng bộ danh sách từ kho chứa...</div></div>
     </section>
   </div>
 </main>
-
-
-<div class="hidden" aria-hidden="true">
-  <div id="tabs"></div>
-  <select id="typeFilter"><option value="ALL">Tất cả</option></select>
-  <select id="platformFilter"><option value="ALL">Tất cả</option></select>
-  <select id="archFilter"><option value="ALL">Tất cả</option></select>
-  <select id="folderFilter"><option value="ALL">Tất cả</option></select>
-  <select id="sortFilter">
-    <option value="NAME_ASC">Tên A → Z</option>
-    <option value="NAME_DESC">Tên Z → A</option>
-    <option value="SIZE_DESC">Dung lượng lớn → nhỏ</option>
-    <option value="SIZE_ASC">Dung lượng nhỏ → lớn</option>
-    <option value="VERSION_DESC">Phiên bản mới → cũ</option>
-  </select>
-</div>
-
-
-<div class="modal admin-modal" id="adminModal">
-  <div class="modalbox">
-
-    <div id="adminLoginView" class="admin-login">
-      <h3>🔐 KHÁNH IT UPLOAD CENTER</h3>
-      <p>Đăng nhập để tải file lên kho nội bộ.</p>
-
-      <div class="admin-field">
-        <label>TÊN ĐĂNG NHẬP</label>
-        <input id="adminUser" type="text" autocomplete="username" placeholder="Nhập tên đăng nhập">
-      </div>
-
-      <div class="admin-field">
-        <label>MẬT KHẨU</label>
-        <input id="adminPass" type="password" autocomplete="current-password" placeholder="Nhập mật khẩu">
-      </div>
-
-      <button class="login-btn" id="adminLoginBtn">ĐĂNG NHẬP</button>
-      <div class="login-status" id="adminLoginStatus"></div>
-
-      <button class="closebtn" onclick="closeModal('adminModal')">ĐÓNG</button>
-    </div>
-
-    <div id="adminUploadView" class="hidden">
-      <div class="admin-header">
-        <div>
-          <h3>⬆ UPLOAD CENTER</h3>
-          <div class="admin-sub">Kéo thả nhiều file • Tối đa 50 MB mỗi file • Chỉ Upload và Tải xuống</div>
-        </div>
-        <button class="logout-btn" id="adminLogoutBtn">ĐĂNG XUẤT</button>
-      </div>
-
-      <div class="upload-dest">
-        📂 Thư mục đích cố định: <b>UPLOAD/</b>
-        &nbsp;&nbsp;•&nbsp;&nbsp;
-        📦 Giới hạn: <b>50 MB / file</b>
-      </div>
-
-      
-      <div class="upload-limit-banner">
-        ⚠ <b>Tối đa 50 MB / file</b> • File vượt giới hạn sẽ không được thêm vào hàng chờ.
-      </div>
-
-      <div class="upload-summary">
-        <div class="upload-summary-card">
-          <b id="queueFileCount">0</b>
-          <span>FILE ĐÃ CHỌN</span>
-        </div>
-        <div class="upload-summary-card">
-          <b id="queueTotalSize">0 B</b>
-          <span>TỔNG DUNG LƯỢNG</span>
-        </div>
-        <div class="upload-summary-card">
-          <b id="queueUploaded">0</b>
-          <span>THÀNH CÔNG</span>
-        </div>
-        <div class="upload-summary-card">
-          <b id="queueFailed">0</b>
-          <span>LỖI / TRÙNG</span>
-        </div>
-      </div>
-
-      <div class="drop-zone" id="dropZone">
-        <div class="drop-icon">☁️</div>
-        <b>KÉO THẢ FILE VÀO ĐÂY</b>
-        <span>Hoặc bấm nút bên dưới để chọn nhiều file • Tối đa 50 MB / file</span>
-        <button type="button" class="select-files-btn" id="selectFilesBtn">CHỌN FILE</button>
-        <input id="fileInput" type="file" multiple hidden>
-      </div>
-
-      
-      <div class="upload-toolbar">
-        <div class="upload-toolbar-title">HÀNG CHỜ UPLOAD</div>
-        <button class="clear-queue-btn" id="clearUploadQueueBtn" type="button">XÓA DANH SÁCH</button>
-      </div>
-
-      <div class="upload-list" id="uploadList">
-        <div class="upload-empty">Chưa chọn file nào.</div>
-      </div>
-
-      <div class="upload-actions">
-        <button class="start-upload-btn" id="startUploadBtn" disabled>⬆ TẢI FILE LÊN GITHUB</button>
-        <button class="refresh-upload-btn" id="refreshUploadBtn">↻ DANH SÁCH</button>
-      </div>
-
-      <div class="repo-files-title">FILE HIỆN CÓ TRONG UPLOAD/</div>
-      <div class="repo-file-list" id="repoUploadFiles">
-        <div class="upload-empty">Chưa tải danh sách.</div>
-      </div>
-
-      <div class="admin-note">
-        Giới hạn 50 MB mỗi file. File trùng tên sẽ tự động bỏ qua để tránh ghi đè. Khu vực này chỉ hỗ trợ Upload và Tải xuống.
-      </div>
-
-      <button class="closebtn" onclick="closeModal('adminModal')">ĐÓNG</button>
-    </div>
-
-  </div>
-</div>
 
 <div class="modal" id="detailModal">
   <div class="modalbox">
@@ -1117,1036 +388,369 @@ body.v5-font-scale .repo-file-row{font-size:calc(13px * var(--v5-font-scale))}
 
 <div class="modal" id="qrModal">
   <div class="modalbox" style="text-align:center">
-    <h3>📱 QR TẢI FILE</h3>
-    <div id="qrTitle"></div>
-    <img id="qrImage" class="qr" alt="QR">
+    <h3>📱 MÃ QR TẢI NHANH</h3>
+    <div id="qrTitle" style="color:var(--muted);font-size:12px;margin-bottom:10px"></div>
+    <img id="qrImage" style="display:block;width:200px;max-width:100%;margin:15px auto;background:white;padding:8px;border-radius:12px" alt="QR">
     <button class="closebtn" onclick="closeModal('qrModal')">ĐÓNG</button>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
-<div class="marquee"><div>🔥 KHÁNH IT STORE • AUTO DOWNLOAD CENTER • WINDOWS • XIAOMI TV • ANDROID • PYTHON • LIÊN HỆ : 0967.341.608</div></div>
+<!-- Dòng chữ chạy phía dưới -->
+<div class="marquee-container">
+  <div class="marquee-text">
+    🚀 CHÀO MỪNG BẠN ĐẾN VỚI KHÁNH IT STORE • CẬP NHẬT PHẦN MỀM MỚI NHẤT MỖI NGÀY • TỐC ĐỘ TẢI CỰC NHANH  • HỖ TRỢ CÀI ĐẶT TRỰC TUYẾN - ZALO: 0967.341.608 • CHÚC CÁC BẠN MỘT NGÀY LÀM VIỆC HIỆU QUẢ! • 🛠️
+  </div>
+</div>
 
 <script>
 const CFG = {
-  user:"khanhitpro",
-  repo:"KHANH_IT",
-  branch:"main",
-  root:"DATA",
-  refreshMs:600000,
-  cacheKey:"KHANH_IT_FULL_CACHE_V3",
-  oldKey:"KHANH_IT_FULL_OLD_V3",
-  favKey:"KHANH_IT_FAVORITES_V3",
-  historyKey:"KHANH_IT_DOWNLOAD_HISTORY_V3"
+  user: "khanhitpro",
+  repo: "KHANH_IT",
+  branch: "main",
+  root: "DATA",
+  downloadCountKey: "KHANH_IT_DOWNLOAD_COUNTS_V1",
+  favKey: "KHANH_IT_FAV_V1",
+  historyKey: "KHANH_IT_HIST_V1",
+  themeKey: "KHANH_IT_THEME_V1",
+  viewKey: "KHANH_IT_VIEW_V1"
 };
 
 const API = `https://api.github.com/repos/${CFG.user}/${CFG.repo}/git/trees/${CFG.branch}?recursive=1`;
 
-const API_CACHE_TIME_KEY = "KHANH_IT_API_CACHE_TIME_V5_FIX";
-const API_MIN_REFRESH_MS = 10 * 60 * 1000;
-
-function githubPublicHeaders(){
-  return {
-    "Accept":"application/vnd.github+json"
-  };
-}
-
-async function githubPublicFetch(url){
-  const r=await fetch(url,{
-    headers:githubPublicHeaders(),
-    cache:"no-store"
-  });
-
-  if(r.ok){
-    return r;
-  }
-
-  let detail="";
-  try{
-    const j=await r.clone().json();
-    detail=j && j.message ? " - "+j.message : "";
-  }catch{}
-
-  if(r.status===403 || r.status===429){
-    const reset=r.headers.get("x-ratelimit-reset");
-    if(reset){
-      const when=new Date(Number(reset)*1000).toLocaleTimeString("vi-VN");
-      throw new Error(`GitHub API HTTP ${r.status} - giới hạn truy cập, thử lại sau ${when}${detail}`);
-    }
-  }
-
-  throw new Error(`GitHub API HTTP ${r.status}${detail}`);
-}
-
-function tokenConfigured(){
-  return !!(
-    ADMIN_CONFIG &&
-    ADMIN_CONFIG.githubToken &&
-    ADMIN_CONFIG.githubToken!=="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"
-  );
-}
-
-
-/* ==========================================================
-ADMIN UPLOAD CONFIG
-========================================================== */
-
-/*
-  1) Tạo file:
-     https://github.com/khanhitpro/KHANH_IT/blob/main/UPLOAD/admin.json
-
-  Ví dụ:
-  {
-    "username": "admin",
-    "password": "0967341608",
-    "enabled": true
-  }
-
-  2) Dán Fine-grained GitHub Token vào GITHUB_UPLOAD_TOKEN.
-     Token cần quyền Contents: Read and write cho repo KHANH_IT.
-     Người sử dụng web KHÔNG phải nhập token.
-*/
-
-const ADMIN_CONFIG = {
-  jsonUrl:
-    "https://raw.githubusercontent.com/khanhitpro/KHANH_IT/main/UPLOAD/admin.json",
-
-  uploadFolder:
-    "UPLOAD",
-
-  // Token CHỈ dùng khi bấm Upload. Không dùng để đọc danh sách public.
-  githubToken:
-    "DAN_GITHUB_TOKEN_VAO_DAY",
-
-  maxFileSizeMB:
-    50
-};
-
-let selectedUploadFiles = [];
-let uploadRepoFiles = [];
-
-
-let allFiles=[], newFiles=[], currentTab="ALL", currentTreePath="ALL";
-let favorites = readJSON(CFG.favKey,[]);
-let history = readJSON(CFG.historyKey,[]);
+let allFiles = [], lastRenderedFiles = [], currentTreePath = "ALL", currentTab = "ALL";
+let favorites = JSON.parse(localStorage.getItem(CFG.favKey) || "[]");
+let historyList = JSON.parse(localStorage.getItem(CFG.historyKey) || "[]");
+let currentView = localStorage.getItem(CFG.viewKey) || "GRID";
 
 const $ = id => document.getElementById(id);
-const grid=$("grid"), tabs=$("tabs"), folderTree=$("folderTree");
-const searchInput=$("searchInput"), typeFilter=$("typeFilter"), platformFilter=$("platformFilter"),
-      archFilter=$("archFilter"), folderFilter=$("folderFilter"), sortFilter=$("sortFilter");
+const grid = $("grid"), searchInput = $("searchInput");
+const typeFilter = $("typeFilter"), platformFilter = $("platformFilter"), archFilter = $("archFilter"), sortFilter = $("sortFilter");
 
-function normalizeText(s){
-  return String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/đ/g,"d").replace(/Đ/g,"D").toLowerCase();
+if(localStorage.getItem(CFG.themeKey) === "light"){
+  document.body.classList.add("light");
 }
-function readJSON(key,def){try{return JSON.parse(localStorage.getItem(key)||JSON.stringify(def))}catch{return def}}
-function writeJSON(key,val){try{localStorage.setItem(key,JSON.stringify(val))}catch{}}
-function esc(v){return String(v).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
-function extOf(name){const i=name.lastIndexOf(".");return i<0?"":name.slice(i+1).toLowerCase()}
-function rawURL(path){return `https://raw.githubusercontent.com/${CFG.user}/${CFG.repo}/${CFG.branch}/${path.split("/").map(encodeURIComponent).join("/")}`}
-function githubURL(path){return `https://github.com/${CFG.user}/${CFG.repo}/blob/${CFG.branch}/${path.split("/").map(encodeURIComponent).join("/")}`}
+
+$("themeBtn").onclick = () => {
+  document.body.classList.toggle("light");
+  localStorage.setItem(CFG.themeKey, document.body.classList.contains("light") ? "light" : "dark");
+  toastMsg(document.body.classList.contains("light") ? "☀️ Đã bật giao diện Sáng" : "🌙 Đã bật giao diện Tối");
+};
+
+function toggleView() {
+  currentView = currentView === "GRID" ? "LIST" : "GRID";
+  localStorage.setItem(CFG.viewKey, currentView);
+  render(lastRenderedFiles);
+  toastMsg(currentView === "LIST" ? "📋 Đã chuyển sang dạng Danh sách" : "🔲 Đã chuyển sang dạng Lưới");
+}
+
 function formatSize(bytes){
-  if(!bytes)return"0 B";const u=["B","KB","MB","GB","TB"];let n=bytes,i=0;
-  while(n>=1024&&i<u.length-1){n/=1024;i++} return `${n.toFixed(i?2:0)} ${u[i]}`
-}
-function getIcon(ext){
-  const m={apk:"📱",xapk:"📱",apks:"📱",exe:"💻",msi:"💻",zip:"📦",rar:"📦","7z":"📦",py:"🐍",pyc:"🐍",
-  bat:"⚙️",cmd:"⚙️",ps1:"⚙️",sh:"⚙️",pdf:"📕",txt:"📄",json:"📄",xml:"📄",png:"🖼️",jpg:"🖼️",jpeg:"🖼️",
-  webp:"🖼️",gif:"🖼️",mp3:"🎵",wav:"🎵",mp4:"🎬",mkv:"🎬",iso:"💿"};return m[ext]||"📄"
-}
-function platformOf(file){
-  const n=normalizeText(file.path);
-  if(["apk","xapk","apks"].includes(file.ext)||n.includes("android")||n.includes("xiaomi")||n.includes("tivi"))return "ANDROID/TV";
-  if(["exe","msi","bat","cmd","ps1"].includes(file.ext)||n.includes("windows")||n.includes("pc"))return "WINDOWS";
-  if(["py","pyc"].includes(file.ext)||n.includes("python"))return "PYTHON";
-  if(["sh"].includes(file.ext)||n.includes("linux")||n.includes("termux"))return "LINUX/TERMUX";
-  return "KHÁC";
-}
-function archOf(file){
-  const n=normalizeText(file.name);
-  if(/\barm64\b|aarch64/.test(n))return "ARM64";
-  if(/\barmeabi\b|armv7|armeabi-v7a/.test(n))return "ARMV7";
-  if(/\bx64\b|amd64|win64/.test(n))return "X64";
-  if(/\bx86\b|win32/.test(n))return "X86";
-  return "KHÔNG RÕ";
-}
-function extractVersion(name){
-  const base=name.replace(/\.[^.]+$/,"");
-  const m=base.match(/(?:^|[_\-\s])v(?:ersion)?[_\-\s]?(\d+(?:[._-]\d+)*)/i);
-  return m?"V"+m[1].replaceAll("_",".").replaceAll("-","."):"";
-}
-function baseName(name){
-  return name.replace(/\.[^.]+$/,"")
-    .replace(/(?:^|[_\-\s])v(?:ersion)?[_\-\s]?\d+(?:[._-]\d+)*/i,"")
-    .replace(/^KHANH[_\-\s]*IT[_\-\s]*/i,"KHÁNH IT ")
-    .replace(/[_-]+/g," ").replace(/\s+/g," ").trim();
-}
-function versionScore(v){
-  if(!v)return 0;return v.replace(/^V/i,"").split(".").map(Number).reduce((a,n,i)=>a+n*Math.pow(1000,4-i),0)
-}
-function isLarge(f){return f.size>=500*1024*1024}
-function compatibility(file){
-  const n=normalizeText(file.name+" "+file.path), out=[];
-  const android=n.match(/android[\s_-]?(\d+)(?:[\s_-]*(?:-|to)[\s_-]*(\d+))?/i);
-  if(android)out.push(android[2]?`Android ${android[1]}–${android[2]}`:`Android ${android[1]}`);
-  if(n.includes("windows 11")||n.includes("win11"))out.push("Windows 11");
-  if(n.includes("windows 10")||n.includes("win10"))out.push("Windows 10");
-  return out.join(" • ");
+  if(!bytes) return "0 B";
+  const u = ["B","KB","MB","GB"]; let n = bytes, i = 0;
+  while(n >= 1024 && i < u.length - 1){ n /= 1024; i++; }
+  return `${n.toFixed(i ? 2 : 0)} ${u[i]}`;
 }
 
-function parseFile(item){
-  const parts=item.path.split("/"), name=parts.at(-1), category=parts.length>2?parts[1]:CFG.root;
-  const inner=parts.slice(2,-1);
-  const file={name,path:item.path,size:item.size||0,ext:extOf(name),category,subfolder:inner.length?inner.join(" / "):"GỐC"};
-  file.version=extractVersion(name);file.baseName=baseName(name);file.platform=platformOf(file);file.arch=archOf(file);
-  file.compat=compatibility(file);return file;
+function getDownloadCounts(){
+  return JSON.parse(localStorage.getItem(CFG.downloadCountKey) || "{}");
 }
 
-async function loadFiles(manual=false){
-  $("refreshBtn").disabled=true;
-  $("refreshBtn").textContent=manual?"⏳ ĐANG TẢI":"⏳ ĐANG ĐỒNG BỘ";
-  $("statusText").textContent="Đang đồng bộ GitHub...";
+function getTotalSystemDownloads(){
+  const counts = getDownloadCounts();
+  return Object.values(counts).reduce((a, b) => a + b, 0);
+}
 
-  try{
-    const cache=readJSON(CFG.cacheKey,[]);
-    const lastApiTime=Number(localStorage.getItem(API_CACHE_TIME_KEY)||0);
-    const cacheFresh=cache.length && (Date.now()-lastApiTime)<API_MIN_REFRESH_MS;
+function recordDownload(path){
+  const counts = getDownloadCounts();
+  counts[path] = (counts[path] || 0) + 1;
+  localStorage.setItem(CFG.downloadCountKey, JSON.stringify(counts));
+  
+  if(!historyList.includes(path)) historyList.unshift(path);
+  else historyList = [path, ...historyList.filter(x => x !== path)];
+  historyList = historyList.slice(0, 50);
+  localStorage.setItem(CFG.historyKey, JSON.stringify(historyList));
 
-    /*
-      GitHub Pages không cần gọi API lại mỗi phút.
-      Nếu cache còn mới và không bấm CẬP NHẬT thủ công,
-      dùng cache để tránh GitHub API 403 do rate limit.
-    */
-    if(!manual && cacheFresh){
-      allFiles=cache;
-      newFiles=[];
-      finishLoad(true);
-      $("statusText").textContent="Đã tải từ bộ nhớ đệm";
-      return;
-    }
+  updateTabCounts();
+  
+  const countEl = document.querySelector(`.card[data-path="${CSS.escape(path)}"] .download-count-number`);
+  if(countEl) countEl.textContent = counts[path];
+  $("totalDownloadsText").textContent = getTotalSystemDownloads() + " lượt tải";
+}
 
-    const r=await githubPublicFetch(API);
-    const data=await r.json();
+async function loadFiles(manual = false) {
+  $("statusText").textContent = "Đang đồng bộ...";
+  try {
+    const res = await fetch(API, { cache: "no-store" });
+    if(!res.ok) throw new Error("Lỗi kết nối GitHub API (" + res.status + ")");
+    
+    const data = await res.json();
+    if(!data || !data.tree) throw new Error("Cấu trúc trả về không hợp lệ");
 
-    if(!data || !Array.isArray(data.tree)){
-      throw new Error("Dữ liệu GitHub không hợp lệ");
-    }
+    allFiles = data.tree
+      .filter(x => x.type === "blob" && x.path && x.path.startsWith(CFG.root + "/"))
+      .map(item => {
+        const parts = item.path.split("/");
+        const name = parts.at(-1);
+        const ext = name.includes(".") ? name.split(".").pop().toLowerCase() : "";
+        
+        let platform = "KHÁC";
+        const lowerPath = item.path.toLowerCase();
+        if(["apk","xapk","apks"].includes(ext) || lowerPath.includes("android") || lowerPath.includes("tivi")) platform = "ANDROID/TV";
+        else if(["exe","msi","bat","cmd","ps1"].includes(ext) || lowerPath.includes("windows")) platform = "WINDOWS";
+        else if(["py","pyc"].includes(ext)) platform = "PYTHON";
 
-    allFiles=data.tree
-      .filter(x=>x.type==="blob" && x.path && x.path.startsWith(CFG.root+"/"))
-      .map(parseFile);
+        let arch = "CHUNG";
+        const lowerName = name.toLowerCase();
+        if(lowerName.includes("arm64") || lowerName.includes("aarch64")) arch = "ARM64";
+        else if(lowerName.includes("armv7") || lowerName.includes("armeabi")) arch = "ARMV7";
+        else if(lowerName.includes("x64") || lowerName.includes("amd64")) arch = "X64";
+        else if(lowerName.includes("x86") || lowerName.includes("win32")) arch = "X86";
 
-    detectNewFiles();
-    writeJSON(CFG.cacheKey,allFiles);
-    localStorage.setItem(API_CACHE_TIME_KEY,String(Date.now()));
+        return {
+          name, path: item.path, size: item.size || 0, ext, platform, arch,
+          category: parts.length > 2 ? parts[1] : CFG.root,
+          subfolder: parts.length > 3 ? parts.slice(2, -1).join(" / ") : "GỐC",
+          baseName: name.replace(/\.[^.]+$/, "").replace(/[_-]+/g, " ").trim()
+        };
+      });
 
-    finishLoad(false);
-
-    if(manual){
-      toastMsg("✅ Đã đồng bộ dữ liệu GitHub");
-    }
-
-  }catch(e){
+    updateStats();
+    updateTabCounts();
+    createFilters();
+    createTree();
+    applyFilter();
+    $("statusText").textContent = "Đã đồng bộ ổn định";
+    if(manual) toastMsg("✅ Đã cập nhật thành công cơ sở dữ liệu!");
+  } catch(e) {
     console.error(e);
-
-    const cache=readJSON(CFG.cacheKey,[]);
-
-    if(cache.length){
-      allFiles=cache;
-      newFiles=[];
-      finishLoad(true);
-      $("statusText").textContent="GitHub tạm giới hạn • Đang dùng cache";
-      toastMsg("⚠ GitHub API lỗi - đang dùng dữ liệu đã lưu");
-    }else{
-      grid.innerHTML=`
-        <div class="message error">
-          ❌ ${esc(e.message)}
-          <br><br>
-          <button onclick="loadFiles(true)">THỬ LẠI</button>
-        </div>
-      `;
-      $("statusText").textContent="Lỗi kết nối GitHub";
-    }
-
-  }finally{
-    $("refreshBtn").disabled=false;
-    $("refreshBtn").textContent="🔄 CẬP NHẬT";
+    grid.innerHTML = `<div class="message">❌ Không thể tải dữ liệu: ${e.message}<br><br><button onclick="loadFiles(true)" class="primary-btn" style="margin:10px auto">THỬ LẠI</button></div>`;
+    $("statusText").textContent = "Lỗi đồng bộ";
   }
 }
 
-function detectNewFiles(){
-  const old=readJSON(CFG.oldKey,[]);
-  newFiles=old.length?allFiles.filter(f=>!old.includes(f.path)):[];
-  writeJSON(CFG.oldKey,allFiles.map(f=>f.path));
-}
-function finishLoad(cached){
-  validateTab();createTabs();createTypeFilter();createPlatformFilter();createArchFilter();createFolderFilter();createTree();updateStats();applyFilter();
-  $("statusText").textContent=cached?"Đang dùng dữ liệu cache":"Đồng bộ thành công";
-  $("timeText").textContent=new Date().toLocaleTimeString("vi-VN");
-  openSharedFile();
-}
 function updateStats(){
-  $("totalText").textContent=allFiles.length+" file";$("newText").textContent=newFiles.length+" file mới";$("favText").textContent=favorites.length+" yêu thích";
-  $("statFiles").textContent=allFiles.length;
-  $("statFolders").textContent=new Set(allFiles.map(f=>f.category+"/"+f.subfolder)).size;
-  $("statSize").textContent=formatSize(allFiles.reduce((a,f)=>a+f.size,0));
-  $("statApk").textContent=allFiles.filter(f=>["apk","xapk","apks"].includes(f.ext)).length;
-  $("statExe").textContent=allFiles.filter(f=>["exe","msi","bat","cmd","ps1"].includes(f.ext)).length;
+  $("totalText").textContent = allFiles.length + " file";
+  $("totalDownloadsText").textContent = getTotalSystemDownloads() + " lượt tải";
+  $("statFiles").textContent = allFiles.length;
+  $("statFolders").textContent = new Set(allFiles.map(f => f.category + "/" + f.subfolder)).size;
+  $("statSize").textContent = formatSize(allFiles.reduce((a,f) => a + f.size, 0));
+  $("statApk").textContent = allFiles.filter(f => f.platform === "ANDROID/TV").length;
+  $("statExe").textContent = allFiles.filter(f => f.platform === "WINDOWS").length;
 }
 
-function tabSource(){
-  if(currentTab==="NEW")return newFiles;
-  if(currentTab==="FAV")return allFiles.filter(f=>favorites.includes(f.path));
-  if(currentTab==="HISTORY")return allFiles.filter(f=>history.includes(f.path));
-  if(currentTab==="ALL")return allFiles;
-  return allFiles.filter(f=>f.category===currentTab);
+function updateTabCounts(){
+  $("favCount").textContent = favorites.length;
+  $("historyCount").textContent = historyList.length;
 }
-function validateTab(){
-  const valid=["ALL","NEW","FAV","HISTORY",...new Set(allFiles.map(f=>f.category))];
-  if(!valid.includes(currentTab))currentTab="ALL";
+
+function createFilters(){
+  const types = [...new Set(allFiles.map(f => f.ext.toUpperCase()).filter(Boolean))].sort();
+  const platforms = [...new Set(allFiles.map(f => f.platform))].sort();
+  const arches = [...new Set(allFiles.map(f => f.arch))].sort();
+
+  typeFilter.innerHTML = `<option value="ALL">📂 Tất cả định dạng</option>` + types.map(t => `<option value="${t}">${t}</option>`).join("");
+  platformFilter.innerHTML = `<option value="ALL">💻 Tất cả nền tảng</option>` + platforms.map(p => `<option value="${p}">${p}</option>`).join("");
+  archFilter.innerHTML = `<option value="ALL">⚙️ Tất cả kiến trúc</option>` + arches.map(a => `<option value="${a}">${a}</option>`).join("");
 }
-function createTabs(){
-  tabs.innerHTML="";
-  const add=(v,t,c)=>{const b=document.createElement("button");b.className="tab"+(currentTab===v?" active":"");b.innerHTML=`${esc(t)} <span class="count">${c}</span>`;
-    b.onclick=()=>{currentTab=v;localStorage.setItem("khanh_tab_full",v);syncURL("tab",v);createFolderFilter();applyFilter();createTabs()};tabs.appendChild(b)};
-  add("ALL","🔥 TẤT CẢ",allFiles.length);
-  if(newFiles.length)add("NEW","🆕 MỚI",newFiles.length);
-  add("FAV","⭐ YÊU THÍCH",allFiles.filter(f=>favorites.includes(f.path)).length);
-  add("HISTORY","🕘 ĐÃ TẢI",allFiles.filter(f=>history.includes(f.path)).length);
-  const counts={};allFiles.forEach(f=>counts[f.category]=(counts[f.category]||0)+1);
-  Object.keys(counts).sort((a,b)=>a.localeCompare(b,"vi",{numeric:true})).forEach(k=>add(k,"📂 "+k,counts[k]));
-}
-function setSelectOptions(sel,values,label){
-  const old=sel.value;sel.innerHTML=`<option value="ALL">${label}</option>`;
-  values.forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;sel.appendChild(o)});
-  if([...sel.options].some(o=>o.value===old))sel.value=old;
-}
-function createTypeFilter(){setSelectOptions(typeFilter,[...new Set(allFiles.map(f=>f.ext).filter(Boolean))].sort().map(x=>x.toUpperCase()),"Tất cả loại")}
-function createPlatformFilter(){setSelectOptions(platformFilter,[...new Set(allFiles.map(f=>f.platform))].sort(),"Tất cả nền tảng")}
-function createArchFilter(){setSelectOptions(archFilter,[...new Set(allFiles.map(f=>f.arch))].sort(),"Tất cả kiến trúc")}
-function createFolderFilter(){setSelectOptions(folderFilter,[...new Set(tabSource().map(f=>f.subfolder))].sort((a,b)=>a.localeCompare(b,"vi",{numeric:true})),"Tất cả thư mục")}
 
 function createTree(){
-  folderTree.innerHTML="";
-  const paths=new Map();
-  allFiles.forEach(f=>{
-    const seg=[f.category,...(f.subfolder==="GỐC"?[]:f.subfolder.split(" / "))];
-    for(let i=1;i<=seg.length;i++){const p=seg.slice(0,i).join(" / ");paths.set(p,(paths.get(p)||0)+1)}
+  const treeEl = $("folderTree");
+  treeEl.innerHTML = `<button class="folder-node ${currentTreePath==='ALL'?'active':''}" onclick="setTree('ALL')">📁 Tất cả kho (${allFiles.length})</button>`;
+  
+  const folders = {};
+  allFiles.forEach(f => {
+    const key = f.category + (f.subfolder !== "GỐC" ? " / " + f.subfolder : "");
+    folders[key] = (folders[key] || 0) + 1;
   });
-  const allBtn=document.createElement("button");allBtn.className="folder-node"+(currentTreePath==="ALL"?" active":"");allBtn.textContent=`📁 DATA (${allFiles.length})`;
-  allBtn.onclick=()=>{currentTreePath="ALL";createTree();applyFilter()};folderTree.appendChild(allBtn);
-  [...paths.entries()].sort((a,b)=>a[0].localeCompare(b[0],"vi",{numeric:true})).forEach(([p,c])=>{
-    const depth=p.split(" / ").length-1,b=document.createElement("button");b.className="folder-node"+(currentTreePath===p?" active":"");
-    b.style.paddingLeft=(9+depth*14)+"px";b.textContent=`${depth?"└ ":"📂 "}${p.split(" / ").at(-1)} (${c})`;
-    b.onclick=()=>{currentTreePath=p;createTree();applyFilter()};folderTree.appendChild(b)
+
+  Object.keys(folders).sort().forEach(path => {
+    treeEl.innerHTML += `<button class="folder-node ${currentTreePath===path?'active':''}" onclick="setTree('${path}')">📂 ${path} (${folders[path]})</button>`;
   });
+}
+
+function setTree(path){
+  currentTreePath = path;
+  createTree();
+  applyFilter();
 }
 
 function applyFilter(){
-  let r=tabSource(), q=normalizeText(searchInput.value.trim()), type=typeFilter.value, pf=platformFilter.value, ar=archFilter.value, folder=folderFilter.value;
-  if(currentTreePath!=="ALL")r=r.filter(f=>(f.category+(f.subfolder==="GỐC"?"":" / "+f.subfolder)).startsWith(currentTreePath));
-  if(q)r=r.filter(f=>normalizeText(f.name+" "+f.path+" "+f.baseName+" "+f.platform+" "+f.arch).includes(q));
-  if(type!=="ALL")r=r.filter(f=>f.ext.toUpperCase()===type);
-  if(pf!=="ALL")r=r.filter(f=>f.platform===pf);
-  if(ar!=="ALL")r=r.filter(f=>f.arch===ar);
-  if(folder!=="ALL")r=r.filter(f=>f.subfolder===folder);
-  r=sortFiles(r);render(r);
-  $("resultText").textContent=`📦 ${r.length} file đang hiển thị`;
-  $("locationText").textContent=currentTreePath==="ALL"?(currentTab==="ALL"?"🔥 Toàn bộ kho":currentTab):"📂 "+currentTreePath;
-  syncURL("q",searchInput.value.trim());
-}
-function sortFiles(r){
-  const a=[...r],m=sortFilter.value;
-  if(m==="NAME_DESC")return a.sort((x,y)=>y.name.localeCompare(x.name,"vi",{numeric:true}));
-  if(m==="SIZE_DESC")return a.sort((x,y)=>y.size-x.size);
-  if(m==="SIZE_ASC")return a.sort((x,y)=>x.size-y.size);
-  if(m==="VERSION_DESC")return a.sort((x,y)=>versionScore(y.version)-versionScore(x.version));
-  return a.sort((x,y)=>x.name.localeCompare(y.name,"vi",{numeric:true}));
-}
-function groupVersions(files){
-  const g={};files.forEach(f=>{const k=[f.category,f.subfolder,f.baseName,f.ext].join("|");(g[k]??=[]).push(f)});return Object.values(g)
-}
-function render(files){
-  grid.innerHTML="";if(!files.length){grid.innerHTML='<div class="message">🔎 Không tìm thấy file phù hợp.</div>';return}
-  const frag=document.createDocumentFragment();
-  groupVersions(files).forEach(vs=>{
-    vs.sort((a,b)=>versionScore(a.version)-versionScore(b.version));const f=vs.at(-1),url=rawURL(f.path),fav=favorites.includes(f.path);
-    const card=document.createElement("article");card.className="card"+(newFiles.some(n=>n.path===f.path)?" new":"")+(fav?" favorite":"");card.dataset.path=f.path;
-    const badges=[`<span class="badge">${esc((f.ext||"FILE").toUpperCase())}</span>`,
-      f.version?`<span class="badge warn">${esc(f.version)}</span>`:"",
-      f.compat?`<span class="badge green">${esc(f.compat)}</span>`:"",
-      f.arch!=="KHÔNG RÕ"?`<span class="badge">${esc(f.arch)}</span>`:"",
-      isLarge(f)?`<span class="badge warn">FILE LỚN</span>`:""].join("");
-    card.innerHTML=`
-      <div class="card-head"><div class="file-icon">${getIcon(f.ext)}</div><div class="badges">${badges}</div></div>
-      <div>
-        <div class="file-title">${esc(f.baseName||f.name)}</div>
-        <div class="original">${esc(f.name)}</div>
-        <div class="meta"><span>💾 ${formatSize(f.size)}</span><span>🧩 ${esc(f.platform)}</span>${vs.length>1?`<span>📚 ${vs.length} phiên bản</span>`:""}</div>
-        <div class="path">📂 ${esc(f.category+(f.subfolder==="GỐC"?"":" / "+f.subfolder))}</div>
-      </div>
-      <div class="actions">
-        <a class="download" href="${url}" target="_blank" rel="noopener">⬇ TẢI NGAY</a>
-        <button class="iconbtn favbtn" title="Yêu thích">${fav?"★":"☆"}</button>
-        <button class="iconbtn copybtn" title="Copy link">🔗</button>
-        <button class="iconbtn qrbtn" title="QR">▣</button>
-        <button class="iconbtn detailbtn" title="Chi tiết">⋯</button>
-      </div>
-      ${vs.length>1?`<button class="version-btn">📚 XEM ${vs.length} PHIÊN BẢN</button>
-      <div class="versions">${vs.slice().reverse().map(x=>`<div class="version-row"><span>${esc(x.version||x.name)} • ${formatSize(x.size)}</span><a href="${rawURL(x.path)}" target="_blank">TẢI</a></div>`).join("")}</div>`:""}
-    `;
-    card.querySelector(".download").onclick=()=>recordDownload(f.path);
-    card.querySelector(".favbtn").onclick=()=>toggleFavorite(f.path);
-    card.querySelector(".copybtn").onclick=()=>copyText(url,"✅ Đã copy link tải");
-    card.querySelector(".qrbtn").onclick=()=>showQR(f);
-    card.querySelector(".detailbtn").onclick=()=>showDetail(f,url);
-    const vb=card.querySelector(".version-btn");if(vb)vb.onclick=()=>card.querySelector(".versions").classList.toggle("show");
-    frag.appendChild(card)
+  let r = allFiles;
+  
+  if(currentTab === "FAV") r = r.filter(f => favorites.includes(f.path));
+  else if(currentTab === "HISTORY") r = r.filter(f => historyList.includes(f.path));
+
+  const q = searchInput.value.trim().toLowerCase();
+  const typeVal = typeFilter.value;
+  const platVal = platformFilter.value;
+  const archVal = archFilter.value;
+  const sortVal = sortFilter.value;
+  
+  if(currentTreePath !== "ALL"){
+    r = r.filter(f => (f.category + (f.subfolder !== "GỐC" ? " / " + f.subfolder : "")) === currentTreePath);
+  }
+  if(q){
+    r = r.filter(f => f.name.toLowerCase().includes(q) || f.baseName.toLowerCase().includes(q));
+  }
+  if(typeVal !== "ALL"){
+    r = r.filter(f => f.ext.toUpperCase() === typeVal);
+  }
+  if(platVal !== "ALL"){
+    r = r.filter(f => f.platform === platVal);
+  }
+  if(archVal !== "ALL"){
+    r = r.filter(f => f.arch === archVal);
+  }
+
+  r.sort((a, b) => {
+    if(sortVal === "NAME_DESC") return b.name.localeCompare(a.name);
+    if(sortVal === "SIZE_DESC") return b.size - a.size;
+    if(sortVal === "SIZE_ASC") return a.size - b.size;
+    return a.name.localeCompare(b.name);
   });
-  grid.appendChild(frag)
+
+  render(r);
+  $("resultText").textContent = `📦 Hiển thị ${r.length} kết quả`;
 }
 
-function toggleFavorite(path){
-  favorites=favorites.includes(path)?favorites.filter(x=>x!==path):[path,...favorites.filter(x=>x!==path)];
-  writeJSON(CFG.favKey,favorites);updateStats();createTabs();applyFilter();toastMsg(favorites.includes(path)?"⭐ Đã thêm yêu thích":"Đã bỏ yêu thích")
+function render(files){
+  lastRenderedFiles = files;
+  if(!files.length){
+    grid.innerHTML = '<div class="message">🔎 Không tìm thấy file hoặc ứng dụng nào phù hợp.</div>';
+    return;
+  }
+  
+  const isList = currentView === "LIST";
+  if(isList) grid.classList.add("list-layout");
+  else grid.classList.remove("list-layout");
+
+  const counts = getDownloadCounts();
+  grid.innerHTML = files.map(f => {
+    const encodedPath = f.path.split("/").map(encodeURIComponent).join("/");
+    const url = `https://raw.githubusercontent.com/${CFG.user}/${CFG.repo}/${CFG.branch}/${encodedPath}`;
+    const downloads = counts[f.path] || 0;
+    const isFav = favorites.includes(f.path);
+
+    return `
+      <article class="card ${isList ? 'list-view' : ''}" data-path="${f.path}">
+        <div class="card-head">
+          <div class="file-icon">${f.ext === 'apk' ? '📱' : f.ext === 'exe' ? '💻' : '📦'}</div>
+          <div class="badges">
+            <span class="badge warn">${f.ext.toUpperCase()}</span>
+            <span class="badge green">${f.platform}</span>
+          </div>
+        </div>
+        ${isList ? `<div class="file-icon" style="width:36px;height:36px;font-size:16px;">${f.ext === 'apk' ? '📱' : f.ext === 'exe' ? '💻' : '📦'}</div>` : ''}
+        <div>
+          <div class="file-title">${f.baseName}</div>
+          <div class="original">${f.name}</div>
+        </div>
+        ${isList ? `<div class="path">📂 ${f.category}</div>` : ''}
+        ${isList ? `<div class="meta"><span>💾 ${formatSize(f.size)}</span><span>📥 <b class="download-count-number" style="color:var(--primary);">${downloads}</b></span></div>` : ''}
+        
+        ${!isList ? `
+          <div class="meta">
+            <span>💾 ${formatSize(f.size)}</span>
+            <span>📥 Tải: <b class="download-count-number" style="color:var(--primary);">${downloads}</b> lần</span>
+          </div>
+          <div class="path">📂 ${f.category}</div>
+        ` : ''}
+
+        <div class="actions">
+          <a class="download" href="${url}" target="_blank" onclick="recordDownload('${f.path}')">⬇ TẢI NGAY</a>
+          <button class="iconbtn" onclick="toggleFav('${f.path}')" title="Yêu thích">${isFav?'★':'☆'}</button>
+          <button class="iconbtn" onclick="showQR('${f.path}', '${f.name}')" title="Mã QR">▣</button>
+          <button class="iconbtn" onclick="showDetail('${f.path}', '${url}', '${f.name}', ${f.size})" title="Chi tiết">⋯</button>
+        </div>
+      </article>
+    `;
+  }).join("");
 }
-function recordDownload(path){
-  history=[path,...history.filter(x=>x!==path)].slice(0,100);writeJSON(CFG.historyKey,history);createTabs()
+
+function toggleFav(path){
+  favorites = favorites.includes(path) ? favorites.filter(x => x !== path) : [...favorites, path];
+  localStorage.setItem(CFG.favKey, JSON.stringify(favorites));
+  updateTabCounts();
+  applyFilter();
+  toastMsg("⭐ Đã cập nhật danh sách yêu thích");
 }
-function showQR(f){
-  $("qrTitle").textContent=f.name;$("qrImage").src="https://api.qrserver.com/v1/create-qr-code/?size=320x320&data="+encodeURIComponent(rawURL(f.path));
-  $("qrModal").classList.add("show")
+
+function showQR(path, name){
+  const encodedPath = path.split("/").map(encodeURIComponent).join("/");
+  const url = `https://raw.githubusercontent.com/${CFG.user}/${CFG.repo}/${CFG.branch}/${encodedPath}`;
+  $("qrTitle").textContent = name;
+  $("qrImage").src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=` + encodeURIComponent(url);
+  $("qrModal").classList.add("show");
 }
-function showDetail(f,url){
-  const adb=f.ext==="apk"?`adb install -r "${url}"`:"";
-  const curl=`curl -L "${url}" -o "${f.name}"`;
-  const wget=`wget "${url}" -O "${f.name}"`;
-  const ps=`Invoke-WebRequest -Uri "${url}" -OutFile "${f.name}"`;
-  $("detailTitle").textContent=f.name;
-  $("detailBody").innerHTML=`
-    <div class="meta"><span>📦 ${esc((f.ext||"FILE").toUpperCase())}</span><span>💾 ${formatSize(f.size)}</span><span>🧩 ${esc(f.platform)}</span><span>⚙️ ${esc(f.arch)}</span></div>
-    <div class="path">📂 ${esc(f.path)}</div>
-    ${f.compat?`<p><b>Tương thích:</b> ${esc(f.compat)}</p>`:""}
-    <div class="command-row"><div class="command">${esc(url)}</div><button class="iconbtn" onclick='copyText(${JSON.stringify(url)},"✅ Đã copy link")'>COPY</button></div>
-    <div class="command-row"><div class="command">${esc(curl)}</div><button class="iconbtn" onclick='copyText(${JSON.stringify(curl)},"✅ Đã copy curl")'>COPY</button></div>
-    <div class="command-row"><div class="command">${esc(wget)}</div><button class="iconbtn" onclick='copyText(${JSON.stringify(wget)},"✅ Đã copy wget")'>COPY</button></div>
-    <div class="command-row"><div class="command">${esc(ps)}</div><button class="iconbtn" onclick='copyText(${JSON.stringify(ps)},"✅ Đã copy PowerShell")'>COPY</button></div>
-    ${adb?`<div class="command-row"><div class="command">${esc(adb)}</div><button class="iconbtn" onclick='copyText(${JSON.stringify(adb)},"✅ Đã copy ADB")'>COPY</button></div>`:""}
-    <p><a href="${githubURL(f.path)}" target="_blank" style="color:var(--cyan)">🔗 Mở file trên GitHub</a></p>
-    <p><button class="secondary-btn" onclick='copyText(${JSON.stringify(getShareURL(f.path))},"✅ Đã copy link chia sẻ")'>📤 COPY LINK CHIA SẺ</button></p>
+
+function showDetail(path, url, name, size){
+  $("detailTitle").textContent = name;
+  const uniqueInputId = "shortUrlInput_" + Math.random().toString(36).substr(2, 9);
+  
+  $("detailBody").innerHTML = `
+    <div style="font-size:12px;color:var(--muted);margin-bottom:10px">Dung lượng: <b>${formatSize(size)}</b></div>
+    <div style="font-size:12px;font-weight:600;margin-top:8px">Đường dẫn trực tiếp:</div>
+    <div class="command-row"><div class="command">${url}</div><button class="iconbtn" onclick="copyText('${url}')">Copy</button></div>
+    
+    <div style="font-size:12px;font-weight:600;margin-top:12px">🔗 Rút gọn link tải nhanh:</div>
+    <div class="command-row">
+      <input type="text" id="${uniqueInputId}" value="${url}" class="command" style="border:1px solid var(--line);outline:none;width:100%" readonly>
+      <button class="primary-btn" style="height:38px;padding:0 12px;font-size:12px" onclick="shortenLink('${url}', '${uniqueInputId}')">Rút gọn</button>
+    </div>
   `;
-  $("detailModal").classList.add("show")
-}
-function closeModal(id){$(id).classList.remove("show")}
-async function copyText(t,msg){
-  try{await navigator.clipboard.writeText(t)}catch{const x=document.createElement("textarea");x.value=t;document.body.appendChild(x);x.select();document.execCommand("copy");x.remove()}
-  toastMsg(msg)
-}
-function toastMsg(m){const t=$("toast");t.textContent=m;t.classList.add("show");clearTimeout(toastMsg.timer);toastMsg.timer=setTimeout(()=>t.classList.remove("show"),2200)}
-
-function clearFilters(){
-  searchInput.value="";typeFilter.value=platformFilter.value=archFilter.value=folderFilter.value="ALL";sortFilter.value="NAME_ASC";currentTreePath="ALL";currentTab="ALL";
-  syncURL("q","");syncURL("tab","");createTabs();createTree();createFolderFilter();applyFilter()
-}
-function syncURL(k,v){const u=new URL(location.href);if(!v||v==="ALL")u.searchParams.delete(k);else u.searchParams.set(k,v);history.replaceState({},"",u)}
-function getShareURL(path){const u=new URL(location.href);u.searchParams.set("file",path);return u.toString()}
-function openSharedFile(){
-  const p=new URLSearchParams(location.search).get("file");if(!p)return;
-  currentTab="ALL";currentTreePath="ALL";searchInput.value="";applyFilter();setTimeout(()=>{
-    const c=[...document.querySelectorAll(".card")].find(x=>x.dataset.path===p);
-    if(c){c.scrollIntoView({behavior:"smooth",block:"center"});c.style.outline="2px solid var(--green)"}
-  },200)
+  $("detailModal").classList.add("show");
 }
 
-/* EVENTS */
-searchInput.addEventListener("input",applyFilter);
-[typeFilter,platformFilter,archFilter,folderFilter,sortFilter].forEach(x=>x.addEventListener("change",applyFilter));
-$("refreshBtn").onclick=()=>loadFiles(true);
-$("clearBtn").onclick=clearFilters;
-$("viewBtn").onclick=()=>{grid.classList.toggle("list-mode");localStorage.setItem("khanh_list",grid.classList.contains("list-mode")?"1":"0")};
-$("themeBtn").onclick=()=>{document.body.classList.toggle("light");localStorage.setItem("khanh_light",document.body.classList.contains("light")?"1":"0")};
-$("tvBtn").onclick=()=>{document.body.classList.toggle("tv-mode");localStorage.setItem("khanh_tv",document.body.classList.contains("tv-mode")?"1":"0")};
-document.querySelectorAll(".modal").forEach(m=>m.addEventListener("click",e=>{if(e.target===m)m.classList.remove("show")}));
-document.addEventListener("keydown",e=>{
-  if(e.key==="/"&&document.activeElement!==searchInput){e.preventDefault();searchInput.focus()}
-  if(e.key==="Escape")document.querySelectorAll(".modal.show").forEach(m=>m.classList.remove("show"))
+async function shortenLink(longUrl, elementId) {
+  const el = $(elementId);
+  if(el) el.value = "⏳ Đang rút gọn...";
+  try {
+    const res = await fetch(`https://is.gd/create.php?format=simple&url=` + encodeURIComponent(longUrl));
+    if(!res.ok) throw new Error("Lỗi tạo link rút gọn");
+    const shortUrl = await res.text();
+    if(el) el.value = shortUrl;
+    copyText(shortUrl);
+    toastMsg("✂️ Đã rút gọn và copy link thành công!");
+  } catch(e) {
+    if(el) el.value = longUrl;
+    toastMsg("⚠ Không thể rút gọn, đã dùng link gốc");
+  }
+}
+
+function closeModal(id){ $(id).classList.remove("show"); }
+
+function copyText(text){
+  navigator.clipboard.writeText(text);
+  toastMsg("✅ Đã sao chép vào bộ nhớ tạm");
+}
+
+function toastMsg(m){
+  const t = $("toast"); t.textContent = m; t.classList.add("show");
+  setTimeout(() => t.classList.remove("show"), 2000);
+}
+
+document.querySelectorAll("#mainTabs .tab").forEach(btn => {
+  btn.onclick = () => {
+    document.querySelectorAll("#mainTabs .tab").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    currentTab = btn.getAttribute("data-tab");
+    applyFilter();
+  };
 });
 
-
-/* ==========================================================
-ADMIN LOGIN + UPLOAD
-========================================================== */
-
-function openAdmin(){
-  $("adminModal").classList.add("show");
-
-  if(sessionStorage.getItem("KHANH_IT_ADMIN_LOGIN")==="1"){
-    showAdminUploadView();
-  }else{
-    showAdminLoginView();
-  }
-}
-
-function showAdminLoginView(){
-  $("adminLoginView").classList.remove("hidden");
-  $("adminUploadView").classList.add("hidden");
-  $("adminLoginStatus").textContent="";
-  setTimeout(()=>$("adminUser").focus(),100);
-}
-
-function showAdminUploadView(){
-  $("adminLoginView").classList.add("hidden");
-  $("adminUploadView").classList.remove("hidden");
-  loadUploadRepoFiles();
-}
-
-async function adminLogin(){
-  const user=$("adminUser").value.trim();
-  const pass=$("adminPass").value;
-  const status=$("adminLoginStatus");
-
-  if(!user||!pass){
-    status.textContent="⚠ Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu.";
-    return;
-  }
-
-  $("adminLoginBtn").disabled=true;
-  $("adminLoginBtn").textContent="ĐANG KIỂM TRA...";
-  status.textContent="";
-
-  try{
-    const r=await fetch(
-      ADMIN_CONFIG.jsonUrl+"?t="+Date.now(),
-      {cache:"no-store"}
-    );
-
-    if(!r.ok){
-      throw new Error("Không đọc được admin.json");
-    }
-
-    const admin=await r.json();
-
-    if(admin.enabled===false){
-      status.textContent="❌ Tài khoản quản trị đang bị khóa.";
-      return;
-    }
-
-    if(user===String(admin.username||"") && pass===String(admin.password||"")){
-      sessionStorage.setItem("KHANH_IT_ADMIN_LOGIN","1");
-      $("adminPass").value="";
-      showAdminUploadView();
-      toastMsg("✅ Đăng nhập thành công");
-    }else{
-      status.textContent="❌ Sai tên đăng nhập hoặc mật khẩu.";
-    }
-
-  }catch(e){
-    console.error(e);
-    status.textContent="❌ Không thể kiểm tra tài khoản: "+e.message;
-  }finally{
-    $("adminLoginBtn").disabled=false;
-    $("adminLoginBtn").textContent="ĐĂNG NHẬP";
-  }
-}
-
-function adminLogout(){
-  sessionStorage.removeItem("KHANH_IT_ADMIN_LOGIN");
-  selectedUploadFiles=[];
-  renderSelectedUploadFiles();
-  showAdminLoginView();
-  toastMsg("Đã đăng xuất");
-}
-
-function addUploadFiles(fileList){
-  const incoming=[...fileList];
-  const maxBytes=ADMIN_CONFIG.maxFileSizeMB*1024*1024;
-
-  let added=0;
-  let tooLarge=0;
-  let duplicated=0;
-
-  incoming.forEach(file=>{
-    if(file.size>maxBytes){
-      tooLarge++;
-      return;
-    }
-
-    const same=selectedUploadFiles.some(
-      x=>x.name===file.name && x.size===file.size && x.lastModified===file.lastModified
-    );
-
-    if(same){
-      duplicated++;
-      return;
-    }
-
-    selectedUploadFiles.push(file);
-    added++;
-  });
-
-  renderSelectedUploadFiles();
-
-  if(tooLarge>0){
-    toastMsg(`⚠ ${tooLarge} file vượt quá ${ADMIN_CONFIG.maxFileSizeMB} MB nên không được thêm`);
-  }else if(duplicated>0 && added===0){
-    toastMsg("⚠ File đã có trong danh sách chọn");
-  }else if(added>0){
-    toastMsg(`✅ Đã thêm ${added} file`);
-  }
-}
-
-function removeUploadFile(index){
-  selectedUploadFiles.splice(index,1);
-  renderSelectedUploadFiles();
-}
-
-function renderSelectedUploadFiles(){
-  updateUploadQueueStats();
-  const box=$("uploadList");
-  $("startUploadBtn").disabled=selectedUploadFiles.length===0;
-
-  if(!selectedUploadFiles.length){
-    box.innerHTML='<div class="upload-empty">Chưa chọn file nào.</div>';
-    return;
-  }
-
-  box.innerHTML=selectedUploadFiles.map((f,i)=>`
-    <div class="upload-row" id="uploadRow_${i}">
-      <div class="upload-file-name" title="${esc(f.name)}">${esc(f.name)}</div>
-      <div class="upload-file-size">${formatSize(f.size)}</div>
-      <div class="upload-state" id="uploadState_${i}">Sẵn sàng</div>
-      <button class="upload-remove" onclick="removeUploadFile(${i})" title="Bỏ khỏi danh sách">×</button>
-      <div class="progress-wrap">
-        <div class="progress-bar" id="uploadProgress_${i}"></div>
-      </div>
-    </div>
-  `).join("");
-}
-
-function safeUploadName(name){
-  let n=String(name||"").replace(/[\/\\]/g,"_").trim();
-  n=n.replace(/\.\./g,"_");
-  return n;
-}
-
-function fileToBase64(file){
-  return new Promise((resolve,reject)=>{
-    const reader=new FileReader();
-
-    reader.onload=()=>{
-      const result=String(reader.result||"");
-      const comma=result.indexOf(",");
-      resolve(comma>=0?result.slice(comma+1):result);
-    };
-
-    reader.onerror=()=>reject(reader.error||new Error("Không đọc được file"));
-
-    reader.readAsDataURL(file);
-  });
-}
-
-async function githubFileExists(path){
-  const url=
-    `https://api.github.com/repos/${CFG.user}/${CFG.repo}/contents/`+
-    path.split("/").map(encodeURIComponent).join("/")+
-    `?ref=${encodeURIComponent(CFG.branch)}`;
-
-  const r=await fetch(url,{
-    headers:{
-      "Accept":"application/vnd.github+json"
-    },
-    cache:"no-store"
-  });
-
-  if(r.status===404){
-    return false;
-  }
-
-  if(r.ok){
-    return true;
-  }
-
-  let detail="";
-  try{
-    const j=await r.json();
-    if(j && j.message) detail=" - "+j.message;
-  }catch{}
-
-  throw new Error("Không kiểm tra được file trùng (HTTP "+r.status+detail+")");
-}
-
-function githubUploadXHR(path,base64,file,index){
-  return new Promise((resolve,reject)=>{
-    const url=
-      `https://api.github.com/repos/${CFG.user}/${CFG.repo}/contents/`+
-      path.split("/").map(encodeURIComponent).join("/");
-
-    const xhr=new XMLHttpRequest();
-    xhr.open("PUT",url,true);
-
-    xhr.setRequestHeader("Accept","application/vnd.github+json");
-    xhr.setRequestHeader("Content-Type","application/json");
-
-    if(
-      ADMIN_CONFIG.githubToken &&
-      ADMIN_CONFIG.githubToken!=="DAN_GITHUB_TOKEN_VAO_DAY"
-    ){
-      xhr.setRequestHeader("Authorization","Bearer "+ADMIN_CONFIG.githubToken);
-    }
-
-    xhr.upload.onprogress=e=>{
-      if(e.lengthComputable){
-        const p=Math.max(5,Math.min(95,Math.round((e.loaded/e.total)*95)));
-        const bar=$("uploadProgress_"+index);
-        if(bar)bar.style.width=p+"%";
-      }
-    };
-
-    xhr.onload=()=>{
-      if(xhr.status>=200 && xhr.status<300){
-        const bar=$("uploadProgress_"+index);
-        if(bar)bar.style.width="100%";
-        resolve(xhr.responseText);
-      }else{
-        let msg="GitHub HTTP "+xhr.status;
-        try{
-          const j=JSON.parse(xhr.responseText);
-          if(j.message)msg+=" - "+j.message;
-
-          if(xhr.status===401){
-            msg+=" • Token không hợp lệ/đã bị thu hồi. Hãy tạo token mới và dán lại vào ADMIN_CONFIG.githubToken.";
-          }else if(xhr.status===403){
-            msg+=" • Kiểm tra token đã chọn repo KHANH_IT và Contents = Read and write.";
-          }
-        }catch{}
-        reject(new Error(msg));
-      }
-    };
-
-    xhr.onerror=()=>reject(new Error("Lỗi mạng khi upload"));
-
-    const body={
-      message:"Upload "+file.name,
-      content:base64,
-      branch:CFG.branch
-    };
-
-    xhr.send(JSON.stringify(body));
-  });
-}
-
-async function uploadOneFile(file,index){
-  const maxBytes=ADMIN_CONFIG.maxFileSizeMB*1024*1024;
-
-  if(file.size>maxBytes){
-    throw new Error(`File vượt quá ${ADMIN_CONFIG.maxFileSizeMB} MB`);
-  }
-
-  const safeName=safeUploadName(file.name);
-
-  if(!safeName){
-    throw new Error("Tên file không hợp lệ");
-  }
-
-  const path=ADMIN_CONFIG.uploadFolder+"/"+safeName;
-  const state=$("uploadState_"+index);
-  const bar=$("uploadProgress_"+index);
-
-  state.textContent="Kiểm tra...";
-  bar.style.width="2%";
-
-  const exists=await githubFileExists(path);
-
-  if(exists){
-    state.textContent="Bỏ qua: đã tồn tại";
-    state.className="upload-state warn";
-    bar.style.width="100%";
-    return {skipped:true};
-  }
-
-  state.textContent="Đang đọc file...";
-  bar.style.width="5%";
-
-  const base64=await fileToBase64(file);
-
-  state.textContent="Đang tải lên...";
-  await githubUploadXHR(path,base64,file,index);
-
-  state.textContent="✓ Thành công";
-  state.className="upload-state ok";
-
-  return {success:true};
-}
-
-async function startUpload(){
-  if(!selectedUploadFiles.length)return;
-
-  v5UploadSuccess=0;
-  v5UploadFailed=0;
-  updateUploadQueueStats();
-
-  if(
-    !ADMIN_CONFIG.githubToken ||
-    ADMIN_CONFIG.githubToken==="DAN_GITHUB_TOKEN_VAO_DAY"
-  ){
-    alert(
-      "Bạn chưa dán GitHub Token vào ADMIN_CONFIG.githubToken trong file HTML."
-    );
-    return;
-  }
-
-  $("startUploadBtn").disabled=true;
-  $("startUploadBtn").textContent="⏳ ĐANG TẢI...";
-
-  let ok=0,skip=0,fail=0;
-
-  for(let i=0;i<selectedUploadFiles.length;i++){
-    const file=selectedUploadFiles[i];
-
-    try{
-      const r=await uploadOneFile(file,i);
-      if(r.skipped){
-        skip++;
-        v5UploadFailed++;
-      }else{
-        ok++;
-        v5UploadSuccess++;
-      }
-      updateUploadQueueStats();
-    }catch(e){
-      fail++;
-      v5UploadFailed++;
-      updateUploadQueueStats();
-      console.error(e);
-
-      const state=$("uploadState_"+i);
-      if(state){
-        state.textContent="✕ "+e.message;
-        state.className="upload-state err";
-      }
-    }
-  }
-
-  $("startUploadBtn").disabled=false;
-  $("startUploadBtn").textContent="⬆ TẢI FILE LÊN GITHUB";
-
-  toastMsg(`Hoàn tất: ${ok} thành công • ${skip} trùng • ${fail} lỗi`);
-
-  await loadUploadRepoFiles();
-}
-
-async function loadUploadRepoFiles(){
-  const box=$("repoUploadFiles");
-  box.innerHTML='<div class="upload-empty">⏳ Đang tải danh sách...</div>';
-
-  try{
-    /*
-      Repo public: đọc danh sách UPLOAD/ không cần token.
-      Token chỉ dùng ở hàm PUT khi upload.
-    */
-    const r=await githubPublicFetch(
-      `https://api.github.com/repos/${CFG.user}/${CFG.repo}/git/trees/${CFG.branch}?recursive=1`
-    );
-
-    const data=await r.json();
-
-    if(!data || !Array.isArray(data.tree)){
-      throw new Error("Dữ liệu không hợp lệ");
-    }
-
-    uploadRepoFiles=data.tree
-      .filter(x=>
-        x.type==="blob" &&
-        x.path &&
-        x.path.startsWith(ADMIN_CONFIG.uploadFolder+"/") &&
-        !x.path.endsWith("/admin.json")
-      )
-      .map(x=>({
-        name:x.path.split("/").at(-1),
-        path:x.path,
-        size:x.size||0
-      }))
-      .sort((a,b)=>a.name.localeCompare(b.name,"vi",{numeric:true}));
-
-    if(!uploadRepoFiles.length){
-      box.innerHTML='<div class="upload-empty">UPLOAD/ chưa có file tải lên.</div>';
-      return;
-    }
-
-    box.innerHTML=uploadRepoFiles.map(f=>`
-      <div class="repo-file-row">
-        <div class="name" title="${esc(f.path)}">📄 ${esc(f.name)}</div>
-        <div class="size">${formatSize(f.size)}</div>
-        <a class="repo-download" href="${rawURL(f.path)}" target="_blank" rel="noopener">⬇ TẢI</a>
-      </div>
-    `).join("");
-
-  }catch(e){
-    console.error(e);
-
-    /*
-      Nếu API bị rate-limit, vẫn cho tải trực tiếp bằng link GitHub.
-      Không làm hỏng phần Upload Center.
-    */
-    box.innerHTML=`
-      <div class="upload-empty" style="color:#fca5a5">
-        ❌ Không tải được danh sách: ${esc(e.message)}
-        <br><br>
-        <a
-          href="https://github.com/${CFG.user}/${CFG.repo}/tree/${CFG.branch}/${ADMIN_CONFIG.uploadFolder}"
-          target="_blank"
-          rel="noopener"
-          style="color:#7dd3fc;text-decoration:none"
-        >
-          MỞ THƯ MỤC UPLOAD TRÊN GITHUB
-        </a>
-      </div>
-    `;
-  }
-}
-
-
-/* ==========================================================
-V5 UPLOAD QUEUE STATS
-========================================================== */
-
-let v5UploadSuccess=0;
-let v5UploadFailed=0;
-
-function updateUploadQueueStats(){
-  const countEl=document.getElementById("queueFileCount");
-  const sizeEl=document.getElementById("queueTotalSize");
-  const okEl=document.getElementById("queueUploaded");
-  const failEl=document.getElementById("queueFailed");
-
-  if(countEl) countEl.textContent=String(selectedUploadFiles.length);
-
-  if(sizeEl){
-    const total=selectedUploadFiles.reduce((sum,file)=>sum+(file.size||0),0);
-    sizeEl.textContent=formatSize(total);
-  }
-
-  if(okEl) okEl.textContent=String(v5UploadSuccess);
-  if(failEl) failEl.textContent=String(v5UploadFailed);
-}
-
-function clearUploadQueue(){
-  selectedUploadFiles=[];
-  v5UploadSuccess=0;
-  v5UploadFailed=0;
-
-  renderSelectedUploadFiles();
-  updateUploadQueueStats();
-
-  if(typeof toastMsg==="function"){
-    toastMsg("Đã xóa danh sách file chờ");
-  }
-}
-
-function initAdminUpload(){
-  $("adminBtn").onclick=openAdmin;
-  $("adminLoginBtn").onclick=adminLogin;
-  $("adminLogoutBtn").onclick=adminLogout;
-  $("startUploadBtn").onclick=startUpload;
-  $("refreshUploadBtn").onclick=loadUploadRepoFiles;
-  $("clearUploadQueueBtn").onclick=clearUploadQueue;
-
-  $("selectFilesBtn").onclick=()=>$("fileInput").click();
-
-  $("fileInput").addEventListener("change",e=>{
-    addUploadFiles(e.target.files);
-    e.target.value="";
-  });
-
-  $("adminPass").addEventListener("keydown",e=>{
-    if(e.key==="Enter")adminLogin();
-  });
-
-  const dz=$("dropZone");
-
-  ["dragenter","dragover"].forEach(ev=>{
-    dz.addEventListener(ev,e=>{
-      e.preventDefault();
-      e.stopPropagation();
-      dz.classList.add("dragover");
-    });
-  });
-
-  ["dragleave","drop"].forEach(ev=>{
-    dz.addEventListener(ev,e=>{
-      e.preventDefault();
-      e.stopPropagation();
-      dz.classList.remove("dragover");
-    });
-  });
-
-  dz.addEventListener("drop",e=>{
-    if(e.dataTransfer && e.dataTransfer.files){
-      addUploadFiles(e.dataTransfer.files);
-    }
-  });
-}
-
-initAdminUpload();
-
-
-/* RESTORE */
-currentTab=new URLSearchParams(location.search).get("tab")||localStorage.getItem("khanh_tab_full")||"ALL";
-searchInput.value=new URLSearchParams(location.search).get("q")||"";
-if(localStorage.getItem("khanh_list")==="1")grid.classList.add("list-mode");
-if(localStorage.getItem("khanh_light")==="1")document.body.classList.add("light");
-if(localStorage.getItem("khanh_tv")==="1")document.body.classList.add("tv-mode");
+searchInput.addEventListener("input", applyFilter);
+[typeFilter, platformFilter, archFilter, sortFilter].forEach(el => el.addEventListener("change", applyFilter));
+$("refreshBtn").onclick = () => loadFiles(true);
+$("clearBtn").onclick = () => {
+  searchInput.value = "";
+  typeFilter.value = "ALL"; platformFilter.value = "ALL"; archFilter.value = "ALL"; sortFilter.value = "NAME_ASC";
+  currentTreePath = "ALL"; createTree(); applyFilter();
+};
+
+document.querySelectorAll(".modal").forEach(m => m.addEventListener("click", e => { if(e.target === m) m.classList.remove("show"); }));
 
 loadFiles();
-setInterval(()=>loadFiles(false),CFG.refreshMs);
-</script>
-
-<div class="text-slider-box" id="textSliderBox">
-  <span class="slider-label">CỠ CHỮ</span>
-  <span style="font-size:11px;color:#94a3b8">A−</span>
-  <input id="textSizeSlider" type="range" min="80" max="150" step="5" value="100" aria-label="Cỡ chữ">
-  <span style="font-size:17px;color:#cbd5e1;font-weight:800">A+</span>
-  <b id="textSizeValue">100%</b>
-  <button id="textSizeReset" class="v5-reset" type="button">100%</button>
-</div>
-
-
-<script>
-(function(){
-  function setTextSize(percent){
-    percent=Math.max(80,Math.min(150,Number(percent)||100));
-    var scale=percent/100;
-
-    document.documentElement.style.setProperty("--v5-font-scale",String(scale));
-    document.body.classList.add("v5-font-scale");
-
-    localStorage.setItem("KHANH_IT_TEXT_SIZE",String(percent));
-
-    var slider=document.getElementById("textSizeSlider");
-    var value=document.getElementById("textSizeValue");
-
-    if(slider) slider.value=String(percent);
-    if(value) value.textContent=percent+"%";
-  }
-
-  var saved=Number(localStorage.getItem("KHANH_IT_TEXT_SIZE")||100);
-  setTextSize(saved);
-
-  var slider=document.getElementById("textSizeSlider");
-  var reset=document.getElementById("textSizeReset");
-
-  if(slider){
-    slider.addEventListener("input",function(){
-      setTextSize(this.value);
-    });
-  }
-
-  if(reset){
-    reset.addEventListener("click",function(){
-      setTextSize(100);
-    });
-  }
-})();
 </script>
 
 </body>
